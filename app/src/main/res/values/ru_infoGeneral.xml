@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ru_infoItemDrop">Предмет выброшен</string>
+    <string name="ru_infoItemDropAll">Предметы выброшены</string>
+    <string name="ru_infoItemEat">Съедена одна порция</string>
+    <string name="ru_infoItemEatAll">Съедена вся пачка</string>
+    <string name="ru_infoItemDrink">Выпита одна порция</string>
+    <string name="ru_infoItemDrinkAll">Выпито до дна</string>
+    <string name="ru_infoItemToInventory">Предмет помещен в инвентарь</string>
+    <string name="ru_infoItemEquip">Предмет экипирован</string>
+    <string name="ru_infoItemOpen">Контейнер открыт</string>
+    <string name="ru_infoItemInHand">Предмет взят в руки</string>
+
+    <string name="ru_infoItemFailed">Не получилось</string>
+
+    <string name="ru_infoNotImplemented">Ожидает реализации</string>
+</resources>

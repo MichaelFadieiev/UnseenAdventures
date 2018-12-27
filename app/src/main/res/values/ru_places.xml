@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="ru_placeNames">
+        <item>Могила</item>
+        <item>Разрытая могила</item>
+        <item>Шатёр</item>
+        <item>Хибара</item>
+        <item>Дом</item>
+    </string-array>
+    <string-array name="ru_placeDescr">
+        <item>Для тех, кто сюда попадает уже не важна теснота.</item>
+        <item>Яма в земле, по размерам и форме достаточная, чтобы кого-то в ней закопать.</item>
+        <item>Временное строение в виде деревянного каркаса, обтянутого тканью.</item>
+        <item>Это сложно назвать домом, но какое-то время здесь можно пожить, если же приходится жить дольше, то стоит задуматься о том, что нужно что-то менять в жизни.</item>
+        <item>Вполне добротное строение, пригодное для житья.</item>
+    </string-array>
+    <string-array name="ru_placeUNames">
+        <item>Ваша могила</item>
+        <item>Заброшенная шахта</item>
+    </string-array>
+    <string-array name="ru_placeUDescr">
+        <item>Здесь вы очнулись, но что было до этого и как Вы сюда попали - ещё предстоит выяснить.</item>
+        <item>Судя по состоянию крепей здесь много десятилетий не было людей.</item>
+    </string-array>
+</resources>

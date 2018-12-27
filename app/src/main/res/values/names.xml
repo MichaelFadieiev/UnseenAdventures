@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="names_M">
+        <item>Jeremy</item>
+        <item>Michael</item>
+        <item>Alexander</item>
+        <item>Anton</item>
+        <item>Corvo</item>
+    </string-array>
+
+    <string-array name="names_F">
+        <item>Mary</item>
+        <item>Anna</item>
+        <item>Alesya</item>
+        <item>Susan</item>
+        <item>Ellie</item>
+    </string-array>
+
+</resources>

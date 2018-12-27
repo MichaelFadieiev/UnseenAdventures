@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="clr_dark_grey">#202020</color>
+    <color name="clr_grey">#484848</color>
+    <color name="clr_white_grey">#8d8a8b</color>
+    <color name="clr_white_green">#218d18</color>
+    <color name="clr_orange">#ff9900</color>
+    <color name="clr_marine">#00b378</color>
+    <color name="clr_yellow">#e7d345</color>
+    <color name="clr_red">#d42f2f</color>
+    <color name="clr_item">#668caf</color>
+</resources>

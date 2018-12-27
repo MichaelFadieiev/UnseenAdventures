@@ -1,0 +1,11 @@
+{
+  "0" : {
+    "items" : [],
+    "persons" : [],
+    "actions" : [0, 1, 2],
+    "uitems" : [0],
+    "upersons" : [],
+    "uactions" : [1, 2]
+  },
+  "1" : {}
+}

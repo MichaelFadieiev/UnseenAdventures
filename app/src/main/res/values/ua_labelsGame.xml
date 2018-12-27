@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ua_labelGameItemStats">Детальний опис</string>
+    <string name="ua_labelGameItemEquip">Одягнути</string>
+    <string name="ua_labelGameItemInHand">Взяти в руки</string>
+    <string name="ua_labelGameItemUse">Використати</string>
+    <string name="ua_labelGameItemUseAll">Використати все</string>
+    <string name="ua_labelGameItemEat">З’їсти порцію</string>
+    <string name="ua_labelGameItemEatAll">З’їсти все</string>
+    <string name="ua_labelGameItemDrink">Випити порцію</string>
+    <string name="ua_labelGameItemDrinkAll">Випити все</string>
+    <string name="ua_labelGameItemDrop">Викинути</string>
+    <string name="ua_labelGameItemDropAll">Викинути все</string>
+    <string name="ua_labelGameItemOpen">Відкрити</string>
+    <string name="ua_labelGameItemToInventory">Покласти в інвентар</string>
+
+    <string name="ua_labelGameGeneralEmpty">Порожньо</string>
+    <string name="ua_labelGameGeneralContain">Всередині %1$s.</string>
+    <string name="ua_labelGameGeneralContainItems">Всередині щось є.</string>
+
+</resources>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:id="@+id/menugroup1" >
+        <item
+            android:id="@+id/menuGameItemStats"
+            android:title="@string/ru_labelGameItemStats" />
+        <item
+            android:id="@+id/menuGameItemToInventory"
+            android:title="@string/ru_labelGameItemToInventory"/>
+        <item
+            android:id="@+id/menuGameItemEquip"
+            android:title="@string/ru_labelGameItemStats"/>
+        <item
+            android:id="@+id/menuGameItemInHand"
+            android:title="@string/ru_labelGameItemStats"/>
+        <item
+            android:id="@+id/menuGameItemUse"
+            android:title="@string/ru_labelGameItemUse"/>
+        <item
+            android:id="@+id/menuGameItemUseAll"
+            android:title="@string/ru_labelGameItemUseAll"/>
+        <item
+            android:id="@+id/menuGameItemEat"
+            android:title="@string/ru_labelGameItemUse"/>
+        <item
+            android:id="@+id/menuGameItemEatAll"
+            android:title="@string/ru_labelGameItemUseAll"/>
+        <item
+            android:id="@+id/menuGameItemDrink"
+            android:title="@string/ru_labelGameItemUse"/>
+        <item
+            android:id="@+id/menuGameItemDrinkAll"
+            android:title="@string/ru_labelGameItemUseAll"/>
+        <item
+            android:id="@+id/menuGameItemOpen"
+            android:title="@string/ru_labelGameItemOpen"/>
+        <item
+            android:id="@+id/menuGameItemDrop"
+            android:title="@string/ru_labelGameItemDrop"/>
+        <item
+            android:id="@+id/menuGameItemDropAll"
+            android:title="@string/ru_labelGameItemDropAll"/>
+    </group>
+</menu>

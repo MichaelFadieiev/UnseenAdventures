@@ -1,0 +1,292 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/clr_grey</item>
+        <item name="colorAccent">@color/clr_marine</item>
+    </style>
+
+    <style name="mainL">
+        <item name="android:background">@color/clr_dark_grey</item>
+        <item name="android:padding">5dp</item>
+    </style>
+
+    <style name="title">
+        <item name="android:fontFamily">@string/txt_font_family</item>
+        <item name="android:textSize">22sp</item>
+        <item name="android:textColor">@color/clr_white_grey</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:layout_alignParentTop">true</item>
+        <item name="android:layout_marginTop">20dp</item>
+        <item name="android:layout_marginBottom">10dp</item>
+    </style>
+
+    <style name="header">
+        <item name="android:fontFamily">@string/txt_font_family</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/clr_yellow</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:layout_marginBottom">10dp</item>
+    </style>
+
+    <style name="sub_header">
+        <item name="android:fontFamily">@string/txt_font_family</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/clr_white_grey</item>
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+    </style>
+
+    <style name="text">
+        <item name="android:fontFamily">@string/txt_font_family</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">@color/clr_white_grey</item>
+        <item name="android:gravity">left|center_vertical</item>
+        <item name="android:layout_gravity">center</item>
+    </style>
+
+    <style name="text_btn">
+        <item name="android:fontFamily">@string/txt_font_family</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:textColor">@color/clr_yellow</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_gravity">bottom</item>
+        <item name="android:layout_height">30dp</item>
+        <item name="android:background">@android:drawable/zoom_plate</item>
+
+    </style>
+
+
+    <style name="v1_back">
+        <item name="android:textSize">15sp</item>
+        <item name="android:layout_gravity">start</item>
+        <item name="android:fontFamily">@string/txt_font_family</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/clr_yellow</item>
+    </style>
+
+    <style name="v0_btn">
+        <item name="android:height">40dp</item>
+        <item name="android:width">200dp</item>
+        <item name="android:layout_width">200dp</item>
+        <item name="android:layout_height">40dp</item>
+        <item name="android:textSize">10sp</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:fontFamily">@string/txt_font_family</item>
+    </style>
+
+    <style name="v2_title">
+        <item name="android:textSize">15sp</item>
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:layout_marginBottom">10dp</item>
+        <item name="android:fontFamily">@string/txt_font_family</item>
+        <item name="android:textColor">@color/clr_white_grey</item>
+    </style>
+
+    <style name="v2_atrib_name_TV">
+        <item name="android:paddingLeft">3dp</item>
+        <item name="android:gravity">left|center_vertical</item>
+        <item name="android:layout_width">170dp</item>
+        <item name="android:layout_height">30dp</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:layout_gravity">left|center_vertical</item>
+        <item name="android:fontFamily">@string/txt_font_family</item>
+        <item name="android:textColor">@color/clr_white_grey</item>
+    </style>
+
+    <style name="v2_atrib_value_TV">
+        <item name="android:gravity">center</item>
+        <item name="android:layout_width">35dp</item>
+        <item name="android:layout_height">30dp</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:layout_gravity">left|center_vertical</item>
+        <item name="android:fontFamily">@string/txt_font_family</item>
+        <item name="android:textColor">@color/clr_marine</item>
+    </style>
+
+    <style name="v2_atrib_up_btn">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/clr_dark_grey</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_width">30dp</item>
+        <item name="android:layout_height">30dp</item>
+        <item name="android:background">@drawable/act_bar_plus</item>
+        <item name="android:layout_gravity">left|center_vertical</item>
+        <item name="android:onClick">attr_mod</item>
+    </style>
+
+    <style name="v2_atrib_down_btn">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/clr_dark_grey</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_width">30dp</item>
+        <item name="android:layout_height">30dp</item>
+        <item name="android:background">@drawable/act_bar_minus</item>
+        <item name="android:layout_gravity">left|center_vertical</item>
+        <item name="android:onClick">attr_mod</item>
+    </style>
+
+
+
+    <style name="v3_headerTV">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/clr_white_grey</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">top|center_horizontal</item>
+        <item name="android:layout_marginBottom">1dp</item>
+        <item name="android:layout_marginTop">5dp</item>
+        <item name="android:fontFamily">@string/txt_font_family</item>
+    </style>
+
+    <style name="v3_attrNameTV">
+        <item name="android:textColor">@color/clr_white_grey</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:gravity">left</item>
+        <item name="android:paddingLeft">3dp</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">5</item>
+        <item name="android:layout_gravity">left|center_vertical</item>
+        <item name="android:layout_marginBottom">2dp</item>
+        <item name="android:fontFamily">@string/txt_font_family</item>
+    </style>
+
+    <style name="v3_attrStatTV">
+        <item name="android:textColor">@color/clr_white_grey</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:gravity">left</item>
+        <item name="android:paddingLeft">3dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">left|center_vertical</item>
+        <item name="android:layout_marginBottom">2dp</item>
+        <item name="android:fontFamily">@string/txt_font_family</item>
+    </style>
+
+    <style name="v3_attrValueTV">
+        <item name="android:textColor">@color/clr_white_grey</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:layout_marginBottom">2dp</item>
+        <item name="android:fontFamily">@string/txt_font_family</item>
+    </style>
+
+    <style name="v3_attrDescrTV">
+        <item name="android:textColor">@color/clr_white_grey</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:gravity">right|center_vertical</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">right</item>
+        <item name="android:layout_marginBottom">2dp</item>
+        <item name="android:fontFamily">@string/txt_font_family</item>
+    </style>
+
+    <style name="spnr">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:spinnerMode">dialog</item>
+    </style>
+
+    <style name="v3_messageGrey">
+        <item name="android:fontFamily">@string/txt_font_family</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">@color/clr_white_grey</item>
+        <item name="android:gravity">left|center_vertical</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">top|start</item>
+    </style>
+    <style name="v3_messageYellow">
+        <item name="android:fontFamily">@string/txt_font_family</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">@color/clr_yellow</item>
+        <item name="android:gravity">left|center_vertical</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">top|start</item>
+    </style>
+    <style name="v3_messageRed">
+        <item name="android:fontFamily">@string/txt_font_family</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">@color/clr_red</item>
+        <item name="android:gravity">left|center_vertical</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">top|start</item>
+    </style>
+    <style name="v3_choiceMarine">
+        <item name="android:fontFamily">@string/txt_font_family</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">@color/clr_marine</item>
+        <item name="android:gravity">left|center_vertical</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">top|start</item>
+    </style>
+
+    <style name="gameItem">
+        <item name="android:fontFamily">@string/txt_font_family</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">@color/clr_item</item>
+        <item name="android:gravity">left|center_vertical</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">top|start</item>
+    </style>
+
+    <style name="gameItemPopUp">
+        <item name="android:fontFamily">@string/txt_font_family</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">@color/clr_white_grey</item>
+        <item name="android:gravity">left|center_vertical</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">top|start</item>
+    </style>
+
+    <style name="AppBaseTheme" parent="android:Theme.Holo.Light.DarkActionBar">
+
+        <item name="android:dropDownListViewStyle">@style/PopupMenuListView</item>
+        <item name="android:actionBarWidgetTheme">@style/PopupMenuTextView</item>
+        <item name="android:popupMenuStyle">@style/PopupMenu</item>
+
+        <!-- Change Overflow Menu ListView Item Height & Property -->
+        <item name="android:listPreferredItemHeightSmall">10dp</item>
+        <item name="android:listPreferredItemPaddingLeft">5dp</item>
+        <item name="android:listPreferredItemPaddingRight">5dp</item>
+    </style>
+
+    <!-- Change Overflow Menu ListView Divider Property -->
+    <style name="PopupMenuListView" parent="@android:style/Widget.Holo.ListView.DropDown">
+        <item name="android:divider">#FF0000</item>
+        <item name="android:dividerHeight">2dp</item>
+    </style>
+
+    <!-- Change Overflow Menu ListView Text Size and Text Size -->
+    <style name="PopupMenuTextView" parent="@android:style/Theme.Holo.Light">
+        <item name="android:textColor">#00FF00</item>
+        <item name="android:textSize">5sp</item>
+    </style>
+
+    <!-- Change Overflow Menu Background -->
+    <style name="PopupMenu" parent="android:Widget.Holo.Light.ListPopupWindow">
+        <item name="android:popupBackground">#888888</item>
+    </style>
+
+</resources>

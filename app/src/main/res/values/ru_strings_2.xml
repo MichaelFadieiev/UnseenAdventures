@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="rng_hp_txt">
+        <item>Не совместимо с жизнью</item>
+        <item>Критическое состояние</item>
+        <item>Серьезные ранения</item>
+        <item>Вы ранены</item>
+        <item>Вы здоровы</item>
+    </string-array>
+
+    <string-array name="rng_stm_txt">
+        <item>Без сознания</item>
+        <item>Силы на исходе</item>
+        <item>Вы запыхались</item>
+        <item>Вы немного устали</item>
+        <item>Вы полны сил</item>
+    </string-array>
+
+    <string-array name="rng_exh_txt">
+        <item>Обморок</item>
+        <item>Возможен обморок</item>
+        <item>Требуется отдых</item>
+        <item>Отдых не помешает</item>
+        <item>Вы выспались</item>
+    </string-array>
+
+    <string-array name="rng_hng_txt">
+        <item>Смерть от истощения</item>
+        <item>Критическое истощения</item>
+        <item>Вы истощены</item>
+        <item>Вы проголодались</item>
+        <item>Вы сыты</item>
+    </string-array>
+
+    <string-array name="rng_thr_txt">
+        <item>Смерть от обезвоживания</item>
+        <item>Критически обезвожены</item>
+        <item>Необходимо попить</item>
+        <item>Попить не помешает</item>
+        <item>Вы недавно пили</item>
+    </string-array>
+
+    <string-array name="rng_skills_txt">
+        <item>Новичок</item>
+        <item>Любитель</item>
+        <item>Опытный</item>
+        <item>Профессионал</item>
+        <item>Мастер</item>
+    </string-array>
+
+
+
+</resources>

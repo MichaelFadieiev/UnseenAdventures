@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="act_1">Ждать</string>
+    <string name="act_1S">Ждет</string>
+
+    <string name="act_2">Отдыхать</string>
+    <string name="act_2S">Отдыхает</string>
+
+    <string name="act_3">Осмотреться</string>
+    <string name="act_3S">Осматривается</string>
+
+    <string name="act_4">Исследовать</string>
+    <string name="act_4S">Исследует</string>
+
+    <string name="act_5">Обыскать</string>
+    <string name="act_5S">Обыскивает</string>
+
+    <string name="act_6">Посетить</string>
+    <string name="act_6S">Заходит</string>
+
+    <string name="act_7">Выйти</string>
+    <string name="act_7S">Выходит</string>
+
+    <string name="act_8">Путешествовать</string>
+    <string name="act_8S">Путешествует</string>
+
+    <string name="act_0">Сложить кисть руки знаком Вынь и, прищурившись, посмотреть сквозь нее.</string>
+    <string name="act_0S">Колдует</string>
+
+</resources>

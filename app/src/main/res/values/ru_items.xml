@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="ru_itemsS0">
+        <item>Камушек</item>
+        <item>Медяк</item>
+        <item>Серебрянник</item>
+        <item>Крона</item>
+        <item>Доска</item>
+    </string-array>
+    <string-array name="ru_itemsP0">
+        <item>Камушки</item>
+        <item>Медяки</item>
+        <item>Серебрянники</item>
+        <item>Кроны</item>
+        <item>Доски</item>
+    </string-array>
+    <string-array name="ru_itemDesc0">
+        <item>Обычный округлый камушек, но не совсем обычного происхождения.</item>
+        <item>Самая распространненная и самая дешевая монета.</item>
+        <item>Ценная монета. За неё можно неделю сытно есть и пить. Или вооружиться. Или начать маленькое предприятие.</item>
+        <item>Самая ценная монета в этих местах, сделана из чистого золота. Лучше не держать на виду - очень многие забудут закон, заповеди и совесть лишь на мгновение представив, что можно за неё получить.</item>
+        <item>Обычная доска. Не самая качественная, но для строительства сгодится. А в случае чего, то можно и от зверья отбиться.</item>
+    </string-array>
+
+    <string-array name="ru_itemsS2">
+        <item>Хлеб</item>
+        <item>Яблоко</item>
+        <item>Сыр</item>
+        <item>Жареное мясо</item>
+        <item>Яйцо</item>
+        <item>Каша</item>
+    </string-array>
+
+    <string-array name="ru_itemsP2">
+        <item>Хлеб</item>
+        <item>Яблоки</item>
+        <item>Сыры</item>
+        <item>Жареное мясо</item>
+        <item>Яйца</item>
+        <item>Каша</item>
+    </string-array>
+
+    <string-array name="ru_itemDesc2">
+        <item>Обыкновенный хлеб.</item>
+        <item>Спелое яблоко.</item>
+        <item>Сыр, выдержанный.</item>
+        <item>Жареное мясо, свежее, хранится не очень долго.</item>
+        <item>Обычное куриное яйцо.</item>
+        <item>Каша, питательная, но хранится не долго.</item>
+    </string-array>
+
+    <string-array name="ru_itemsS3">
+        <item>Вода</item>
+        <item>Молоко</item>
+        <item>Мёд</item>
+        <item>Пиво</item>
+        <item>Самогон</item>
+        <item>Виски</item>
+        <item>Красное вино</item>
+        <item>Белое вино</item>
+        <item>Снотворное</item>
+    </string-array>
+
+    <string-array name="ru_itemsP3">
+        <item>Вода</item>
+        <item>Молоко</item>
+        <item>Мёд</item>
+        <item>Пиво</item>
+        <item>Самогон</item>
+        <item>Виски</item>
+        <item>Красное вино</item>
+        <item>Белое вино</item>
+        <item>Снотворное</item>
+    </string-array>
+
+    <string-array name="ru_itemDesc3">
+        <item>Вода</item>
+        <item>Молоко</item>
+        <item>Мёд</item>
+        <item>Пиво</item>
+        <item>Самогон</item>
+        <item>Виски</item>
+        <item>Красное вино</item>
+        <item>Белое вино</item>
+        <item>Снотворное</item>
+    </string-array>
+
+
+    <string-array name="ru_itemsS4">
+        <item>Суконные штаны</item>
+        <item>Суконная рубаха</item>
+        <item>Суконный капюшон</item>
+        <item>Обмотки на руки</item>
+        <item>Портянки</item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+    </string-array>
+
+    <string-array name="ru_itemsP4">
+        <item>Суконные штаны</item>
+        <item>Суконные рубахи</item>
+        <item>Суконные капюшоны</item>
+        <item>Обмотки на руки</item>
+        <item>Портянки</item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+    </string-array>
+
+    <string-array name="ru_itemDesc4">
+        <item>Штаны из сукна. Чтобы срам прикрыть, не более.</item>
+        <item>Простая рубаха из ткани, не видная, но практичная.</item>
+        <item>Кусок ткани, сшитый в форме капюшона для защиты от непогоды или солнца... или помоев.</item>
+        <item>Отрезы ткани, которые можно намотать на руки для защиты от холода и грязи.</item>
+        <item>Отрезы ткани, используемые для обматывания стоп, чтобы не натирало и не мерзли ноги.</item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+    </string-array>
+
+
+    <string-array name="ru_itemsS6">
+        <item>Бутыль</item>
+        <item>Пузырёк</item>
+        <item>Медная фляга</item>
+        <item>Железная фляга</item>
+        <item>Стальная фляга</item>
+        <item>Серебрянная фляга</item>
+        <item>Деревянный бочонок</item>
+        <item>Деревянная бочка</item>
+        <item>Медная бочка</item>
+        <item>Железная бочка</item>
+        <item>Стальная бочка</item>
+    </string-array>
+
+    <string-array name="ru_itemsP6">
+        <item>Бутыли</item>
+        <item>Пузырьки</item>
+        <item>Медные фляги</item>
+        <item>Железные фляги</item>
+        <item>Стальные фляги</item>
+        <item>Серебрянные фляги</item>
+        <item>Деревянные бочонки</item>
+        <item>Деревянные бочки</item>
+        <item>Медные бочки</item>
+        <item>Железные бочки</item>
+        <item>Стальные бочки</item>
+    </string-array>
+
+    <string-array name="ru_itemDesc6">
+        <item>Бутыль</item>
+        <item>Пузырёк</item>
+        <item>Медная фляга</item>
+        <item>Железная фляга</item>
+        <item>Стальная фляга</item>
+        <item>Серебрянная фляга</item>
+        <item>Деревянный бочонок</item>
+        <item>Деревянная бочка</item>
+        <item>Медная бочка</item>
+        <item>Железная бочка</item>
+        <item>Стальная бочка</item>
+    </string-array>
+
+    <string-array name="ru_itemsS7">
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item>Стальной шлем</item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item>Латный доспех</item>
+        <item>Латные перчатки</item>
+        <item>Латные поножи</item>
+        <item>Сабатоны</item>
+        <item></item>
+    </string-array>
+
+    <string-array name="ru_itemsP7">
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item>Стальные шлемы</item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item>Латные доспехи</item>
+        <item>Латные перчатки</item>
+        <item>Латные поножи</item>
+        <item>Сабатоны</item>
+        <item></item>
+    </string-array>
+
+    <string-array name="ru_itemDesc7">
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item>Превосходный шлем</item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item>Доспех из стальных пластин. Обеспечивает превосходную защиту живота, груди, спины, плечей и шеи.</item>
+        <item>Перчатки, усиленные стальными пластинами, соединенными подвижно.</item>
+        <item>Доспех из стальных пластин. Обеспечивает превосходную защиту пояса, паха, ягодиц и ног.</item>
+        <item>Туфли, усиленные стальными пластинами с подвижным соединением.</item>
+        <item></item>
+    </string-array>
+
+
+
+
+
+
+
+
+
+</resources>

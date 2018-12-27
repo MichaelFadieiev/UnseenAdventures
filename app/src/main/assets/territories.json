@@ -1,0 +1,10 @@
+{
+  "0" : {
+    "size" : [100],
+    "actions" : [0, 1, 2, 3, 4],
+    "persons" : [],
+    "items" : [],
+    "resources" : [],
+    "IDontKnow" : "WhatNext"
+  }
+}

@@ -1,0 +1,63 @@
+<resources>
+    <string name="app_name">Unseen Adventure</string>
+
+    <string name="txt_font_family">serif</string>
+    <string name="glb_STR_txt">Сила</string>
+    <string name="glb_AGL_txt">Ловкость</string>
+    <string name="glb_INT_txt">Интеллект</string>
+    <string name="glb_END_txt">Выносливость</string>
+    <string name="glb_CHR_txt">Харизма</string>
+    <string name="glb_PRC_txt">Восприятие</string>
+
+    <string name="v0_title_txt">Необозримое приключение</string>
+    <string name="v0_btn_ng_txt">Новая игра</string>
+    <string name="v0_btn_rtrn_txt">Вернуться к игре</string>
+    <string name="v0_btn_sv_txt">Сохранить</string>
+    <string name="v0_btn_ld_txt">Загрузить</string>
+    <string name="v0_btn_opt_txt">Настройки</string>
+    <string name="v0_btn_qt_txt">Выход</string>
+
+    <string name="v1_title_txt">Настройки</string>
+    <string name="v1_btn_back_txt">Назад</string>
+
+    <string name="v2_points_txt">Нераспределенных очков</string>
+    <string name="v2_title_txt">Создание персонажа</string>
+    <string name="v2_name">Имя</string>
+    <string name="v2_surname">Родовое имя</string>
+    <string name="v2_attributes_txt">Атрибуты</string>
+    <string name="v2_skills_txt">Навыки</string>
+    <string name="v2_skl_3_txt">Профессия</string>
+    <string name="v2_skl_2_txt">Хобби</string>
+    <string name="v2_skl_1_txt">Интерес</string>
+    <string name="v2_skl_empty_txt">Нет</string>
+    <string name="v2_start_txt">Начать игру</string>
+
+    <string name="v3_menu">Меню</string>
+    <string name="v3_game">Игра</string>
+    <string name="v3_stats">Персонаж</string>
+    <string name="v3_inventory">Инвентарь</string>
+    <string name="v3_memory">История</string>
+
+    <string name="v3_state">Состояние</string>
+    <string name="v3_hp">Здоровье</string>
+    <string name="v3_stm">Запас сил</string>
+    <string name="v3_exh">Усталость</string>
+    <string name="v3_hng">Голод</string>
+    <string name="v3_thr">Жажда</string>
+
+    <string name="v3_equip">Экипировано</string>
+    <string name="v3_carry">Пожитки</string>
+
+    <string name="v3_factor">Факторы</string>
+    <string name="v3_head">Голова</string>
+    <string name="v3_body">Торс</string>
+    <string name="v3_legs">Ноги</string>
+    <string name="v3_hands">Руки</string>
+    <string name="v3_shoes">Обувь</string>
+    <string name="v3_rHand">Правая рука</string>
+    <string name="v3_lHand">Левая рука</string>
+    <string name="v3_endGame">Прервать игру</string>
+
+    <string name="v4_save_text">Сохранить</string>
+
+</resources>

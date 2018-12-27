@@ -1,0 +1,604 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/v3_mainL"
+    style="@style/mainL"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/v3_tab_game"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/clr_dark_grey"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="3">
+
+            <LinearLayout
+                android:id="@+id/v3_messagesLL"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" />
+        </ScrollView>
+
+        <ScrollView
+            android:id="@+id/v3_choicesSV"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <LinearLayout
+                android:id="@+id/v3_choicesLL"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" />
+        </ScrollView>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/v3_tab_stats"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/clr_dark_grey"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/v3_attrTV"
+                    style="@style/v3_headerTV"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/v2_attributes_txt" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/v3_STR_TV"
+                        style="@style/v3_attrNameTV"
+                        android:text="@string/glb_STR_txt" />
+
+                    <TextView
+                        android:id="@+id/v3_STR_val_TV"
+                        style="@style/v3_attrValueTV"
+                        android:text="0" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/v3_INT_TV"
+                        style="@style/v3_attrNameTV"
+                        android:text="@string/glb_INT_txt" />
+
+                    <TextView
+                        android:id="@+id/v3_INT_val_TV"
+                        style="@style/v3_attrValueTV"
+                        android:text="0" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/v3_PRC_TV"
+                        style="@style/v3_attrNameTV"
+                        android:layout_gravity="left|center_horizontal"
+                        android:text="@string/glb_PRC_txt" />
+
+                    <TextView
+                        android:id="@+id/v3_PRC_val_TV"
+                        style="@style/v3_attrValueTV"
+                        android:text="0" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/v3_AGL_TV"
+                        style="@style/v3_attrNameTV"
+                        android:text="@string/glb_AGL_txt" />
+
+                    <TextView
+                        android:id="@+id/v3_AGL_val_TV"
+                        style="@style/v3_attrValueTV"
+                        android:text="0" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/v3_END_TV"
+                        style="@style/v3_attrNameTV"
+                        android:text="@string/glb_END_txt" />
+
+                    <TextView
+                        android:id="@+id/v3_END_val_TV"
+                        style="@style/v3_attrValueTV"
+                        android:text="0" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/v3_CHR_TV"
+                        style="@style/v3_attrNameTV"
+                        android:text="@string/glb_CHR_txt" />
+
+                    <TextView
+                        android:id="@+id/v3_CHR_val_TV"
+                        style="@style/v3_attrValueTV"
+                        android:text="0" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/v3_statTV"
+                    style="@style/v3_headerTV"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/v3_state" />
+
+                <TextView
+                    android:id="@+id/v3_hpTV"
+                    style="@style/v3_attrStatTV"
+                    android:text="@string/v3_hp" />
+
+                <TextView
+                    android:id="@+id/v3_hpValueTV"
+                    style="@style/v3_attrDescrTV"
+                    android:text="Empty" />
+
+                <TextView
+                    android:id="@+id/v3_stmTV"
+                    style="@style/v3_attrStatTV"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/v3_stm" />
+
+                <TextView
+                    android:id="@+id/v3_stmValueTV"
+                    style="@style/v3_attrDescrTV"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Empty" />
+
+                <TextView
+                    android:id="@+id/v3_exhTV"
+                    style="@style/v3_attrStatTV"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/v3_exh" />
+
+                <TextView
+                    android:id="@+id/v3_exhValueTV"
+                    style="@style/v3_attrDescrTV"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Empty" />
+
+                <TextView
+                    android:id="@+id/v3_hngTV"
+                    style="@style/v3_attrStatTV"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/v3_hng" />
+
+                <TextView
+                    android:id="@+id/v3_hngValueTV"
+                    style="@style/v3_attrDescrTV"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Empty" />
+
+                <TextView
+                    android:id="@+id/v3_thrTV"
+                    style="@style/v3_attrStatTV"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/v3_thr" />
+
+                <TextView
+                    android:id="@+id/v3_thrValueTV"
+                    style="@style/v3_attrDescrTV"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Empty" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/v3_skillsTV"
+                style="@style/v3_headerTV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/v2_skills_txt" />
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="3">
+
+                <LinearLayout
+                    android:id="@+id/v3_skillsLL"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical" />
+            </ScrollView>
+
+            <TextView
+                android:id="@+id/v3_factorsTV"
+                style="@style/v3_headerTV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/v3_factor" />
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="2">
+
+                <LinearLayout
+                    android:id="@+id/v3_factorsLL"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical" />
+            </ScrollView>
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/v3_tab_inventory"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/clr_dark_grey"
+        android:orientation="vertical"
+        android:visibility="visible">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/v3_headerTV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/v3_equip" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingTop="1dp"
+                android:paddingBottom="1dp">
+
+                <TextView
+                    style="@style/v3_attrNameTV"
+                    android:layout_width="0dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:gravity="left|center_vertical"
+                    android:text="@string/v3_head" />
+
+                <LinearLayout
+                    android:id="@+id/v3_headLL"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:orientation="vertical">
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingTop="1dp"
+                android:paddingBottom="1dp">
+
+                <TextView
+                    style="@style/v3_attrNameTV"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:gravity="left|center_vertical"
+                    android:text="@string/v3_body" />
+
+                <LinearLayout
+                    android:id="@+id/v3_torsoLL"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:orientation="vertical">
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingTop="1dp"
+                android:paddingBottom="1dp">
+
+                <TextView
+                    style="@style/v3_attrNameTV"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:text="@string/v3_hands" />
+
+                <LinearLayout
+                    android:id="@+id/v3_handsLL"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:orientation="vertical"></LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingTop="1dp"
+                android:paddingBottom="1dp">
+
+                <TextView
+                    style="@style/v3_attrNameTV"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:text="@string/v3_legs" />
+
+                <LinearLayout
+                    android:id="@+id/v3_legsLL"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:orientation="vertical"></LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:paddingTop="1dp"
+                android:paddingBottom="1dp">
+
+                <TextView
+                    style="@style/v3_attrNameTV"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:text="@string/v3_shoes" />
+
+                <LinearLayout
+                    android:id="@+id/v3_feetLL"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:orientation="vertical"></LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingTop="1dp"
+                android:paddingBottom="1dp">
+
+                <TextView
+                    style="@style/v3_attrNameTV"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/v3_rHand" />
+
+                <TextView
+                    android:id="@+id/v3_rHandTV"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingTop="1dp"
+                android:paddingBottom="1dp">
+
+                <TextView
+                    style="@style/v3_attrNameTV"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/v3_lHand" />
+
+                <TextView
+                    android:id="@+id/v3_lHandTV"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"/>
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView2"
+                style="@style/v3_headerTV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/v3_carry" />
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:id="@+id/v3_carryLL"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical" />
+            </ScrollView>
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/v3_tab_memory"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/clr_dark_grey"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="3">
+
+            <LinearLayout
+                android:id="@+id/v3_memoMesLL"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" />
+        </ScrollView>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <LinearLayout
+                android:id="@+id/v3_memoOptLL"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" />
+        </ScrollView>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/v3_menuTV"
+            style="@style/text_btn"
+            android:layout_width="0dp"
+            android:layout_weight="7"
+            android:onClick="goMenu"
+            android:text="@string/v3_menu" />
+
+        <TextView
+            android:id="@+id/v3_gameTV"
+            style="@style/text_btn"
+            android:layout_width="0dp"
+            android:layout_weight="10"
+            android:onClick="tabChange"
+            android:text="@string/v3_game"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/v3_statsTV"
+            style="@style/text_btn"
+            android:layout_width="0dp"
+            android:layout_weight="10"
+            android:onClick="tabChange"
+            android:text="@string/v3_stats" />
+
+        <TextView
+            android:id="@+id/v3_inventoryTV"
+            style="@style/text_btn"
+            android:layout_width="0dp"
+            android:layout_weight="10"
+            android:onClick="tabChange"
+            android:text="@string/v3_inventory" />
+
+        <TextView
+            android:id="@+id/v3_memoryTV"
+            style="@style/text_btn"
+            android:layout_width="0dp"
+            android:layout_weight="10"
+            android:onClick="tabChange"
+            android:text="@string/v3_memory" />
+
+    </LinearLayout>
+
+</LinearLayout>

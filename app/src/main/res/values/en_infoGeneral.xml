@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="en_infoItemDrop">Item dropped</string>
+    <string name="en_infoItemDropAll">Items dropped</string>
+    <string name="en_infoItemEat">One portion was eaten</string>
+    <string name="en_infoItemEatAll">All stack was eaten</string>
+    <string name="en_infoItemDrink">One portion was drunk</string>
+    <string name="en_infoItemDrinkAll">Drunk to the bottom</string>
+    <string name="en_infoItemToInventory">Item putted into inventory</string>
+    <string name="en_infoItemEquip">Item equipped</string>
+    <string name="en_infoItemOpen">Container is opened</string>
+    <string name="en_infoItemInHand">Item taken to hands</string>
+
+    <string name="en_infoItemFailed">Can’t be done</string>
+
+    <string name="en_infoNotImplemented">Under construction</string>
+</resources>

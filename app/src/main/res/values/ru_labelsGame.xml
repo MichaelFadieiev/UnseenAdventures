@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ru_labelGameItemStats">Подробное описание</string>
+    <string name="ru_labelGameItemEquip">Одеть</string>
+    <string name="ru_labelGameItemInHand">Взять в руки</string>
+    <string name="ru_labelGameItemUse">Использовать</string>
+    <string name="ru_labelGameItemUseAll">Использовать всё</string>
+    <string name="ru_labelGameItemEat">Съесть порцию</string>
+    <string name="ru_labelGameItemEatAll">Съесть всё</string>
+    <string name="ru_labelGameItemDrink">Выпить порцию</string>
+    <string name="ru_labelGameItemDrinkAll">Выпить всё</string>
+    <string name="ru_labelGameItemDrop">Выбросить</string>
+    <string name="ru_labelGameItemDropAll">Выбросить всё</string>
+    <string name="ru_labelGameItemOpen">Открыть</string>
+    <string name="ru_labelGameItemToInventory">Положить в инвентарь</string>
+
+    <string name="ru_labelGameGeneralEmpty">Пусто</string>
+    <string name="ru_labelGameGeneralContain">Внутри %1$s.</string>
+    <string name="ru_labelGameGeneralContainItems">Содержит предметы.</string>
+
+
+</resources>

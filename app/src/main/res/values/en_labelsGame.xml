@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="en_labelGameItemStats">Detailed description</string>
+    <string name="en_labelGameItemEquip">Wear</string>
+    <string name="en_labelGameItemInHand">Take into hands</string>
+    <string name="en_labelGameItemUse">Use</string>
+    <string name="en_labelGameItemUseAll">Use all</string>
+    <string name="en_labelGameItemEat">Eat portion</string>
+    <string name="en_labelGameItemEatAll">Eat all</string>
+    <string name="en_labelGameItemDrink">Drink portion</string>
+    <string name="en_labelGameItemDrinkAll">Drink all</string>
+    <string name="en_labelGameItemDrop">Drop</string>
+    <string name="en_labelGameItemDropAll">Drop all</string>
+    <string name="en_labelGameItemOpen">Open</string>
+    <string name="en_labelGameItemToInventory">Put into inventory</string>
+
+    <string name="en_labelGameGeneralEmpty">Empty</string>
+    <string name="en_labelGameGeneralContain">Inside is %1$s.</string>
+    <string name="en_labelGameGeneralContainItems">Contain items.</string>
+</resources>

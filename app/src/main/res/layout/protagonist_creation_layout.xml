@@ -1,0 +1,352 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/v2_mainL"
+    style="@style/mainL"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/v2_header"
+        style="@style/header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/v2_title_txt" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/v2_nameTV"
+                    style="@style/v2_atrib_name_TV"
+                    android:layout_width="265dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="@string/v2_name" />
+
+                <EditText
+                    android:id="@+id/v2_nameET"
+                    style="@style/v2_atrib_value_TV"
+                    android:layout_width="265dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:ems="10"
+                    android:inputType="textNoSuggestions|textPersonName" />
+
+                <TextView
+                    android:id="@+id/v2_surnameTV"
+                    style="@style/v2_atrib_name_TV"
+                    android:layout_width="265dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="@string/v2_surname" />
+
+                <EditText
+                    android:id="@+id/v2_surnameET"
+                    style="@style/v2_atrib_value_TV"
+                    android:layout_width="265dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:ems="10"
+                    android:inputType="textNoSuggestions|textPersonName" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/v2_attributesTV"
+                    style="@style/sub_header"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/v2_attributes_txt" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/v2_STR_TV"
+                        style="@style/v2_atrib_name_TV"
+                        android:text="@string/glb_STR_txt" />
+
+                    <ImageButton
+                        android:id="@+id/v2_STR_down_btn"
+                        style="@style/v2_atrib_down_btn"
+                        android:layout_weight="1" />
+
+                    <TextView
+                        android:id="@+id/v2_STR_val_TV"
+                        style="@style/v2_atrib_value_TV"
+                        android:text="0" />
+
+                    <ImageButton
+                        android:id="@+id/v2_STR_up_btn"
+                        style="@style/v2_atrib_up_btn"
+                        android:layout_weight="1" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/v2_INT_TV"
+                        style="@style/v2_atrib_name_TV"
+                        android:text="@string/glb_INT_txt" />
+
+                    <ImageButton
+                        android:id="@+id/v2_INT_down_btn"
+                        style="@style/v2_atrib_down_btn"
+                        android:layout_weight="1" />
+
+                    <TextView
+                        android:id="@+id/v2_INT_val_TV"
+                        style="@style/v2_atrib_value_TV"
+                        android:text="0" />
+
+                    <ImageButton
+                        android:id="@+id/v2_INT_up_btn"
+                        style="@style/v2_atrib_up_btn"
+                        android:layout_weight="1" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/v2_PRC_TV"
+                        style="@style/v2_atrib_name_TV"
+                        android:text="@string/glb_PRC_txt" />
+
+                    <ImageButton
+                        android:id="@+id/v2_PRC_down_btn"
+                        style="@style/v2_atrib_down_btn"
+                        android:layout_weight="1" />
+
+                    <TextView
+                        android:id="@+id/v2_PRC_val_TV"
+                        style="@style/v2_atrib_value_TV"
+                        android:text="0" />
+
+                    <ImageButton
+                        android:id="@+id/v2_PRC_up_btn"
+                        style="@style/v2_atrib_up_btn"
+                        android:layout_weight="1" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/v2_AGL_TV"
+                        style="@style/v2_atrib_name_TV"
+                        android:text="@string/glb_AGL_txt" />
+
+                    <ImageButton
+                        android:id="@+id/v2_AGL_down_btn"
+                        style="@style/v2_atrib_down_btn"
+                        android:layout_weight="1" />
+
+                    <TextView
+                        android:id="@+id/v2_AGL_val_TV"
+                        style="@style/v2_atrib_value_TV"
+                        android:text="0" />
+
+                    <ImageButton
+                        android:id="@+id/v2_AGL_up_btn"
+                        style="@style/v2_atrib_up_btn"
+                        android:layout_weight="1" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/v2_END_TV"
+                        style="@style/v2_atrib_name_TV"
+                        android:text="@string/glb_END_txt" />
+
+                    <ImageButton
+                        android:id="@+id/v2_END_down_btn"
+                        style="@style/v2_atrib_down_btn"
+                        android:layout_weight="1" />
+
+                    <TextView
+                        android:id="@+id/v2_END_val_TV"
+                        style="@style/v2_atrib_value_TV"
+                        android:text="0" />
+
+                    <ImageButton
+                        android:id="@+id/v2_END_up_btn"
+                        style="@style/v2_atrib_up_btn"
+                        android:layout_weight="1" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/v2_CHR_TV"
+                        style="@style/v2_atrib_name_TV"
+                        android:text="@string/glb_CHR_txt" />
+
+                    <ImageButton
+                        android:id="@+id/v2_CHR_down_btn"
+                        style="@style/v2_atrib_down_btn"
+                        android:layout_weight="1" />
+
+                    <TextView
+                        android:id="@+id/v2_CHR_val_TV"
+                        style="@style/v2_atrib_value_TV"
+                        android:text="0" />
+
+                    <ImageButton
+                        android:id="@+id/v2_CHR_up_btn"
+                        style="@style/v2_atrib_up_btn"
+                        android:layout_weight="1" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/v2_points"
+                        style="@style/v2_atrib_name_TV"
+                        android:layout_width="235dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_weight="1"
+                        android:text="@string/v2_points_txt"
+                        android:textSize="15sp" />
+
+                    <TextView
+                        android:id="@+id/v2_points_value"
+                        style="@style/v2_atrib_value_TV"
+                        android:layout_width="30dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="15"
+                        android:textSize="15sp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="265dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/v2_skillsTV"
+                    style="@style/sub_header"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/v2_skills_txt" />
+
+                <TextView
+                    android:id="@+id/v2_proffTV"
+                    style="@style/v2_atrib_name_TV"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/v2_skl_3_txt" />
+
+                <Spinner
+                    android:id="@+id/v2_professionSPN"
+                    style="@style/spnr"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/v2_hobbyTV"
+                    style="@style/v2_atrib_name_TV"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/v2_skl_2_txt" />
+
+                <Spinner
+                    android:id="@+id/v2_hobbySPN"
+                    style="@style/spnr"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/v2_interTV"
+                    style="@style/v2_atrib_name_TV"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/v2_skl_1_txt" />
+
+                <Spinner
+                    android:id="@+id/v2_interestSPN"
+                    style="@style/spnr"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/v2_backTV"
+            style="@style/v1_back"
+            android:layout_width="match_parent"
+            android:layout_gravity="bottom"
+            android:onClick="goMainMenu"
+            android:text="@string/v1_btn_back_txt" />
+
+        <TextView
+            android:id="@+id/v2_startTV"
+            style="@style/v1_back"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|right"
+            android:gravity="right"
+            android:onClick="startGame"
+            android:text="@string/v2_start_txt" />
+
+    </FrameLayout>
+
+</LinearLayout>

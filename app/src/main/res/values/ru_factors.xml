@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="ru_factorsNames">
+        <item>Обессилен</item>
+        <item>Без сознания</item>
+        <item>Выпил</item>
+        <item>Пьян</item>
+        <item></item>
+        <item></item>
+    </string-array>
+
+    <string-array name="ru_factorsDescr">
+        <item>Состояние, в котором не осталось сил для чего-либо, нужен отдых до восстановления сил.</item>
+        <item>Бессознательное состояние, в этом состоянии человек беззащитен.</item>
+        <item>Легкое опьянение, повышает храбрость, понижает способность адекватно оценивать ситупцию.</item>
+        <item>Сильное опьянение. Способность мыслить нарушена, способность действовать - тоже, а вот желания действовать - хоть отбавляй.</item>
+        <item></item>
+        <item></item>
+    </string-array>
+</resources>

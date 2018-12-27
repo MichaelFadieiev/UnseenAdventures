@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="skl_keys">
+        <item>skl_wpn_blt</item>
+        <item>skl_wpn_slh</item>
+        <item>skl_wpn_prc</item>
+        <item>skl_wpn_hck</item>
+        <item>skl_wpn_sht</item>
+        <item>skl_wpn_trw</item>
+        <item>skl_brh</item>
+        <item>skl_hnt</item>
+        <item>skl_ptf</item>
+        <item>skl_mtl</item>
+        <item>skl_wdc</item>
+        <item>skl_stn</item>
+        <item>skl_ktl</item>
+        <item>skl_agr</item>
+        <item>skl_mnr</item>
+        <item>skl_bld</item>
+        <item>skl_trd</item>
+        <item>skl_spc</item>
+        <item>skl_thv</item>
+        <item>skl_srv</item>
+        <item>skl_swm</item>
+        <item>skl_mdc</item>
+    </string-array>
+    <!--Skill names-->
+    <string name="skl_0">Владение клинковым оружием</string>
+    <string name="skl_1">Владение топорами </string>
+    <string name="skl_2">Владение древковым оружием</string>
+    <string name="skl_3">Владение ударно-дробящим оружием</string>
+    <string name="skl_4">Стрельба</string>
+    <string name="skl_5">Метание</string>
+    <string name="skl_6">Рукопашный бой</string>
+    <string name="skl_7">Охота</string>
+    <string name="skl_8">Следопыт</string>
+    <string name="skl_9">Металлообработка</string>
+    <string name="skl_10">Деревообработка</string>
+    <string name="skl_11">Камнеобработка</string>
+    <string name="skl_12">Скотоводство</string>
+    <string name="skl_13">Земледелие</string>
+    <string name="skl_14">Шахтерское ремесло</string>
+    <string name="skl_15">Строительство</string>
+    <string name="skl_16">Торговля</string>
+    <string name="skl_17">Общение</string>
+    <string name="skl_18">Воровство</string>
+    <string name="skl_19">Выживание</string>
+    <string name="skl_20">Плавание</string>
+    <string name="skl_21">Медицина</string>
+
+    <string name="stt_1">Здоровье</string>
+    <string name="stt_2">Запас сил</string>
+    <string name="stt_3">Усталость</string>
+    <string name="stt_4">Голод</string>
+    <string name="stt_5">Жажда</string>
+
+
+</resources>

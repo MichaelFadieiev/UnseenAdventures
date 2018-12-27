@@ -1,0 +1,11 @@
+{
+  "0" : {
+    "size" : [1],
+    "actions" : [0, 1, 2, 3, 4],
+    "persons" : [],
+    "items" : [0],
+    "resources" : [],
+    "IDontKnow" : "WhatNext"
+  },
+  "1" : [3]
+}

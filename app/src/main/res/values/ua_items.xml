@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="ua_itemsS0">
+        <item>Камінець</item>
+        <item>Мідяк</item>
+        <item>Срібник</item>
+        <item>Крона</item>
+        <item>Дошка</item>
+    </string-array>
+    <string-array name="ua_itemsP0">
+        <item>Камінці</item>
+        <item>Мідяки</item>
+        <item>Срібняки</item>
+        <item>Крони</item>
+        <item>Дошки</item>
+    </string-array>
+    <string-array name="ua_itemDesc0">
+        <item>Звичайний камінець, але не зовсім звичного походження. На дотих трішки теплий.</item>
+        <item>Найпоширеніша і найдешевша монета.</item>
+        <item>Цінна монета. На неї цілий тиждень можна досита їсти і пити. Чи нормально вбратись. Чи почати власну маленьку справу.</item>
+        <item>Надзвичайно цінна монета, виготовлена з чистого золота. Краще її не виставляти на показ - дуже багато людей забудуть і Бога, і закон, і совість, тільки як представлять, що зможуть за неї отримати.</item>
+        <item>Звичайна дошка. Не дуже якісна, але для будівництва зійде. А як що, то і якогось ляха можна вкласти нею.</item>
+    </string-array>
+
+    <string-array name="ua_itemsS2">
+        <item>Хліб</item>
+        <item>Яблуко</item>
+        <item>Сир</item>
+        <item>Смажене м’ясо</item>
+        <item>Яйце</item>
+        <item>Каша</item>
+    </string-array>
+
+    <string-array name="ua_itemsP2">
+        <item>Хліб</item>
+        <item>Яблуки</item>
+        <item>Сири</item>
+        <item>Жарене м’ясо</item>
+        <item>Яйця</item>
+        <item>Каша</item>
+    </string-array>
+
+    <string-array name="ua_itemDesc2">
+        <item>Звичайний хліб.</item>
+        <item>Спіле яблуко.</item>
+        <item>Сир, витриманий.</item>
+        <item>Смажене м’ясо, свіже, зберігається не дуже довго.</item>
+        <item>Звичайне курине яйце.</item>
+        <item>Каша, поживна, проте зберігається не дуже довго.</item>
+    </string-array>
+
+    <string-array name="ua_itemsS3">
+        <item>Вода</item>
+        <item>Молоко</item>
+        <item>Мед</item>
+        <item>Пиво</item>
+        <item>Самогон</item>
+        <item>Віски</item>
+        <item>Червоне вино</item>
+        <item>Біле вино</item>
+        <item>Снодійне</item>
+    </string-array>
+
+    <string-array name="ua_itemsP3">
+        <item>Вода</item>
+        <item>Молоко</item>
+        <item>Мед</item>
+        <item>Пиво</item>
+        <item>Самогон</item>
+        <item>Віски</item>
+        <item>Червоне вино</item>
+        <item>Біле вино</item>
+        <item>Снодійне</item>
+    </string-array>
+
+    <string-array name="ua_itemDesc3">
+        <item>Вода, щоб не померти від зневоднення.</item>
+        <item>Молоко корисне, поживне.</item>
+        <item>Мед. Можна пити, можна їсти.</item>
+        <item>Пиво, доволі непогане.</item>
+        <item>Самогон, як у рідної бабусі.</item>
+        <item>Міцний напій, витриманий у спеціальних діжках мінімум декілька років. Насолода для ціновальників.</item>
+        <item>Червоне вино для покращення якості крові та покращення якості життя.</item>
+        <item>Біле вино, добре смакує до риби.</item>
+        <item>Розчин снодійного, забезпечує міцний і тривалий сон.</item>
+    </string-array>
+
+
+    <string-array name="ua_itemsS4">
+        <item>Ткані штані</item>
+        <item>Ткана сорочка</item>
+        <item>Тканий капюшон</item>
+        <item>Обмотки на руки</item>
+        <item>Портянки</item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+    </string-array>
+
+    <string-array name="ua_itemsP4">
+        <item>Ткані штані</item>
+        <item>Ткана сорочка</item>
+        <item>Ткані капюшони</item>
+        <item>Обмотки на руки</item>
+        <item>Портянки</item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+    </string-array>
+
+    <string-array name="ua_itemDesc4">
+        <item>Штані з грубої тканини. Зійде щоб срам прикрити, не більше.</item>
+        <item>Звичайна сорочка з грубої тканини, не приглядна, але практична.</item>
+        <item>Декілька відрізків тканини, сшиті у формі капюшона для захисту від негоди чи помоїв.</item>
+        <item>Лоскути тканини, якими можна обмотати руки для захисту від холоду чи бруду.</item>
+        <item>Лоскути тканини, що використовуються для обмотування стоп, щоб не натирало и не мерзли ноги.</item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+    </string-array>
+
+
+    <string-array name="ua_itemsS6">
+        <item>Пляшка</item>
+        <item>Скляночка</item>
+        <item>Мідная фляга</item>
+        <item>Залізна фляга</item>
+        <item>Сталева фляга</item>
+        <item>Срібна фляга</item>
+        <item>Дерев’яна діжечка</item>
+        <item>Дерев’яна діжка</item>
+        <item>Мідна діжка</item>
+        <item>Залізна діжка</item>
+        <item>Сталева діжка</item>
+    </string-array>
+
+    <string-array name="ua_itemsP6">
+        <item>Пляшки</item>
+        <item>Скляночки</item>
+        <item>Мідні фляги</item>
+        <item>Залізні фляги</item>
+        <item>Сталеві фляги</item>
+        <item>Срібні фляги</item>
+        <item>Дерев’яні діжечки</item>
+        <item>Дерев’яні діжки</item>
+        <item>Мідні діжки</item>
+        <item>Залізні діжки</item>
+        <item>Сталеві діжки</item>
+    </string-array>
+
+    <string-array name="ua_itemDesc6">
+        <item>Звичайна скляна пляшка.</item>
+        <item>Скляночка</item>
+        <item>Мідная фляга</item>
+        <item>Залізна фляга</item>
+        <item>Сталева фляга</item>
+        <item>Срібна фляга</item>
+        <item>Дерев’яна діжечка</item>
+        <item>Дерев’яна діжка</item>
+        <item>Мідна діжка</item>
+        <item>Залізна діжка</item>
+        <item>Сталева діжка</item>
+    </string-array>
+
+    <string-array name="ua_itemsS7">
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item>Сталевий шолом</item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item>Латний обладунок</item>
+        <item>Латні рукавиці</item>
+        <item>Латні поножі</item>
+        <item>Сабатони</item>
+        <item></item>
+    </string-array>
+
+    <string-array name="ua_itemsP7">
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item>Сталеві шоломи</item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item>Латні обладунки</item>
+        <item>Латні рукавиці</item>
+        <item>Латні поножі</item>
+        <item>Сабатони</item>
+        <item></item>
+    </string-array>
+
+    <string-array name="ua_itemDesc7">
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item>Якісний шолом. Щоб берегти макітру.</item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item>Обладунок зі сталевих пластин. Забезпечує гарний захист живота, грудей, спини, плечей та шиї.</item>
+        <item>Рукавиці, підсилені сталевими пластинами, що з’єднані рухомо.</item>
+        <item>Обладунок зі сталевих пластин. Забезпечує дієвий захист поясу, паху, сраки та ніг.</item>
+        <item>Туфлі, підсилені сталевими пластинами з рухомим з’єднанням.</item>
+        <item></item>
+    </string-array>
+</resources>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="ru_territoryName">
+        <item>Равнина</item>
+        <item>Холмы</item>
+        <item>Предгорья</item>
+        <item>Горы</item>
+        <item>Ледник</item>
+        <item>Пустыня</item>
+        <item>Озеро</item>
+        <item>Море</item>
+        <item>Остров</item>
+        <item>Запределье</item>
+    </string-array>
+    <string-array name="ru_territoryDescr">
+        <item></item>
+        <item>Холмы. </item>
+        <item>Предгорья. </item>
+        <item>Горы. </item>
+        <item>Ледник. </item>
+        <item>Пустыня. </item>
+        <item>Озеро. </item>
+        <item>Море. </item>
+        <item>Остров. </item>
+        <item>Территория, которую люди избегают и на которой, согласно преданиям, "жили демоны и боги". </item>
+    </string-array>
+    <string-array name="ru_territorUNames">
+        <item>Остров Пасхи</item>
+        <item>Сфера</item>
+        <item>База 13</item>
+        <item>Станция</item>
+    </string-array>
+    <string-array name="ru_territoryUDescr">
+        <item>Небольшой остров, окруженный океаном. Ближайших берегов даже не видно. Хорошо хоть, что тут есть ресурсы.</item>
+        <item>Пространство вне времени, не подчиняющееся известным физическим законам.</item>
+        <item>Затерянная в землях запределья база, наполненная высокотехнологическими устройствами. Но покинутая много лет назад.</item>
+        <item>Орбитальная космическая станция, управляемая ИИ.</item>
+    </string-array>
+</resources>

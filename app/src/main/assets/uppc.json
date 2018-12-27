@@ -1,0 +1,13 @@
+{
+  "0" : {
+    "name" : "King Arthur",
+    "surname" : "",
+    "items" : [],
+    "uitems" : [],
+    "equipped" : [-1, -1, -1, -1, -1, -1, -1],
+    "uequipped" : [-1, -1, -1, -1, -1, -1, -1],
+    "sipaec" : [7, 7, 7, 7, 7, 7],
+    "factors" : [],
+    "stats" : [5, -1, -1, -1, -1]
+  }
+}

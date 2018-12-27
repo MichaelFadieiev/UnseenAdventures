@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="cns_startStatPoints">15</integer>
+    <integer name="cns_eternalItemsID">10</integer>
+
+    <integer name="cnt_stats">6</integer>
+    <integer name="cnt_skills">22</integer>
+
+    <integer-array name="startPosition">
+        <item>0</item>
+        <item>0</item>
+    </integer-array>
+
+    <integer name="startPlaceTypeID">0</integer>
+    <integer name="startTerritoryTypeID">0</integer>
+
+
+    <integer-array name="startDateTime">
+        <item>1138</item>
+        <item>7</item>
+        <item>23</item>
+        <item>0</item>
+        <item>0</item>
+    </integer-array>
+
+
+
+</resources>

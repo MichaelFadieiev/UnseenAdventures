@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="en_itemsS0">
+        <item>Small boulder</item>
+        <item>Copper coin</item>
+        <item>Silver coin</item>
+        <item>Gold coin</item>
+        <item>Plank</item>
+    </string-array>
+    <string-array name="en_itemsP0">
+        <item>Small boulders</item>
+        <item>Copper coins</item>
+        <item>Silver coins</item>
+        <item>Gold coins</item>
+        <item>Planks</item>
+    </string-array>
+    <string-array name="en_itemDesc0">
+        <item>Just Not So Regular small boulder. You can feel trembling when touching it.</item>
+        <item>Most common coins.</item>
+        <item>Pretty expensive coins. Equivalent to good sword.</item>
+        <item>Extremely expensive coins. It prefer dark to the light.</item>
+        <item>Regular plank. Can be used for construction or street fight.</item>
+    </string-array>
+
+    <string-array name="en_itemsS2">
+        <item>Bread</item>
+        <item>Apple</item>
+        <item>Cheese</item>
+        <item>Roasted meat</item>
+        <item>Egg</item>
+        <item>Porridge</item>
+    </string-array>
+
+    <string-array name="en_itemsP2">
+        <item>Breads</item>
+        <item>Apples</item>
+        <item>Cheeses</item>
+        <item>Roasted meat</item>
+        <item>Eggs</item>
+        <item>Porridge</item>
+    </string-array>
+
+    <string-array name="en_itemDesc2">
+        <item>Regular breads.</item>
+        <item>Fine ripe apple.</item>
+        <item>Aged cheese.</item>
+        <item>Freshly roasted meat, not four long keep.</item>
+        <item>Regular chicken egg.</item>
+        <item>Porridge, pretty nutritious, but not for long keep.</item>
+    </string-array>
+
+    <string-array name="en_itemsS3">
+        <item>Water</item>
+        <item>Milk</item>
+        <item>Honey</item>
+        <item>Beer</item>
+        <item>Moonshine</item>
+        <item>Whiskey</item>
+        <item>Red wine</item>
+        <item>White whine</item>
+        <item>Sleeping remedy</item>
+    </string-array>
+
+    <string-array name="en_itemsP3">
+        <item>Water</item>
+        <item>Milk</item>
+        <item>Honey</item>
+        <item>Beer</item>
+        <item>Moonshine</item>
+        <item>Whiskey</item>
+        <item>Red wine</item>
+        <item>White whine</item>
+        <item>Sleeping remedy</item>
+    </string-array>
+
+    <string-array name="en_itemDesc3">
+        <item>Water</item>
+        <item>Milk</item>
+        <item>Honey</item>
+        <item>Beer</item>
+        <item>Moonshine</item>
+        <item>Whiskey</item>
+        <item>Red wine</item>
+        <item>White whine</item>
+        <item>Sleeping remedy</item>
+    </string-array>
+
+
+    <string-array name="en_itemsS4">
+        <item>Cloth pants</item>
+        <item>Cloth shirt</item>
+        <item>Cloth hood</item>
+        <item>Cloth rags for hands winding</item>
+        <item>Cloth rags for feet winding</item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+    </string-array>
+
+    <string-array name="en_itemsP4">
+        <item>Cloth pants</item>
+        <item>Cloth shirts</item>
+        <item>Cloth hoods</item>
+        <item>Cloth rags for hands winding</item>
+        <item>Cloth rags for feet winding</item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+    </string-array>
+
+    <string-array name="en_itemDesc4">
+        <item>Cloth pants</item>
+        <item>Cloth shirts</item>
+        <item>Cloth hoods</item>
+        <item>Cloth rags for hands winding</item>
+        <item>Cloth rags for feet winding</item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+    </string-array>
+
+
+    <string-array name="en_itemsS6">
+        <item>Bottle</item>
+        <item>Vial</item>
+        <item>Copper flask</item>
+        <item>Iron flask</item>
+        <item>Steel flask</item>
+        <item>Silver flask</item>
+        <item>Wooden keg</item>
+        <item>Wooden cask</item>
+        <item>Copper cask</item>
+        <item>Iron cask</item>
+        <item>Steel cask</item>
+    </string-array>
+
+    <string-array name="en_itemsP6">
+        <item>Bottles</item>
+        <item>Vials</item>
+        <item>Copper flasks</item>
+        <item>Iron flasks</item>
+        <item>Steel flasks</item>
+        <item>Silver flasks</item>
+        <item>Wooden kegs</item>
+        <item>Wooden casks</item>
+        <item>Copper casks</item>
+        <item>Iron casks</item>
+        <item>Steel casks</item>
+    </string-array>
+
+    <string-array name="en_itemDesc6">
+        <item>Bottle</item>
+        <item>Vial</item>
+        <item>Copper flask</item>
+        <item>Iron flask</item>
+        <item>Steel flask</item>
+        <item>Silver flask</item>
+        <item>Wooden keg</item>
+        <item>Wooden cask</item>
+        <item>Copper cask</item>
+        <item>Iron cask</item>
+        <item>Steel cask</item>
+    </string-array>
+
+    <string-array name="en_itemsS7">
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item>Steel helmet</item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item>Steel cuirass</item>
+        <item>Gauntlets</item>
+        <item>Greaves</item>
+        <item>Sabatons</item>
+        <item></item>
+    </string-array>
+
+    <string-array name="en_itemsP7">
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item>Steel helmets</item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item>Steel cuirasses</item>
+        <item>Gauntlets</item>
+        <item>Greaves</item>
+        <item>Sabatons</item>
+        <item></item>
+    </string-array>
+
+    <string-array name="en_itemDesc7">
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item>Steel helmet</item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item>Steel cuirass</item>
+        <item>Gauntlets</item>
+        <item>Greaves</item>
+        <item>Sabatons</item>
+        <item></item>
+    </string-array>
+
+
+
+</resources>

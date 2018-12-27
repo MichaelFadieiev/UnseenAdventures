@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="ru_actionName">
+        <item>Ждать</item>
+        <item>Отдыхать</item>
+        <item>Осмотреться</item>
+        <item>Исследовать</item>
+        <item>Обыскать</item>
+    </string-array>
+    <string-array name="ru_actionInfo">
+        <item>Вы некоторое время подождали</item>
+        <item>Вы прилегли на землю и около часа отдыхали</item>
+        <item>Вы внимательно оглядываетесь по сторонам</item>
+        <item></item>
+        <item></item>
+    </string-array>
+    <string-array name="ru_actionMessage0">
+        <item>Вы некоторое время подождали.</item>
+        <item>Восстановили немного сил.</item>
+        <item></item>
+        <item></item>
+        <item></item>
+    </string-array>
+    <string-array name="ru_actionMessage1">
+        <item>Вы некоторое время подождали.</item>
+        <item>Восстановили немного сил.</item>
+        <item></item>
+        <item></item>
+        <item></item>
+    </string-array>
+
+    <string-array name="ru_actionUName">
+        <item>Сложить кисть руки знаком Вынь и, прищурившись, посмотреть сквозь нее.</item>
+        <item>Попытаться разгребать землю вокруг себя.</item>
+        <item>Подхватить геном.</item>
+        <item></item>
+        <item></item>
+    </string-array>
+    <string-array name="ru_actionUInfo">
+        <item>Ладонь объяло ледяным холодом. Во вспышках искр из ничего начало материализоваться нечто, которое уже через мгновение приняло определенную форму. Моргнув, Вы поняли, что это %1$s.</item>
+        <item>Вы тратите время и кислород в отчаянных попытках разгрести землю.</item>
+        <item>Мы обретаем будущее в своих отпрысках.</item>
+        <item></item>
+        <item></item>
+    </string-array>
+    <string-array name="ru_actionUMessage0">
+        <item>Созданный предмет Вы забрали в инвентарь.</item>
+        <item>Вы вылезли из могилы в кромешную тьму. Но легкий свежий ветерок подсказал, что Вы выбрались. Вы прилегли на траву и несколько минут пролежали неподвижно, наслаждаясь кислородом.  </item>
+        <item>Генетическая связь проснулась в одном из Ваших наследников. Теперь Вы - %1$s %2$s. Помогите отпрыску прожить эту жизнь достойно.</item>
+        <item></item>
+        <item></item>
+    </string-array>
+    <string-array name="ru_actionUMessage1">
+        <item>Созданный предмет Вы выбросили, поскольку не было свободного места.</item>
+        <item>Недостаток кислорода сказался и, потеряв силы, Вы приняли свою судьбу.</item>
+        <item>Вы не можете почувствовать ни одного своего наследника. Либо Вы посчитали, что будущее Вам не нужно, либо Ваши наследники были слишком слабы и беззащитны, чтобы его заслужить.</item>
+        <item></item>
+        <item></item>
+    </string-array>
+</resources>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/v0_mainL"
+    style="@style/mainL"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/v0_title"
+        style="@style/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/v0_title_txt"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+    <Button
+        android:id="@+id/btn_0_return"
+        style="@style/v0_btn"
+        android:text="@string/v0_btn_rtrn_txt"
+        android:visibility="gone" />
+
+    <Button
+        android:id="@+id/btn_0_new"
+        style="@style/v0_btn"
+        android:layout_gravity="center_vertical|center_horizontal|center"
+        android:onClick="goNew"
+        android:text="@string/v0_btn_ng_txt"
+        android:visibility="visible" />
+
+    <Button
+        android:id="@+id/btn_0_load"
+        style="@style/v0_btn"
+        android:onClick="goLoad"
+        android:text="@string/v0_btn_ld_txt"
+        android:visibility="visible" />
+
+    <Button
+        android:id="@+id/btn_0_option"
+        style="@style/v0_btn"
+        android:onClick="goOptions"
+        android:text="@string/v0_btn_opt_txt"
+        android:visibility="visible" />
+
+    <Button
+        android:id="@+id/btn_0_quit"
+        style="@style/v0_btn"
+        android:onClick="goQuit"
+        android:text="@string/v0_btn_qt_txt"
+        android:visibility="visible" />
+</LinearLayout>
