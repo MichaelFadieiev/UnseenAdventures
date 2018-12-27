@@ -75,16 +75,16 @@ public class ProtagonistCreationActivity extends Activity{
 
         skills = new SparseArray<>(4);
 
-        ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(this, R.layout.spnr_layout,
+        ArrayAdapter<String> adapter1 = new ArrayAdapter<>(this, R.layout.spnr_layout,
                 R.id.spnr_item, skill_names);
-        ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(this, R.layout.spnr_layout,
+        ArrayAdapter<String> adapter2 = new ArrayAdapter<>(this, R.layout.spnr_layout,
                 R.id.spnr_item, skill_names);
-        ArrayAdapter<String> adapter3 = new ArrayAdapter<String>(this, R.layout.spnr_layout,
+        ArrayAdapter<String> adapter3 = new ArrayAdapter<>(this, R.layout.spnr_layout,
                 R.id.spnr_item, skill_names);
 
-        spnr_proff = (Spinner) findViewById(R.id.v2_professionSPN);
-        spnr_hobby = (Spinner) findViewById(R.id.v2_hobbySPN);
-        spnr_inter = (Spinner) findViewById(R.id.v2_interestSPN);
+        spnr_proff = findViewById(R.id.v2_professionSPN);
+        spnr_hobby = findViewById(R.id.v2_hobbySPN);
+        spnr_inter = findViewById(R.id.v2_interestSPN);
 
         spnr_proff.setAdapter(adapter1);
         spnr_hobby.setAdapter(adapter2);
@@ -105,19 +105,19 @@ public class ProtagonistCreationActivity extends Activity{
         spnr_hobby.setSelection(0);
         spnr_inter.setSelection(0);
 
-        txtV = (TextView) findViewById(R.id.v2_STR_val_TV);
+        txtV = findViewById(R.id.v2_STR_val_TV);
         txtV.setText(String.valueOf(round(attributes.get(0))));
-        txtV = (TextView) findViewById(R.id.v2_INT_val_TV);
+        txtV = findViewById(R.id.v2_INT_val_TV);
         txtV.setText(String.valueOf(round(attributes.get(1))));
-        txtV = (TextView) findViewById(R.id.v2_PRC_val_TV);
+        txtV = findViewById(R.id.v2_PRC_val_TV);
         txtV.setText(String.valueOf(round(attributes.get(2))));
-        txtV = (TextView) findViewById(R.id.v2_AGL_val_TV);
+        txtV = findViewById(R.id.v2_AGL_val_TV);
         txtV.setText(String.valueOf(round(attributes.get(3))));
-        txtV = (TextView) findViewById(R.id.v2_END_val_TV);
+        txtV = findViewById(R.id.v2_END_val_TV);
         txtV.setText(String.valueOf(round(attributes.get(4))));
-        txtV = (TextView) findViewById(R.id.v2_CHR_val_TV);
+        txtV = findViewById(R.id.v2_CHR_val_TV);
         txtV.setText(String.valueOf(round(attributes.get(5))));
-        txtV = (TextView) findViewById(R.id.v2_points_value);
+        txtV = findViewById(R.id.v2_points_value);
         txtV.setText(String.valueOf(attr_points));
     }
 
@@ -130,58 +130,59 @@ public class ProtagonistCreationActivity extends Activity{
     public void attr_mod (View v) {
         TextView txtV;
         int attr;
-        Boolean mod = false;
+        Boolean mod;
         switch (v.getId()){
-            case R.id.v2_STR_down_btn: txtV = (TextView) findViewById(R.id.v2_STR_val_TV);
+            case R.id.v2_STR_down_btn: txtV = findViewById(R.id.v2_STR_val_TV);
                 attr = 0;
                 mod = false;
                 break;
-            case R.id.v2_STR_up_btn: txtV = (TextView) findViewById(R.id.v2_STR_val_TV);
+            case R.id.v2_STR_up_btn: txtV = findViewById(R.id.v2_STR_val_TV);
                 attr = 0;
                 mod = true;
                 break;
-            case R.id.v2_INT_down_btn: txtV = (TextView) findViewById(R.id.v2_INT_val_TV);
+            case R.id.v2_INT_down_btn: txtV = findViewById(R.id.v2_INT_val_TV);
                 attr = 1;
                 mod = false;
                 break;
-            case R.id.v2_INT_up_btn: txtV = (TextView) findViewById(R.id.v2_INT_val_TV);
+            case R.id.v2_INT_up_btn: txtV = findViewById(R.id.v2_INT_val_TV);
                 attr = 1;
                 mod = true;
                 break;
-            case R.id.v2_AGL_down_btn: txtV = (TextView) findViewById(R.id.v2_AGL_val_TV);
+            case R.id.v2_AGL_down_btn: txtV = findViewById(R.id.v2_AGL_val_TV);
                 attr = 3;
                 mod = false;
                 break;
-            case R.id.v2_AGL_up_btn: txtV = (TextView) findViewById(R.id.v2_AGL_val_TV);
+            case R.id.v2_AGL_up_btn: txtV = findViewById(R.id.v2_AGL_val_TV);
                 attr = 3;
                 mod = true;
                 break;
-            case R.id.v2_PRC_down_btn: txtV = (TextView) findViewById(R.id.v2_PRC_val_TV);
+            case R.id.v2_PRC_down_btn: txtV = findViewById(R.id.v2_PRC_val_TV);
                 attr = 2;
                 mod = false;
                 break;
-            case R.id.v2_PRC_up_btn: txtV = (TextView) findViewById(R.id.v2_PRC_val_TV);
+            case R.id.v2_PRC_up_btn: txtV = findViewById(R.id.v2_PRC_val_TV);
                 attr = 2;
                 mod = true;
                 break;
-            case R.id.v2_END_down_btn: txtV = (TextView) findViewById(R.id.v2_END_val_TV);
+            case R.id.v2_END_down_btn: txtV = findViewById(R.id.v2_END_val_TV);
                 attr = 4;
                 mod = false;
                 break;
-            case R.id.v2_END_up_btn: txtV = (TextView) findViewById(R.id.v2_END_val_TV);
+            case R.id.v2_END_up_btn: txtV = findViewById(R.id.v2_END_val_TV);
                 attr = 4;
                 mod = true;
                 break;
-            case R.id.v2_CHR_down_btn: txtV = (TextView) findViewById(R.id.v2_CHR_val_TV);
+            case R.id.v2_CHR_down_btn: txtV = findViewById(R.id.v2_CHR_val_TV);
                 attr = 5;
                 mod = false;
                 break;
-            case R.id.v2_CHR_up_btn: txtV = (TextView) findViewById(R.id.v2_CHR_val_TV);
+            case R.id.v2_CHR_up_btn: txtV = findViewById(R.id.v2_CHR_val_TV);
                 attr = 5;
                 mod = true;
                 break;
-            default: txtV = (TextView) findViewById(R.id.v2_points);
+            default: txtV = findViewById(R.id.v2_points);
                 attr = 10;
+                mod = false;
                 break;
         }
         if (mod) {
@@ -190,14 +191,14 @@ public class ProtagonistCreationActivity extends Activity{
                 attributes.put(attr, attributes.get(attr)+1);
                 txtV.setText(String.valueOf(round(attributes.get(attr))));
             }
-        } else if (!mod) {
+        } else {
             if (round(attributes.get(attr)) > 1) {
                 attr_points += 1;
                 attributes.put(attr, attributes.get(attr)-1);
                 txtV.setText(String.valueOf(round(attributes.get(attr))));
             }
         }
-        txtV = (TextView) findViewById(R.id.v2_points_value);
+        txtV = findViewById(R.id.v2_points_value);
         txtV.setText(String.valueOf(attr_points));
     }
 
@@ -207,12 +208,14 @@ public class ProtagonistCreationActivity extends Activity{
 
         //Button btn_return = (Button) findViewById(R.id.btn_0_save);
         //btn_return.setVisibility(View.VISIBLE);
-        name = ((EditText) findViewById(R.id.v2_nameET)).getText().toString();
-        surname = ((EditText) findViewById(R.id.v2_surnameET)).getText().toString();
-        if (!nameIsOk(name)) {
+        name = ((EditText) findViewById(R.id.v2_nameET)).getText().toString().trim();
+        surname = ((EditText) findViewById(R.id.v2_surnameET)).getText().toString().trim();
+        name = name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase();
+        surname = surname.substring(0, 1).toUpperCase() + surname.substring(1).toLowerCase();
+        if (nameIsBad(name)) {
             Toast toast1 = Toast.makeText(this, "Не выеживайся, выбери нормальное имя!", Toast.LENGTH_SHORT);
             toast1.show();}
-        else if (!nameIsOk(surname)) {
+        else if (nameIsBad(surname)) {
             Toast toast2 = Toast.makeText(this, "Не выеживайся, выбери нормальную фамилию!", Toast.LENGTH_SHORT);
             toast2.show();}
         else {
@@ -256,9 +259,10 @@ public class ProtagonistCreationActivity extends Activity{
             }
     }
 
-    public boolean nameIsOk (String p_name) {
+    public boolean nameIsBad (String p_name) {
         p_name = p_name.trim();
-        return !(p_name.matches("[\\s\\d\'\"]+") || p_name.isEmpty());
+        return (p_name.matches(".*[\\W\\d].*") || p_name.isEmpty());
+        //return (p_name.matches("(\\s)+|(\\d)+|\'|\"") || p_name.isEmpty());
         //if (p_name.matches("[^ a-zA-Zа-яА-Я\'\"]") || p_name.isEmpty()) {return false;}
         //else {return true;}
     }

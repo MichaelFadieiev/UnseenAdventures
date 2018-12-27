@@ -14,4 +14,7 @@
     <string name="ru_infoItemFailed">Не получилось</string>
 
     <string name="ru_infoNotImplemented">Ожидает реализации</string>
+
+    <string name="ru_infoGenderMale">мужской</string>
+    <string name="ru_infoGenderFemale">женский</string>
 </resources>

@@ -543,17 +543,24 @@ public class GameActivity extends Activity {
         TextView STR_valTV, INT_valTV, PRC_valTV, AGL_valTV, END_valTV, CHR_valTV;
         TextView hpValueTV, stmValueTV, exhValueTV, hngValueTV, thrValueTV;
 
-        STR_valTV = (TextView) findViewById(R.id.v3_STR_val_TV);
+        TextView actorNameTV = findViewById(R.id.v3_actorNameTV);
+        TextView actorSurnameTV = findViewById(R.id.v3_actorSurnameTV);
+        TextView actorGenderTV = findViewById(R.id.v3_actorGenderTV);
+        actorNameTV.setText(actorP.name);
+        actorSurnameTV.setText(actorP.surname);
+        actorGenderTV.setText(getInfoMessage(this, actorP.gender == 'M' ? "GenderMale" : "GenderFemale", optionLanguage));
+
+        STR_valTV = findViewById(R.id.v3_STR_val_TV);
         STR_valTV.setText(String.valueOf(round(actorP.attributes.get(0))));
-        INT_valTV = (TextView) findViewById(R.id.v3_INT_val_TV);
+        INT_valTV = findViewById(R.id.v3_INT_val_TV);
         INT_valTV.setText(String.valueOf(round(actorP.attributes.get(1))));
-        PRC_valTV = (TextView) findViewById(R.id.v3_PRC_val_TV);
+        PRC_valTV = findViewById(R.id.v3_PRC_val_TV);
         PRC_valTV.setText(String.valueOf(round(actorP.attributes.get(2))));
-        AGL_valTV = (TextView) findViewById(R.id.v3_AGL_val_TV);
+        AGL_valTV = findViewById(R.id.v3_AGL_val_TV);
         AGL_valTV.setText(String.valueOf(round(actorP.attributes.get(3))));
-        END_valTV = (TextView) findViewById(R.id.v3_END_val_TV);
+        END_valTV = findViewById(R.id.v3_END_val_TV);
         END_valTV.setText(String.valueOf(round(actorP.attributes.get(4))));
-        CHR_valTV = (TextView) findViewById(R.id.v3_CHR_val_TV);
+        CHR_valTV = findViewById(R.id.v3_CHR_val_TV);
         CHR_valTV.setText(String.valueOf(round(actorP.attributes.get(5))));
 
         //TEMP code:

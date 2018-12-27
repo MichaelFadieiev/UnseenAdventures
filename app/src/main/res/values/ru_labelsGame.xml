@@ -18,5 +18,9 @@
     <string name="ru_labelGameGeneralContain">Внутри %1$s.</string>
     <string name="ru_labelGameGeneralContainItems">Содержит предметы.</string>
 
+    <string name="ru_labelGameActorName">Имя</string>
+    <string name="ru_labelGameActorSurname">Фамилия</string>
+    <string name="ru_labelGameActorGender">Пол</string>
+
 
 </resources>
