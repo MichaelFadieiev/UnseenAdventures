@@ -16,14 +16,11 @@ import static com.game.michael.first.BasicProcedures.*;
 
 
 class PersonType {
-    static final String placePActions = "actions";
-    static final String placePPersons = "persons";
-    static final String placePItems = "items";
-    static final String placePUActions = "uactions";
-    static final String placePUPersons = "upersons";
-    static final String placePUItems = "uitems";
 
     int personID;
+    int typeID;
+    int UID;
+    //short name, surname;
     String name;
     String surname;
     //public Hashtable<String, String> relatives; -not yet
@@ -39,28 +36,29 @@ class PersonType {
 
 
     private int weightMax, volumeMax;
-    int weightFree, volumeFree;
+    private int weightFree, volumeFree;
 
     ArrayList<ItemType> inventory;
     SparseArray<ItemType> equipped; //0-right_hand, 1-left_hand, 2-head, 3-torso, 4-legs, 5-hands, 6-feet
     //7-armr-head, 8-armr-torso, 9-armr-legs, 10-armr-hands, 11-armr-feet
+
     int placeID;//position of the person {placeID (if positive), xAxis, yAxis}
     int[] territoryID;
-    private int worldID;//идентификатор мира (<0 - сферы, 0 - космос,  >0 - планеты)
+    int worldID;//идентификатор мира (<0 - сферы, 0 - космос,  >0 - планеты)
 
     SparseArray<int[]> factors; //-not yet
 
-    private long age;
+    long age;
     //private Float renewDate; -deprecated
 
     PersonType(int p_worldID,
-                      int p_personID,
-                      String p_name,
-                      String p_surname,
-                      SparseArray<Float> p_attributes,
-                      SparseArray<Float> p_skills,
-                      boolean p_genom,
-                      char p_gender) {
+               int p_personID,
+               String p_name,
+               String p_surname,
+               SparseArray<Float> p_attributes,
+               SparseArray<Float> p_skills,
+               boolean p_genom,
+               char p_gender) {
         worldID = p_worldID;
         personID = p_personID;
         name = p_name;
@@ -91,13 +89,14 @@ class PersonType {
         volumeFree = volumeMax;
         log = new TreeMap<>();
         territoryID = new int[2];
-        if (p_gender == 'M' || p_gender == 'F') {
+        /*if (p_gender == 'M' || p_gender == 'F') {
             gender = p_gender;
-        } else {gender = 'M';}
+        } else {gender = 'M';}*/
+        gender = (p_gender == 'M' || p_gender == 'F') ? p_gender : 'M';
     }
 
     //Генерация пустого персонажа для последующего заполнения характеристиками.
-    public PersonType () {
+    PersonType () {
         attributes = new SparseArray<>();
         stats = new SparseArray<>();
         statsMax = new SparseArray<>();
@@ -108,11 +107,40 @@ class PersonType {
         log = new TreeMap<>();
         territoryID = new int[2];
     }
+    //Генерация предписанного персонажа
+    PersonType (GameActivity p_act,
+                int p_worldID,
+                int p_typeID,
+                int p_UID) {
+        this.worldID = p_worldID;
+        this.personID = p_act.allPersons.keyAt(p_act.allPersons.size()-1)+1;
+        this.attributes = new SparseArray<>();
+        this.stats = new SparseArray<>();
+        this.statsMax = new SparseArray<>();
+        this.skills = new SparseArray<>();
+        this.inventory = new ArrayList<>(1);
+        this.equipped = new SparseArray<>(7);
+        this.factors = new SparseArray<>(2);
+        this.log = new TreeMap<>();
+        this.territoryID = new int[2];
+        loadPerson(p_act, this, p_typeID, p_UID);
+        this.statsMax.put(0, (400+this.attributes.get(0)*50+this.attributes.get(4)*50)); //hpt
+        this.statsMax.put(1, (400+this.attributes.get(0)*20+this.attributes.get(2)*10+this.attributes.get(3)*50+this.attributes.get(4)*20));//stm
+        this.statsMax.put(2, (float) 1000);//exh
+        this.statsMax.put(3, (float) 1000);//hng
+        this.statsMax.put(4, (float) 1000);//thr
+        for (int i=0; i<this.statsMax.size(); i++) {this.stats.put(i, this.statsMax.get(i));}//start with max stats
+        this.weightMax = 10000 * Math.round(this.attributes.get(0));
+        this.weightFree = this.weightMax;
+        this.volumeMax = 100000;
+        this.volumeFree = this.volumeMax;
+
+    }
 
     //Процедура рождения персонажа.
     public void birthPPC (String[] p_name, PersonType p_father, PersonType p_mother, int[] p_dateTime) {
         /*Procedure for creation of new NPC, generating name and so on*/
-        switch ((int) (Math.random()*2)/2) {
+        /*switch ((int) (Math.random()*2)/2) {
             case 0: gender = 'M';
                 name = p_name[0];
                 break;
@@ -122,15 +150,17 @@ class PersonType {
             default: gender = 'M';
                 name = p_name[0];
                 break;
-        }
-        switch ((int) (Math.random()*2)/2) {
+        }*/
+        name = ((int) (Math.random()*2)/2 == 1) ? p_name[1] : p_name[0];
+        /*switch ((int) (Math.random()*2)/2) {
             case 0: surname = p_mother.surname;
                 break;
             case 1: surname = p_father.surname;
                 break;
             default: surname = "Dou";
                 break;
-        }
+        }*/
+        surname = ((int) (Math.random()*2)/2 == 1) ? p_father.surname : p_mother.surname;
         age = 0;
         worldID = p_mother.worldID;
         placeID = p_mother.placeID;
@@ -142,6 +172,7 @@ class PersonType {
     //Добавление стака предметов в инвентарь - прилетает стак, проверяется на размер, доступный вес,
     //дробится и возвращает, что не влезло.
     boolean itemAdd (ItemType p_item, int p_quantity) {
+        if (p_quantity > p_item.endDT.size()) return false;
         ItemType v_item;
         if (!p_item.isLiquid) {
             v_item = p_item.takeItem(Math.min(p_quantity, Math.min(volumeFree / p_item.volume, weightFree / p_item.weight)));
@@ -197,17 +228,17 @@ class PersonType {
                 }
             }
         }
-        if (p_item.endDT.isEmpty()) {
-            return true;
-        } else {return false;}
+        return (p_item.endDT.isEmpty());
     }
 
     //забирается часть предметов из инвентаря/экипировки
     ItemType itemTake (int p_itemIndex, int p_quantity, boolean isEquipped) {
+
         try {
             ItemType v_item;
             ItemType v_res;
             if (isEquipped) {
+                if (p_quantity<=0) p_quantity = this.equipped.valueAt(p_itemIndex).endDT.size();
                 v_item = this.equipped.get(p_itemIndex);
                 v_res = v_item.takeItem(p_quantity);
                 if (v_item.endDT.isEmpty()) {
@@ -216,6 +247,7 @@ class PersonType {
                 weightFree += v_res.weight * v_res.endDT.size();
                 return v_res;
             } else {
+                if (p_quantity<=0) p_quantity = this.inventory.get(p_itemIndex).endDT.size();
                 v_item = this.inventory.get(p_itemIndex);
                 v_res = v_item.takeItem(Math.min(v_item.endDT.size(), p_quantity));
                 weightFree += v_res.weight * v_res.endDT.size();
@@ -232,7 +264,7 @@ class PersonType {
                 return v_res;
             }
         } catch (Exception e) {
-            return null;
+            return new ItemType();
         }
     }
 
@@ -243,7 +275,7 @@ class PersonType {
         }
         return false;
     }
-
+    //съесть предмет
     boolean itemConsume (GameActivity p_act, ItemType p_item) {
         if (p_item.tags[0].equals("drnk")) {
             this.stats.put(4, this.stats.get(4) + (Integer.parseInt(p_item.tags[1]) * p_item.endDT.size()));
@@ -270,46 +302,48 @@ class PersonType {
 
         return false;
     }
-
-    boolean itemInHand (GameActivity p_act, ItemType p_item, int p_quantity) {
-        if ((p_item.weight <= (this.attributes.get(0) * 5000)) && (p_item.weight <= this.weightFree)) {
+    //взять предмет в руки
+    boolean itemInHand (GameActivity p_act, ItemType p_item) {
+        //int v_permittedSize = Math.min((int) Math.floor(this.attributes.get(0) * 2000000/(p_item.volume * p_item.weight)), p_item.endDT.size());
+        int v_permittedSize = Math.min((int) Math.floor(this.attributes.get(0)*5000/(p_item.weight*p_item.endDT.size())), p_item.endDT.size());
+        v_permittedSize = Math.min(v_permittedSize, (int) Math.floor(this.weightFree/(p_item.weight*p_item.endDT.size())));
+        v_permittedSize = (p_item.tags[0].equals("wpn")) ? Math.min(v_permittedSize, 1) : v_permittedSize;
+        if (v_permittedSize > 0) {
             //weight*volume > 10'000'000 for STR <= 5 - 2hand
             //
             //boolean is2Hand = false;
-            if ((p_item.volume * p_item.weight) > (this.attributes.get(0) * 2000000)) { //2-handed
+            if ((p_item.tags[0].equals("wpn") && p_item.tags[1].charAt(1) == '2') || (p_item.volume * p_item.weight * v_permittedSize) > (this.attributes.get(0) * this.attributes.get(4) * 2000000)) { //2-handed
                 //is2Hand = true;
                 if ((this.equipped.indexOfKey(0) < 0) && (this.equipped.indexOfKey(1) < 0)) {
-                    ItemType itemTMP = p_item.takeItem(p_quantity);
+                    ItemType itemTMP = p_item.takeItem(v_permittedSize);
                     this.equipped.put(0, itemTMP);
                     this.equipped.put(1, itemTMP);
                     this.weightFree -= itemTMP.weight * itemTMP.endDT.size();
-                    return true;
+                    if (p_item.endDT.isEmpty()) return true;
                 }
             } else if (this.equipped.indexOfKey(0) < 0) {
-                ItemType itemTMP = p_item.takeItem(p_quantity);
+                ItemType itemTMP = p_item.takeItem(v_permittedSize);
                 this.equipped.put(0, itemTMP);
                 this.weightFree -= itemTMP.weight * itemTMP.endDT.size();
-                return true;
+                if (p_item.endDT.isEmpty()) return true;
             } else if (this.equipped.indexOfKey(1) < 0) {
-                ItemType itemTMP = p_item.takeItem(p_quantity);
+                ItemType itemTMP = p_item.takeItem(v_permittedSize);
                 this.equipped.put(1, itemTMP);
                 this.weightFree -= itemTMP.weight * itemTMP.endDT.size();
-                return true;
+                if (p_item.endDT.isEmpty()) return true;
             }
         }
-        return false;
+        return this.itemAdd(p_item, p_item.endDT.size());
     }
-
+    //экипировать предмет (одеть)
     boolean itemEquip (GameActivity p_act, ItemType p_item) {
-        int intTmp = -1;
+        int intTmp;
         int sizeTmp =  p_item.endDT.size();
         if (p_item.tags[0].equals("clth")) {
             intTmp = 0;
         } else if (p_item.tags[0].equals("armr")) {
             intTmp = 5;
-        } else {
-            return false;
-        }
+        } else {return false;}
         if (p_item.weight <= this.weightFree) {
             switch (p_item.tags[1]) {
                 case "hat" : {
@@ -343,7 +377,12 @@ class PersonType {
                 }
             }
         }
-        if (sizeTmp - p_item.endDT.size() == 1) {return true;} else {return false;}
+        if (!p_item.endDT.isEmpty()) this.itemAdd(p_item, p_item.endDT.size());
+        if (sizeTmp - p_item.endDT.size() == 1) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     void renewFactors (GameActivity p_act, int[] p_dttm) {
@@ -376,7 +415,7 @@ class PersonType {
 
     void renewActions (GameActivity p_act) {
         this.actBasic.clear();
-        if (this.placeID > 0) {
+        if (this.placeID >= 0) {
             this.actBasic = p_act.allPlaces.get(this.placeID).permActions.clone();
         } else {
             this.actBasic = p_act.allTerritories.get(coordinatesToString(this.territoryID)).permActions.clone();

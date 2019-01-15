@@ -2,15 +2,11 @@ package com.game.michael.first;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.text.SpannableString;
-import android.text.style.ForegroundColorSpan;
-import android.text.style.StyleSpan;
 import android.text.style.TextAppearanceSpan;
-import android.text.style.TypefaceSpan;
 import android.util.ArrayMap;
 import android.util.SparseArray;
 import android.util.SparseBooleanArray;
@@ -25,12 +21,8 @@ import android.view.ViewGroup.LayoutParams;
 import android.widget.Toast;
 
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Random;
 import java.util.TreeMap;
 
 import static com.game.michael.first.Actions.*;
@@ -185,10 +177,11 @@ public class GameActivity extends Activity {
         int territoryTypeID = getResources().getInteger(R.integer.startTerritoryTypeID);
         int placeTypeID = getResources().getInteger(R.integer.startPlaceTypeID);
         TerritoryType territoryTMP = new TerritoryType(this, 1, coordinatesP, territoryTypeID);
-        territoryTMP.createPlace(this, placeTypeID, 1);
+        territoryTMP.createPlace(this, placeTypeID, 0);
         allTerritories.put(coordinatesToString(coordinatesP), territoryTMP);
 
-        allPlaces.get(1).makeUnique(this, 0);
+        //allPlaces.valueAt(0).makeUnique(this, 0);
+
         //place creation
         //PlaceType placeTMP = new PlaceType(this, 1, coordinatesP, placeTypeID, 1);
         //placeTMP.visitorsList.put(actorP.personID, actorP);
@@ -198,8 +191,8 @@ public class GameActivity extends Activity {
         //territory creation
         //territoryTMP.placesList.put(placeTMP.placeID, placeTMP);
         //showInfo(String.valueOf(territoryTMP.placesList.indexOfKey(1)));
-        //showInfo(String.valueOf(allTerritories.get(allPlaces.get(actorP.locationID[0]).territoryID).placesList.indexOfKey(1)));
-        //actorP.territoryID = coordinatesP.clone();
+        //showInfo(String.valueOf(allTerritories.get(allPlaces.get(actorP.locationID[0]).coordinates).placesList.indexOfKey(1)));
+        //actorP.coordinates = coordinatesP.clone();
         //System.arraycopy(coordinatesP, 0, actorP.locationID, 1, 2);
 
         //person creation
@@ -212,9 +205,10 @@ public class GameActivity extends Activity {
                 'M');
         allPersons.put(actorP.personID, actorP);
         try {
-            settlePerson(this, actorP, allPlaces.get(1));
+            personChangeLocation(this, actorP, allPlaces.valueAt(0), null);
         } catch (Exception e) {
             showInfo("Can't place actor in place");
+            System.out.println("ERROR: Can't place actor in place.");
             this.finish();
         }
         //time initialisation
@@ -224,6 +218,7 @@ public class GameActivity extends Activity {
         //actorP = allTerritories.get(coordinatesP).placesList.get(placeTMP.placeID).visitorsList.get(0);
 
         journalQuest.put(timeToString(dateTime), new int[]{0, 0});
+        showInfo(String.valueOf(actorP.personID) + "/" + String.valueOf(actorP.placeID) + "/" + String.valueOf(actorP.territoryID[0]) + "/" + String.valueOf(actorP.territoryID[1]));
     }
 
     public void gameLoad () {
@@ -750,9 +745,9 @@ public class GameActivity extends Activity {
             lHandTV.setOnClickListener(null);
         }*/
         ((TextView) findViewById(R.id.v3_rHandTV)).setText(null);
-        ((TextView) findViewById(R.id.v3_rHandTV)).setOnClickListener(null);
+        findViewById(R.id.v3_rHandTV).setOnClickListener(null);
         ((TextView) findViewById(R.id.v3_lHandTV)).setText(null);
-        ((TextView) findViewById(R.id.v3_lHandTV)).setOnClickListener(null);
+        findViewById(R.id.v3_lHandTV).setOnClickListener(null);
         headLL.removeAllViews();
         torsoLL.removeAllViews();
         legsLL.removeAllViews();
@@ -763,21 +758,23 @@ public class GameActivity extends Activity {
                 ItemType itemTMP = actorP.equipped.get(i);
                 final TextView viewTMP;
                 if (i==0) {
-                    viewTMP = (TextView) findViewById(R.id.v3_rHandTV);
+                    viewTMP = findViewById(R.id.v3_rHandTV);
                 } else if (i==1) {
-                    viewTMP = (TextView) findViewById(R.id.v3_lHandTV);
+                    viewTMP = findViewById(R.id.v3_lHandTV);
                 } else {
                     viewTMP = new TextView(getApplicationContext());
                 }
                 String strTmp = "";
                 if (itemTMP.endDT.size() == 1) {
                     strTmp = getItemNameS(this, itemTMP.itemID, optionLanguage);
+                    //strTmp += "(1)";
                     if (itemTMP.isJar) if (!itemTMP.contain.isEmpty()) {
                         strTmp += " ("
                                 + getItemNameS(this, itemTMP.contain.get(0).itemID, optionLanguage).toLowerCase()
                                 + " " + String.valueOf(itemTMP.contain.get(0).endDT.size() * itemTMP.contain.get(0).volume)
                                 + " мл)";
                     }
+
                 } else if (itemTMP.endDT.size() > 1) {
                     strTmp = getItemNameP(this, itemTMP.itemID, optionLanguage)
                             + " (" + String.valueOf(itemTMP.endDT.size()) + ")";
@@ -952,6 +949,7 @@ public class GameActivity extends Activity {
                             + "00 мл)";
                     }
                 }
+                //strTmp += "Weight " + String.valueOf(item_tmp.weight) + ", volume " + String.valueOf(item_tmp.volume);
                 //R.array.ru_itemsS)[actorP.inventory.get(i).itemID];
             } else if (item_tmp.endDT.size() > 1) {
                 strTmp = getItemNameP(this, item_tmp.itemID, optionLanguage)
@@ -1012,9 +1010,9 @@ public class GameActivity extends Activity {
                                     return true;
                                 }
                                 case R.id.menuGameItemInHand: {
-                                    if (actorP.itemInHand(thisGame, actorP.inventory.get((int) v.getTag()), 1)) {
+                                    if (actorP.itemInHand(thisGame, actorP.itemTake((int) v.getTag(), -1,false))) {
                                         showInfo(getInfoMessage(thisGame, "ItemInHand", optionLanguage));
-                                        if (actorP.inventory.get((int) v.getTag()).endDT.isEmpty()) {actorP.inventory.remove((int) v.getTag());}
+                                        //if (actorP.inventory.get((int) v.getTag()).endDT.isEmpty()) {actorP.inventory.remove((int) v.getTag());}
                                         renewUActions();
                                         renewInventory();
                                     } else {
@@ -1045,9 +1043,9 @@ public class GameActivity extends Activity {
                                     return true;
                                 }
                                 case R.id.menuGameItemEquip: {
-                                    if (actorP.itemEquip(thisGame, actorP.inventory.get((int) v.getTag()))) {
+                                    if (actorP.itemEquip(thisGame, actorP.itemTake((int) v.getTag(), 1,false))) {//actorP.inventory.get((int) v.getTag()))) {
                                         showInfo(getInfoMessage(thisGame, "ItemEquip", optionLanguage));
-                                        if (actorP.inventory.get((int) v.getTag()).endDT.isEmpty()) {actorP.inventory.remove((int) v.getTag());}
+                                        //if (actorP.inventory.get((int) v.getTag()).endDT.isEmpty()) {actorP.inventory.remove((int) v.getTag());}
                                         renewUActions();
                                         renewInventory();
                                     } else {
@@ -1222,15 +1220,15 @@ public class GameActivity extends Activity {
                 break;
             case 4: action4();
                 break;
-            case 5: action5();
+            case 5: action5(p_actorID, p_params[0]);
                 break;
             case 6: action6();
                 break;
             case -1: actionU1();
                 break;
-            case -2: actionU2(p_actorID);
+            case -2: actionU2(/*p_actorID*/);
                 break;
-            case -3: actionU3(p_actorID);
+            case -3: actionU3(/*p_actorID*/);
                 break;
             default: break;
         }
@@ -1263,7 +1261,8 @@ public class GameActivity extends Activity {
             v_mesParS[0] = BasicProcedures.formatDate(dateTime);
             messages.put(v_mesParI, v_mesParS);
             //renewMessages(false); in turn!!!
-            showInfo("Вы некоторое время подождали.");
+            //showInfo("Вы некоторое время подождали.");
+            showInfo(getActionPopUp(this, optionLanguage, 0));
         }
         //checkItems
         //checkFactors
@@ -1307,7 +1306,9 @@ public class GameActivity extends Activity {
             v_mesParS[0] = BasicProcedures.formatDate(dateTime);
             messages.put(v_mesParI, v_mesParS);
             //renewMessages(false); in turn!!!
-            showInfo("Вы прилегли на землю и около часа отдыхали.");
+            //showInfo("Вы прилегли на землю и около часа отдыхали.");
+            showInfo(getActionPopUp(this, optionLanguage, 1));
+
         }
 
         //checkItems
@@ -1338,13 +1339,30 @@ public class GameActivity extends Activity {
             }
         }*/
         if (p_actorID == actorP.personID) {
-            showInfo(getResources().getStringArray(R.array.ru_actionInfo)[2]);
+            showInfo(getActionPopUp(this, optionLanguage, 2)); //getResources().getStringArray(R.array.ru_actionInfo)[2]);
             int[] v_mesParI = {0};
             String[] v_mesParS = new String[1];
             v_mesParS[0] = "";
+            //v_mesParS[0] +=
             //timeStackExecute (p_duration); in turn!!!
-
-            if (actorP.placeID > 0) {
+            v_mesParS[0] = getActionMessage(this, optionLanguage, 2, (whereAmI.isPlace)?"0":"1");
+            StringBuilder visitors = new StringBuilder();
+            if (whereAmI.visitorsList.size() > 0) {
+                for (int i=0; i<whereAmI.visitorsList.size(); i++) {
+                    if (whereAmI.visitorsList.valueAt(i).personID != actorP.personID) {
+                        visitors.append(whereAmI.visitorsList.valueAt(i).name);
+                        visitors.append(" ");
+                        visitors.append(whereAmI.visitorsList.valueAt(i).surname);
+                        visitors.append(", ");
+                    }
+                }
+                visitors.setLength((visitors.length()>0)?(visitors.length()-2):visitors.length()); //kick the last comma
+            }
+            if (visitors.length() < 1) {
+                visitors.append(getInfoMessage(this, "Nobody", optionLanguage));
+            }
+            v_mesParS[0] = String.format(v_mesParS[0], whereAmI.name.toLowerCase(), getLocationDescription(this, getPersonLocation(actorP), optionLanguage), visitors.toString());
+            /*if (actorP.placeID >= 0) {
                 if (whereAmI.name.equals("")) {
 
                 } else {
@@ -1359,8 +1377,8 @@ public class GameActivity extends Activity {
                 v_mesParS[0] += "Вы находитесь на открытом пространстве. ";
                 v_mesParS[0] += "Это " + whereAmI.name.toLowerCase() + ". ";
                 v_mesParS[0] += getResources().getStringArray(R.array.ru_territoryDescr)[whereAmI.typeID] + " ";
-                /*v_mesParS[0] += String.format(" Площадь территории около %d квадратных километров.",
-                        (whereAmI.size * 10 /(1000*1000)));*/ //не реализовано, поскольку для территории открытой сложно определить
+                \*v_mesParS[0] += String.format(" Площадь территории около %d квадратных километров.",
+                        (whereAmI.size * 10 /(1000*1000)));*\ //не реализовано, поскольку для территории открытой сложно определить
             }
             if (whereAmI.visitorsList.size() <= 1) {
                 v_mesParS[0] += "Кроме Вас здесь больше никого нет. ";
@@ -1373,12 +1391,13 @@ public class GameActivity extends Activity {
                     }
                 }
                 v_mesParS[0] = v_mesParS[0].substring(0, v_mesParS[0].length()-2) + ". ";
-            }
+            }*/
             messages.put(v_mesParI, v_mesParS);
         }
 
     }
 
+    //used for test purposes
     public void action3 () {
         String[] str1 = SourceJSON.getRandomName(this, 0);
         String[] str2 = SourceJSON.getRandomSurname(this, 0);
@@ -1389,10 +1408,10 @@ public class GameActivity extends Activity {
         int[] tmp = {0, 0};
         //showInfo(String.valueOf(allTerritories.size()) + "/" + String.valueOf(allTerritories.size()));
         //showInfo(actorP.name + ": " + String.valueOf(actorP.locationID[0]) + "/" + String.valueOf(actorP.locationID[1]) + "/" + String.valueOf(actorP.locationID[2]));
-        //showInfo(String.valueOf(allPlaces.get(actorP.locationID[0]).territoryID[0]) + "/" + String.valueOf(allPlaces.get(actorP.locationID[0]).territoryID[1]));
+        //showInfo(String.valueOf(allPlaces.get(actorP.locationID[0]).coordinates[0]) + "/" + String.valueOf(allPlaces.get(actorP.locationID[0]).coordinates[1]));
         //(actorP.locationID[0] != p_place.placeID)
         //showInfo(String.valueOf(Arrays.equals(tmp, allTerritories.keyAt(0))));
-        //showInfo(String.valueOf(allTerritories.get(allPlaces.get(actorP.locationID[0]).territoryID).coordinates[0]));
+        //showInfo(String.valueOf(allTerritories.get(allPlaces.get(actorP.locationID[0]).coordinates).coordinates[0]));
         SparseArray<Float> attributesTemp = new SparseArray<>();
         attributesTemp.put(0, 10f);
         attributesTemp.put(1, 10f);
@@ -1401,25 +1420,44 @@ public class GameActivity extends Activity {
         attributesTemp.put(4, 10f);
         attributesTemp.put(5, 10f);
         SparseArray<Float> skillsTemp = new SparseArray<>();
-        int v_personID = 0;
-        while (allPersons.indexOfKey(v_personID) >= 0 ) v_personID++;
-        PersonType v_person = new PersonType(1, v_personID,
+        /*int v_personID = 0;
+        while (allPersons.indexOfKey(v_personID) >= 0 ) v_personID++;*/
+
+        PersonType v_person = new PersonType(1, allPersons.keyAt(allPersons.size()-1)+1,
                 SourceJSON.getRandomName(this, 0)[1],
                 SourceJSON.getRandomSurname(this, 0)[1],
                 attributesTemp,
                 skillsTemp,
                 true,
                 'F');
-        v_person.placeID = actorP.placeID;
-        v_person.territoryID = actorP.territoryID.clone();
-        allPersons.put(v_person.personID, v_person);
+        //v_person.placeID = actorP.placeID;
+        //v_person.territoryID = actorP.territoryID.clone();
+        allPersons.append(v_person.personID, v_person);
         try {
-            Actions.settlePerson(this, v_person, getPersonLocation(v_person));
-        } catch (Exception e) {}
+            Actions.personChangeLocation(this, v_person, getPersonLocation(actorP), null);
+        } catch (Exception e) {
+            System.out.println("ERROR: Can't put person into location.");
+            showInfo("ERROR: Can't put person into location.");
+        }
 
     }
 
-    public void action5 () {}
+    //enter into the place
+    public void action5 (int p_personID, int p_placeID) {
+        PlaceType v_place = allPlaces.get(p_placeID);
+        PersonType v_person = allPersons.get(p_personID);
+        boolean result = personChangeLocation(this, v_person, v_place, getPersonLocation(v_person));
+        if (p_personID == actorP.personID) {
+            showInfo(String.format(getActionPopUp(this, optionLanguage, 5), v_place.name));
+            int[] v_mesParI = {0};
+            String[] v_mesParS = new String[1];
+            //timeStackExecute (p_duration); in turn!!!
+            v_mesParS[0] = BasicProcedures.formatDate(dateTime) + "\n";
+            v_mesParS[0] += String.format(getActionMessage(this, optionLanguage, 5, (result)?"0":"1"), v_place.name);
+
+            messages.put(v_mesParI, v_mesParS);
+        }
+    }
 
     public void action6 () {}
 
@@ -1440,7 +1478,7 @@ public class GameActivity extends Activity {
                 +String.valueOf(flowTime(dateTime, SourceJSON.getItemInt(this, intTmp[i], "lifetime"))[3])
                 +String.valueOf(flowTime(dateTime, SourceJSON.getItemInt(this, intTmp[i], "lifetime"))[4])
         );*/
-        if (actorP.itemAdd(new ItemType(this, intTmp[i], flowTime(dateTime, SourceJSON.getItemInt(this, intTmp[i], "lifetime"))), 1)) {
+        if (actorP.itemAdd(new ItemType(this, intTmp[i], -1, -1, 1), 1)) {
             /*showInfo("Ладонь объяло ледяным холодом. Во вспышках искр из ничего " +
                     "начало материализоваться нечто, которое уже через мгновение приняло " +
                     "определенную форму. Моргнув, Вы поняли, что это " +
@@ -1459,27 +1497,28 @@ public class GameActivity extends Activity {
     }
 
     //вылезти из могилы
-    public void actionU2 (int p_actorID) {
+    public void actionU2 (/*int p_actorID*/) {
         int[] v_mesParI = {0};
         String[] v_mesParS = new String[1];
-        PersonType v_actor;
+        //PersonType v_actor;
         PlaceType v_place;
         TerritoryType v_territory;
         //вывод инфо
-        if (p_actorID == actorP.personID) showInfo(getResources().getStringArray(R.array.ru_actionUInfo)[1]);
+        /*if (p_actorID == actorP.personID)*/ showInfo(getResources().getStringArray(R.array.ru_actionUInfo)[1]);
         try {
-            v_actor = allPersons.get(p_actorID);
-            v_place = allPlaces.get(v_actor.placeID);
+            //v_actor = allPersons.get(p_actorID);
+            v_place = allPlaces.get(actorP.placeID);
             //v_territory = null;
             /*for (int i=0; i<allTerritories.size(); i++) {
                 if (Arrays.equals(keyAt(i))) v_territory = allTerritories.valueAt(i);
             }*/
-            v_territory = allTerritories.get(coordinatesToString(v_place.territoryID));
+            v_territory = allTerritories.get(coordinatesToString(v_place.coordinates));
             //if ((Math.random() * 16) <= v_actor.attributes.get(0) + v_actor.attributes.get(4)) {
             if ((Math.random() * 10) <= 9) {
-                v_actor.stats.put(1, v_actor.stats.get(1) - ((5-v_actor.attributes.get(4))*200));
+                actorP.stats.put(1, actorP.stats.get(1) - ((5-actorP.attributes.get(4))*200));
                 //переход персонажа из места на территорию
-                Actions.quitPlace(v_actor, v_place, v_territory);
+                personChangeLocation(this, actorP, v_territory, v_place);
+                //Actions.quitPlace(actorP, v_place, v_territory);
                 //изменение типа места
                 v_place.changeType(this, 1);
                 //отключение действия
@@ -1488,9 +1527,9 @@ public class GameActivity extends Activity {
                 v_mesParS[0] = getResources().getStringArray(R.array.ru_actionUMessage0)[1];
             } else {
                 //задохнулся
-                v_actor.stats.put(0, 0f);
-                v_actor.stats.put(1, 0f);
-                v_actor.stats.put(2, 0f);
+                actorP.stats.put(0, 0f);
+                actorP.stats.put(1, 0f);
+                actorP.stats.put(2, 0f);
                 //генерация сообщения
                 v_mesParS[0] = getResources().getStringArray(R.array.ru_actionUMessage1)[1];
             }
@@ -1500,7 +1539,7 @@ public class GameActivity extends Activity {
     }
 
     //подхватить геном
-    public void actionU3 (int p_actorID) {
+    public void actionU3 (/*int p_actorID*/) {
         showInfo(getResources().getStringArray(R.array.ru_actionUInfo)[2]);
         int[] v_mesParI = {0};
         String[] v_mesParS = new String[1];
@@ -1621,27 +1660,22 @@ public class GameActivity extends Activity {
     private void renewUActions() {
         actSpec.clear();
         actSpec.put(1, true); //кастовать разное
-        if (actorP.placeID > 0) {
+        if (actorP.placeID >= 0) {
             int v_uID = allPlaces.get(actorP.placeID).uniqueID;
-            int v_typeID = allPlaces.get(actorP.placeID).typeID;
-            if (v_uID < 0) {
+            if (v_uID >= 0) {
                 try {
-                    for (int i : getUPlaceArray(this, v_typeID, PersonType.placePUActions))
+                    int[] v_param = getUPlaceArray(this, v_uID, PlaceType.c_PlaceUActions);
+                    for (int i : v_param)
                         actSpec.put(i, true);
                 } catch (Exception e) {
-                }
-            } else {
-                try {
-                    for (int i : getUPlaceArray(this, v_uID, PersonType.placePUActions))
-                        actSpec.put(i, true);
-                } catch (Exception e) {
+                    System.out.printf("ERROR: Can't renew unique actions for unique place ID #%d.", v_uID);
                 }
             }
         }
     }
 
     LocationType getPersonLocation (PersonType p_person) {
-        if (p_person.placeID > 0) {
+        if (p_person.placeID >= 0) {
             return allPlaces.get(p_person.placeID);
         } else {
             return allTerritories.get(coordinatesToString(p_person.territoryID));

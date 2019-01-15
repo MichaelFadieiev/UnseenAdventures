@@ -17,4 +17,6 @@
 
     <string name="ru_infoGenderMale">мужской</string>
     <string name="ru_infoGenderFemale">женский</string>
+    <string name="ru_infoNobody">никого</string>
+    <string name="ru_infoNobodyExceptYou">Кроме Вас здесь никого нет</string>
 </resources>

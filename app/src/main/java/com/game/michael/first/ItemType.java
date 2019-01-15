@@ -63,24 +63,32 @@ class ItemType {
         //name = new String("");
     }
 
-    ItemType (Activity p_act, int p_itemID, int[] p_endDT) {
-        volume = getItemInt(p_act, p_itemID, "volume");
-        weight = getItemInt(p_act, p_itemID, "weight");
-        cost = getItemInt(p_act, p_itemID, "cost");
-        tags = getItemTgs(p_act, p_itemID).clone();
-        isJar = (tags[0].equals("jar") || tags[2].equals("jar"));
-        //System.out.println(String.valueOf(v_tags[0])+String.valueOf(v_tags[1])+String.valueOf(v_tags[2])+String.valueOf(v_tags[3]));
-        //System.out.println(String.valueOf(v_tags[0].equals("jar")));
-        //System.out.println(String.valueOf(isJar));
-        isContainer = ((tags[0].equals("cntr") || tags[2].equals("cntr")) && !(isJar));
-        isLiquid = getItemStr(p_act, p_itemID, "material").equals("lqd");
+    ItemType (GameActivity p_act, int p_itemID, int p_itemUID, int p_contain, int p_quantity) {
+        //volume = getItemInt(p_act, p_itemID, "volume");
+        //weight = getItemInt(p_act, p_itemID, "weight");
+        //cost = getItemInt(p_act, p_itemID, "cost");
+
         //v_tags[0].equals("drnk") || v_tags[2].equals("drnk"));
-        volumeFree = Math.round(volume * 0.8f);
         itemID = p_itemID;
-        itemUID = -1;
+        itemUID = p_itemUID;
         endDT = new ArrayList<>(1);
+        /*for (int i=0; i<p_quantity; i++) {
+            i
+            endDT.add(GameActivity.flowTime(p_act.dateTime, SourceJSON.getItemInt(p_act, p_itemID, "lifetime")));
+        }*/
+        tags = new String[4];
+        loadItem(p_act, this, p_quantity);
+        isJar = (tags[0].equals("jar") || tags[2].equals("jar"));
+        isContainer = ((tags[0].equals("cntr") || tags[2].equals("cntr")) && !(isJar));
         if (isJar || isContainer) {contain = new ArrayList<>(1);}
-        endDT.add(p_endDT);
+        volumeFree = Math.round(volume * 0.8f);
+        if (isJar && (p_contain>=0)) {
+            this.fillJar(new ItemType(p_act, p_contain, -1, -1, volumeFree/100));
+        }
+        if (isContainer && (p_contain>=0)) {
+            loadSet(p_act, this.contain, p_contain);
+            while (this.endDT.size()>1) this.endDT.remove(this.endDT.size()-1);
+        }
     }
 
     //Создание магического камушка. For TEST purposes.

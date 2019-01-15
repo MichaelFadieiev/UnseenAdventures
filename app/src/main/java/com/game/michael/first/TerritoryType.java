@@ -17,12 +17,13 @@ class TerritoryType extends LocationType {
     static final String srcItems = "items";
     static final String srcResources = "resources";
 
-    int[] coordinates;
+    //int[] coordinates;
     SparseArray<PlaceType> placesList;
 
 
-    TerritoryType (Activity p_act, int p_worldID, int[] p_coordinates, int p_typeID) {
+    TerritoryType (GameActivity p_act, int p_worldID, int[] p_coordinates, int p_typeID) {
         worldID = p_worldID;
+        isPlace = false;
         typeID = p_typeID;
         coordinates = p_coordinates;
         name = p_act.getResources().getStringArray(R.array.ru_territoryName)[typeID];
@@ -33,10 +34,12 @@ class TerritoryType extends LocationType {
         visitorsList = new SparseArray<>();
     }
 
-    boolean createPlace (GameActivity p_act, int p_typeID, int p_placeID) {
-        PlaceType placeTMP = new PlaceType(p_act, worldID, coordinates, p_typeID, p_placeID);
-        placesList.put(p_placeID, placeTMP);
-        p_act.allPlaces.put(placeTMP.placeID, placeTMP);
+    boolean createPlace (GameActivity p_act, int p_typeID, int p_UID) {
+        PlaceType placeTMP = new PlaceType(p_act, worldID, coordinates, p_typeID, p_UID);
+        placesList.append(placeTMP.placeID, placeTMP);
+        System.out.println(placesList.valueAt(0));
+        p_act.allPlaces.append(placeTMP.placeID, placeTMP);
+        System.out.println(p_act.allPlaces.valueAt(0));
         return true;
     }
 
