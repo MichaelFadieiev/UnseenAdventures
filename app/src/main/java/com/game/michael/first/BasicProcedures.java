@@ -48,12 +48,18 @@ abstract class BasicProcedures {
         }
     }
 
-    static String getItemNameS (Activity p_act, int p_itemID, String p_language) {
-        return p_act.getResources().getStringArray(p_act.getResources().getIdentifier(
-                p_language + "_itemsS" + String.valueOf(p_itemID / 100),
+    static String getItemNameS (Activity p_act, int p_itemID, int p_itemUID, String p_language) {
+        if (p_itemUID<0) {
+            return p_act.getResources().getStringArray(p_act.getResources().getIdentifier(
+                    p_language + "_itemsS" + String.valueOf(p_itemID / 100),
+                    "array",
+                    p_act.getPackageName()
+            ))[p_itemID % 100];
+        } else return p_act.getResources().getStringArray(p_act.getResources().getIdentifier(
+                p_language + "_itemsUS" + String.valueOf(p_itemID / 100),
                 "array",
                 p_act.getPackageName()
-        ))[p_itemID % 100];
+        ))[p_itemUID];
     }
     static String getItemNameP (Activity p_act, int p_itemID, String p_language) {
         return p_act.getResources().getStringArray(p_act.getResources().getIdentifier(
@@ -86,13 +92,23 @@ abstract class BasicProcedures {
         ))[p_factorID];
     }
 
-    static String getInfoMessage (Activity p_act, String p_param, String p_language) {
+    static String getInfo(Activity p_act, String p_param, String p_language) {
         try {
             return p_act.getResources().getString(p_act.getResources().getIdentifier(
                     p_language + "_info" + p_param,
                     "string",
                     p_act.getPackageName()
             ));
+        } catch (Exception e) {return "Cant get info text!";}
+    }
+
+    static String getInfo(Activity p_act, String p_param, byte p_position, String p_language) {
+        try {
+            return p_act.getResources().getStringArray(p_act.getResources().getIdentifier(
+                    p_language + "_info" + p_param,
+                    "array",
+                    p_act.getPackageName()
+            ))[p_position];
         } catch (Exception e) {return "Cant get info text!";}
     }
 
@@ -106,10 +122,10 @@ abstract class BasicProcedures {
         } catch (Exception e) {return "Cant get info text!";}
     }
 
-    static String getLabelGeneral (Activity p_act, String p_param, String p_language) {
+    static String getLabelGame(Activity p_act, String p_param, String p_language) {
         try {
             return p_act.getResources().getString(p_act.getResources().getIdentifier(
-                    p_language + "_labelGameGeneral" + p_param,
+                    p_language + "_labelGame" + p_param,
                     "string",
                     p_act.getPackageName()
             ));
@@ -294,4 +310,11 @@ abstract class BasicProcedures {
         return items.get(items.higherKey(i));
     }
 
+    static String fillingAmount (GameActivity p_act, String p_language, int p_amount, int p_amountMax) {
+        int v_percent = (100 * p_amount) / p_amountMax;
+        for (int i=Constants.itemFillingRanges.length - 1; i>0; i--) {
+            if (v_percent >= Constants.itemFillingRanges[i]) return getInfo(p_act, "Filling", (byte) i, p_language);
+        }
+        return "ERROR";
+    }
 }

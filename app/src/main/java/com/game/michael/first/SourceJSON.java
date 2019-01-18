@@ -83,8 +83,6 @@ abstract class SourceJSON {
                 break;
             case "tools": v_code = 11;
                 break;
-            case "material": v_code = 12;
-                break;
             default: v_code = 30;
                 break;
         }
@@ -96,7 +94,7 @@ abstract class SourceJSON {
         return v_par;
     }
 
-    public static int getItemInt (Activity p_act, int p_ID, String p_par) {
+    static int getItemInt (Activity p_act, int p_ID, String p_par) {
         int v_code;
         int v_par = -1;
         switch (p_par) {
@@ -111,6 +109,8 @@ abstract class SourceJSON {
             case "creation time": v_code = 8;
                 break;
             case "batch": v_code = 9;
+                break;
+            case "material": v_code = 12;
                 break;
             default: v_code = 30;
                 break;
@@ -164,7 +164,13 @@ abstract class SourceJSON {
             for (int i = 4; i < 8; i++) {
                 p_item.tags[i - 4] = jsonArrayItem.getString(i);
             }
-            p_item.isLiquid = jsonArrayItem.getString(12).equals("lqd");
+            p_item.isLiquid = (jsonArrayItem.getInt(12) == 9);
+            try {
+                JSONArray v_damage = jsonArrayItem.getJSONArray(13);
+                for (int i=0; i<5; i++) p_item.damage[i] = v_damage.getInt(i);
+            } catch (Exception e) {
+                for (int i=0; i<5; i++) p_item.damage[i] = 0;
+            }
             return true;
         } catch (Exception e) {
             return false;
@@ -289,6 +295,7 @@ abstract class SourceJSON {
             f = (float) (r.nextGaussian() / 2.0) + 1.0f;
         } while (!(f >= 0.5 && f <= 3.0));
         p_place.size = Math.round(jsonArrayPlace.getInt(PlaceType.c_PlaceSize) * f);
+        //System.out.println("Place size loaded");
         //basic actions
         int[] v_permActions = getPlaceArray(p_act, p_place.typeID, PlaceType.c_PlaceActions);
         for (int i : v_permActions) p_place.permActions.put(i, true);
@@ -298,7 +305,7 @@ abstract class SourceJSON {
             //0 - typeID, 1 - UID, 2 - quantity
             for (int j=1; j<=v_personParams[2]; j++) Actions.personChangeLocation(p_act, new PersonType(p_act, p_place.worldID, v_personParams[0], v_personParams[1]), p_place, null);
         }
-        //System.out.println("set loading started");
+        //System.out.println("Place actions loaded");
         if (jsonArrayPlace.getInt(PlaceType.c_PlaceItems)>=0) loadSet(p_act, p_place.lootList, jsonArrayPlace.getInt(PlaceType.c_PlaceItems));
         //System.out.println("set loading finished");
 
@@ -306,13 +313,13 @@ abstract class SourceJSON {
 
     static void loadSet (GameActivity p_act, ArrayList<ItemType> p_itemContainer, int p_itemSet) {
         try {
-            //System.out.println("set source loaded1");
+            System.out.println("set source loaded1");
             JSONObject jsonObj = new JSONObject(readJSON(p_act, srcItemSets));
-            //System.out.println("set source loaded1");
+            System.out.println("set source loaded1");
             JSONArray jsonSetArray = jsonObj.getJSONArray(String.valueOf(p_itemSet));
-            //System.out.println("set source loaded2");
+            System.out.println("set source loaded2");
             String v_itemStr;
-            //System.out.println("set source loaded3");
+            System.out.println("set source loaded3");
             for (int i=0; i<jsonSetArray.length(); i++) {
                 v_itemStr = jsonSetArray.getString(i);
                 int[] intTMP = parseCodeItem(v_itemStr);

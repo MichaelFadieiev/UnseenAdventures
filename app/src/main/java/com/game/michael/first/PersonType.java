@@ -36,7 +36,7 @@ class PersonType {
 
 
     private int weightMax, volumeMax;
-    private int weightFree, volumeFree;
+    int weightFree, volumeFree;
 
     ArrayList<ItemType> inventory;
     SparseArray<ItemType> equipped; //0-right_hand, 1-left_hand, 2-head, 3-torso, 4-legs, 5-hands, 6-feet
@@ -170,31 +170,22 @@ class PersonType {
     }
 
     //Добавление стака предметов в инвентарь - прилетает стак, проверяется на размер, доступный вес,
-    //дробится и возвращает, что не влезло.
+    //дробится и возвращает, что не влезло. True if any amount is placed
     boolean itemAdd (ItemType p_item, int p_quantity) {
-        if (p_quantity > p_item.endDT.size()) return false;
+        int oldSizeTMP = p_item.endDT.size();
+        p_quantity = Math.min(p_quantity, oldSizeTMP);
         ItemType v_item;
-        if (!p_item.isLiquid) {
-            v_item = p_item.takeItem(Math.min(p_quantity, Math.min(volumeFree / p_item.volume, weightFree / p_item.weight)));
-            //int v_volume, v_weight, v_size;
-            //v_size = p_item.endDT.size();
-            //v_volume = v_size * p_item.volume;
-            /*if (v_volume > volumeFree) {
-                v_size = volumeFree / p_item.volume;
-            }
-            v_weight = v_size * p_item.weight;
-            if (v_weight > weightFree) {
-                v_size = weightFree / p_item.weight;
-            }*/
-            if (!v_item.endDT.isEmpty()) {
-                //boolean v_isThere = false;
+        if ( ! p_item.isLiquid) {
+            p_quantity = Math.min(p_quantity, Math.min(this.volumeFree / p_item.volume, this.weightFree / p_item.weight));
+            v_item = p_item.takeItem(p_quantity);
+            if ( ! v_item.endDT.isEmpty()) {
                 int v_indThere = -1;
                 ItemType itemTMP;
                 for (int i = 0; i < this.inventory.size(); i++) {
                     itemTMP = this.inventory.get(i);
-                    if ((v_item.itemID == itemTMP.itemID) && (v_item.itemUID < 0)
-                            && (itemTMP.itemUID < 0) && (!itemTMP.isJar) && (!itemTMP.isContainer)) {
-                        //v_isThere = true;
+                    if (v_item.itemID == itemTMP.itemID)
+                        if ((v_item.itemUID < 0) && (itemTMP.itemUID < 0))
+                            if (!(itemTMP.isJar && !itemTMP.contain.isEmpty()) && (!itemTMP.isContainer)) {
                         v_indThere = i;
                         break;
                     }
@@ -204,70 +195,66 @@ class PersonType {
                 } else {
                     inventory.add(v_item);
                 }
-                weightFree -= v_item.endDT.size() * v_item.weight;
-                volumeFree -= v_item.endDT.size() * v_item.volume;
+                weightFree -= p_quantity * v_item.weight;
+                volumeFree -= p_quantity * v_item.volume;
+                return true;
             }
-            return true;
-            /*if (p_item.endDT.size() != 0) {
-                return p_item;
-            } else {
-                return null;
-            }*/
         } else {
-            //ItemType v_item;
             for (int i = 0; i < inventory.size(); i++) {
                 v_item = inventory.get(i);
                 if (v_item.isJar) {
                     if ((v_item.contain.isEmpty()) || (v_item.contain.get(0).itemID == p_item.itemID)) {
                         int weightTmp = v_item.weight;
-                        if (v_item.fillJar(p_item)) {
-                            this.weightFree -= weightTmp - v_item.weight;
+                        if (v_item.endDT.size()>1) {
+                            v_item = v_item.takeItem(1);
+                            this.inventory.add(v_item);
+                        }
+                        if (v_item.insertItem(p_item)) {
+                            this.weightFree -= v_item.weight - weightTmp;
                         }
                     }
                     if (p_item.endDT.isEmpty()) return true;
                 }
             }
         }
-        return (p_item.endDT.isEmpty());
+        return (oldSizeTMP != p_item.endDT.size());
     }
 
     //забирается часть предметов из инвентаря/экипировки
     ItemType itemTake (int p_itemIndex, int p_quantity, boolean isEquipped) {
-
-        try {
-            ItemType v_item;
-            ItemType v_res;
-            if (isEquipped) {
-                if (p_quantity<=0) p_quantity = this.equipped.valueAt(p_itemIndex).endDT.size();
-                v_item = this.equipped.get(p_itemIndex);
-                v_res = v_item.takeItem(p_quantity);
-                if (v_item.endDT.isEmpty()) {
-                    this.equipped.delete(p_itemIndex);
-                }
-                weightFree += v_res.weight * v_res.endDT.size();
-                return v_res;
-            } else {
-                if (p_quantity<=0) p_quantity = this.inventory.get(p_itemIndex).endDT.size();
-                v_item = this.inventory.get(p_itemIndex);
-                v_res = v_item.takeItem(Math.min(v_item.endDT.size(), p_quantity));
-                weightFree += v_res.weight * v_res.endDT.size();
-                if (weightFree > weightMax) {
-                    weightFree = weightMax;
-                }
-                volumeFree += v_res.volume * v_res.endDT.size();
-                if (volumeFree > volumeMax) {
-                    volumeFree = volumeMax;
-                }
-                if (v_item.endDT.isEmpty()) {
-                    this.inventory.remove(p_itemIndex);
-                }
-                return v_res;
+        ItemType v_item;
+        ItemType v_res;
+        if (isEquipped) {
+            v_item = this.equipped.get(p_itemIndex);
+            p_quantity = (p_quantity < 0)
+                    ? v_item.endDT.size()
+                    : Math.min(v_item.endDT.size(), p_quantity);
+            v_res = v_item.takeItem(p_quantity);
+            if (v_item.endDT.isEmpty()) {
+                this.equipped.delete(p_itemIndex);
             }
-        } catch (Exception e) {
-            return new ItemType();
+            weightFree += v_res.weight * v_res.endDT.size();
+
+            weightFree = Math.min(weightFree, weightMax);
+            return v_res;
+        } else {
+            v_item = this.inventory.get(p_itemIndex);
+            p_quantity = (p_quantity < 0)
+                    ? v_item.endDT.size()
+                    : Math.min(v_item.endDT.size(), p_quantity);
+            v_res = v_item.takeItem(p_quantity);
+            weightFree += v_res.weight * v_res.endDT.size();
+            weightFree = Math.min(weightFree, weightMax);
+            volumeFree += v_res.volume * v_res.endDT.size();
+            volumeFree = Math.min(volumeFree, volumeMax);
+            if (v_item.endDT.isEmpty()) {
+                this.inventory.remove(p_itemIndex);
+            }
         }
+        return (v_res.endDT.isEmpty()) ? null : v_res;
     }
 
+    //drop item into location
     boolean itemDrop (GameActivity p_act, int p_itemIndex, int p_quantity, boolean isEquipped) {
         ItemType v_item = this.itemTake(p_itemIndex, p_quantity, isEquipped);
         if (v_item != null) {
@@ -275,6 +262,7 @@ class PersonType {
         }
         return false;
     }
+
     //съесть предмет
     boolean itemConsume (GameActivity p_act, ItemType p_item) {
         if (p_item.tags[0].equals("drnk")) {

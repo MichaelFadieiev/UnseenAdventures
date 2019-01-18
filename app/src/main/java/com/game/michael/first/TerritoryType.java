@@ -37,9 +37,9 @@ class TerritoryType extends LocationType {
     boolean createPlace (GameActivity p_act, int p_typeID, int p_UID) {
         PlaceType placeTMP = new PlaceType(p_act, worldID, coordinates, p_typeID, p_UID);
         placesList.append(placeTMP.placeID, placeTMP);
-        System.out.println(placesList.valueAt(0));
+        //System.out.println(placesList.valueAt(0));
         p_act.allPlaces.append(placeTMP.placeID, placeTMP);
-        System.out.println(p_act.allPlaces.valueAt(0));
+        //System.out.println(p_act.allPlaces.valueAt(0));
         return true;
     }
 

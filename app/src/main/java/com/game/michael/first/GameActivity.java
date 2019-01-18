@@ -1,6 +1,7 @@
 package com.game.michael.first;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -16,6 +17,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.PopupMenu;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.Toast;
@@ -23,6 +25,7 @@ import android.widget.Toast;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.TreeMap;
 
 import static com.game.michael.first.Actions.*;
@@ -77,6 +80,7 @@ public class GameActivity extends Activity {
     ArrayMap<int[], String[]> messages; //Выяснить что то за нах и как устроено!
 
     PersonType actorP;
+    AlertDialog dialogPU;
     //LocationType locationP;
 
     //boolean[] actionBlocking;
@@ -129,15 +133,15 @@ public class GameActivity extends Activity {
 
         super.onStart();
 
-        gameTV = (TextView) findViewById(R.id.v3_gameTV);
-        statsTV = (TextView) findViewById(R.id.v3_statsTV);
-        inventoryTV = (TextView) findViewById(R.id.v3_inventoryTV);
-        memoryTV = (TextView) findViewById(R.id.v3_memoryTV);
+        gameTV = findViewById(R.id.v3_gameTV);
+        statsTV = findViewById(R.id.v3_statsTV);
+        inventoryTV = findViewById(R.id.v3_inventoryTV);
+        memoryTV = findViewById(R.id.v3_memoryTV);
 
-        gameLL = (LinearLayout) findViewById(R.id.v3_tab_game);
-        statsLL = (LinearLayout) findViewById(R.id.v3_tab_stats);
-        inventoryLL = (LinearLayout) findViewById(R.id.v3_tab_inventory);
-        memoryLL = (LinearLayout) findViewById(R.id.v3_tab_memory);
+        gameLL = findViewById(R.id.v3_tab_game);
+        statsLL = findViewById(R.id.v3_tab_stats);
+        inventoryLL = findViewById(R.id.v3_tab_inventory);
+        memoryLL = findViewById(R.id.v3_tab_memory);
 
         gameLL.setVisibility(View.VISIBLE);
         statsLL.setVisibility(View.GONE);
@@ -211,14 +215,12 @@ public class GameActivity extends Activity {
             System.out.println("ERROR: Can't place actor in place.");
             this.finish();
         }
+
         //time initialisation
         System.arraycopy(getResources().getIntArray(R.array.startDateTime), 0, dateTime, 0, 5);
 
-        //assign actor reference
-        //actorP = allTerritories.get(coordinatesP).placesList.get(placeTMP.placeID).visitorsList.get(0);
-
         journalQuest.put(timeToString(dateTime), new int[]{0, 0});
-        showInfo(String.valueOf(actorP.personID) + "/" + String.valueOf(actorP.placeID) + "/" + String.valueOf(actorP.territoryID[0]) + "/" + String.valueOf(actorP.territoryID[1]));
+        //showInfo(String.valueOf(actorP.personID) + "/" + String.valueOf(actorP.placeID) + "/" + String.valueOf(actorP.territoryID[0]) + "/" + String.valueOf(actorP.territoryID[1]));
     }
 
     public void gameLoad () {
@@ -408,7 +410,7 @@ public class GameActivity extends Activity {
         for (int i = 0; i < actorP.actBasic.size(); i++) {
             if (actorP.actBasic.valueAt(i)) {
                 tempTV = new TextView(getApplicationContext());
-                switch (i) {
+                switch (actorP.actBasic.keyAt(i)) {
                     case 0:
                         tempTV.setOnClickListener(new View.OnClickListener() {
                             public void onClick(View v) {
@@ -440,7 +442,154 @@ public class GameActivity extends Activity {
                     case 4:
                         tempTV.setOnClickListener(new View.OnClickListener() {
                             public void onClick(View v) {
-                                action4();
+                                ScrollView dialogSV = (ScrollView) getLayoutInflater().inflate(R.layout.dialog_choices, null);
+                                LinearLayout tmpLL = dialogSV.findViewById(R.id.dc_contentLL);
+                                LocationType locationTmp  = getPersonLocation(actorP);
+                                TextView tmpTV;
+                                ((TextView)dialogSV.findViewById(R.id.dc_titleTV)).setText(getLabelGame(thisGame, "ContainersForRansack", optionLanguage));
+                                AlertDialog.Builder b = new AlertDialog.Builder(thisGame);
+                                b.setView(dialogSV);
+                                dialogPU = b.create();
+                                //loot location
+                                tmpTV = new TextView(getApplicationContext());
+                                tmpTV.setTag(-1);
+                                //tmpTV.setText(getLabelGame(thisGame, "Ransack" + ((locationTmp.isPlace)?"Place":"Territory"), optionLanguage));
+                                tmpTV.setText(getPersonLocation(actorP).name);
+                                tmpTV.setTextAppearance(getApplicationContext(), R.style.gamePlacesPopUp);
+                                tmpTV.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        dialogPU.dismiss();
+                                        LocationType locationTMP = getPersonLocation(actorP);
+                                        int duration = Math.round((float)Math.random()
+                                                *((locationTMP.isPlace)
+                                                ?Constants.timeMaxPlaceRansack*locationTMP.size
+                                                :Constants.timeMaxTerritoryRansack)/(actorP.attributes.get(2)*actorP.attributes.get(3)));
+                                        turn(4, new int[]{duration, -1}, //[<0 - loot, 0+ index of container];
+                                                    true);
+                                    }
+                                });
+                                tmpLL.addView(tmpTV);
+                                //display all containers
+                                for (int i=0; i<locationTmp.lootList.size(); i++) {
+                                    if (locationTmp.lootList.get(i).isContainer) {
+                                        tmpTV = new TextView(getApplicationContext());
+                                        tmpTV.setTag(i);
+                                        tmpTV.setText(getItemNameS(thisGame, locationTmp.lootList.get(i).itemID, locationTmp.lootList.get(i).itemUID, optionLanguage));
+                                        tmpTV.setTextAppearance(getApplicationContext()
+                                                , (locationTmp.lootList.get(i).ownerID == actorP.personID
+                                                        || locationTmp.lootList.get(i).ownerID<0)
+                                                        ?R.style.gameItem
+                                                        :R.style.gameItemSteal);
+                                        tmpTV.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View view) {
+                                                dialogPU.dismiss();
+                                                LocationType locationTMP = getPersonLocation(actorP);
+                                                int duration = Math.round((float)Math.random()
+                                                        *((locationTMP.isPlace)
+                                                        ?Constants.timeMaxPlaceRansack*locationTMP.size
+                                                        :Constants.timeMaxTerritoryRansack)/(actorP.attributes.get(2)*actorP.attributes.get(3)));
+                                                turn(4,
+                                                        new int[]{duration, (int)view.getTag()},
+                                                        true);
+                                            }
+                                        });
+                                        tmpLL.addView(tmpTV);
+                                    }
+                                }
+                                dialogPU.show();
+                                //turn(4, new int[]{duration}, true);
+                            }
+                        });
+                        break;
+                    case 5:
+                        tempTV.setOnClickListener(new View.OnClickListener() {
+                            public void onClick(View v) {
+                                ScrollView dialogSV = (ScrollView) getLayoutInflater().inflate(R.layout.dialog_choices, null);
+                                LinearLayout tmpLL = dialogSV.findViewById(R.id.dc_contentLL);
+                                TerritoryType territoryTMP = allTerritories.get(coordinatesToString(actorP.territoryID));
+                                TextView tmpTV;
+                                ((TextView)dialogSV.findViewById(R.id.dc_titleTV)).setText(getLabelGame(thisGame, "PlacesForVisit", optionLanguage));
+                                AlertDialog.Builder b = new AlertDialog.Builder(thisGame);
+                                b.setView(dialogSV);
+                                dialogPU = b.create();
+                                //d.getWindow().setLayout(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+                                for (int i=0; i< territoryTMP.placesList.size(); i++) {
+                                    tmpTV = new TextView(getApplicationContext());
+                                    tmpTV.setTag(territoryTMP.placesList.keyAt(i));
+                                    tmpTV.setText(territoryTMP.placesList.valueAt(i).name);
+                                    tmpTV.setTextAppearance(getApplicationContext(), R.style.gamePlacesPopUp);
+                                    tmpTV.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View view) {
+                                            dialogPU.dismiss();
+                                            TerritoryType territoryTMP = allTerritories.get(coordinatesToString(actorP.territoryID));
+                                            turn(5,
+                                                    new int[]{(int) Math.round(Math.random()
+                                                            * Constants.timeMaxTerritoryWalking
+                                                            / (actorP.attributes.get(2)*actorP.attributes.get(3))),
+                                                            (int) view.getTag()},
+                                                    true);
+
+                                        }
+                                    });
+                                    tmpLL.addView(tmpTV);
+                                }
+                                dialogPU.show();
+                            }
+                        });
+                        break;
+                    case 6:
+                        tempTV.setOnClickListener(new View.OnClickListener() {
+                            public void onClick(View v) {
+                                PlaceType v_place = (PlaceType) getPersonLocation(actorP);
+                                if (v_place.connectedPlacesID.size()>0) {
+                                    ScrollView dialogSV = (ScrollView) getLayoutInflater().inflate(R.layout.dialog_choices, null);
+                                    LinearLayout tmpLL = dialogSV.findViewById(R.id.dc_contentLL);
+                                    //TerritoryType territoryTMP = allTerritories.get(coordinatesToString(actorP.territoryID));
+                                    TextView tmpTV;
+                                    ((TextView) dialogSV.findViewById(R.id.dc_titleTV)).setText(getLabelGame(thisGame, "ExitPlace", optionLanguage));
+                                    AlertDialog.Builder b = new AlertDialog.Builder(thisGame);
+                                    b.setView(dialogSV);
+                                    dialogPU = b.create();
+                                    //d.getWindow().setLayout(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+                                    for (int i = 0; i < v_place.connectedPlacesID.size(); i++) {
+                                        tmpTV = new TextView(getApplicationContext());
+                                        PlaceType placeTMP = allPlaces.get(v_place.connectedPlacesID.keyAt(i));
+                                        tmpTV.setTag(placeTMP.placeID);
+                                        tmpTV.setText(placeTMP.name);
+                                        if (v_place.connectedPlacesID.valueAt(i)) {
+                                            tmpTV.setTextAppearance(getApplicationContext(), R.style.gamePlace);
+                                            tmpTV.setOnClickListener(new View.OnClickListener() {
+                                                @Override
+                                                public void onClick(View view) {
+                                                    dialogPU.dismiss();
+                                                    PlaceType placeTMP = allPlaces.get((int)view.getTag());
+                                                    turn(6,
+                                                            new int[]{(int) Math.round(Math.random()
+                                                                    * Constants.timeMaxTerritoryWalking
+                                                                    / (actorP.attributes.get(2)*actorP.attributes.get(3)))
+                                                                    , placeTMP.placeID, placeTMP.coordinates[0], placeTMP.coordinates[1]},
+                                                            true);
+
+                                                }
+                                            });
+                                            tmpLL.addView(tmpTV);
+                                        } else {
+                                            tmpTV.setTextAppearance(getApplicationContext(), R.style.gameItemBlocked);
+                                        }
+                                    }
+                                    dialogPU.show();
+                                } else {
+                                    turn(6,
+                                            new int[]{(int) Math.round(Math.random()
+                                                    * v_place.size
+                                                    * Constants.timeMaxPlaceWalking
+                                                    / (actorP.attributes.get(2)*actorP.attributes.get(3)))
+                                                    , -1, v_place.coordinates[0], v_place.coordinates[1]},
+                                            true);
+                                }
                             }
                         });
                         break;
@@ -450,26 +599,6 @@ public class GameActivity extends Activity {
                 choicesLL.addView(tempTV);
             }
         }
-            /*tempTV = new TextView(this);
-            tempTV.setText("Встать");
-            tempTV.setVisibility(View.VISIBLE);
-            tempTV.setTextAppearance(this, R.style.text);
-            tempTV.setTextColor(Color.GREEN);
-            tempTV.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
-            tempTV.setBackgroundColor(getResources().getColor(R.color.clr_dark_grey));
-            //tempTV.setId(5);
-            tempTV.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View v) {
-                    tempAction0(15, actorP.personID);
-                    actorP.stats.put(0, (float) 0);
-                    messages.put(new int[]{0}, new String[]{timeString(dateTime)});
-                    messages.put(new int[]{0}, new String[]{"Вы попытались пошевелиться, но непонятный хруст в позвоночнике прервал ваши попытки."});
-                    renewMessages(true);
-                    renewChoices();
-                }
-            });
-            choicesLL.addView(tempTV);*/
-        /**/
     }
 
     //Переход между вкладками игрового окна.
@@ -477,15 +606,15 @@ public class GameActivity extends Activity {
         TextView gameTV, statsTV, inventoryTV, memoryTV;
         LinearLayout gameLL, statsLL, inventoryLL, memoryLL;
 
-        gameTV = (TextView) findViewById(R.id.v3_gameTV);
-        statsTV = (TextView) findViewById(R.id.v3_statsTV);
-        inventoryTV = (TextView) findViewById(R.id.v3_inventoryTV);
-        memoryTV = (TextView) findViewById(R.id.v3_memoryTV);
+        gameTV = findViewById(R.id.v3_gameTV);
+        statsTV = findViewById(R.id.v3_statsTV);
+        inventoryTV = findViewById(R.id.v3_inventoryTV);
+        memoryTV = findViewById(R.id.v3_memoryTV);
 
-        gameLL = (LinearLayout) findViewById(R.id.v3_tab_game);
-        statsLL = (LinearLayout) findViewById(R.id.v3_tab_stats);
-        inventoryLL = (LinearLayout) findViewById(R.id.v3_tab_inventory);
-        memoryLL = (LinearLayout) findViewById(R.id.v3_tab_memory);
+        gameLL = findViewById(R.id.v3_tab_game);
+        statsLL = findViewById(R.id.v3_tab_stats);
+        inventoryLL = findViewById(R.id.v3_tab_inventory);
+        memoryLL = findViewById(R.id.v3_tab_memory);
 
         gameLL.setVisibility(View.GONE);
         statsLL.setVisibility(View.GONE);
@@ -543,7 +672,7 @@ public class GameActivity extends Activity {
         TextView actorGenderTV = findViewById(R.id.v3_actorGenderTV);
         actorNameTV.setText(actorP.name);
         actorSurnameTV.setText(actorP.surname);
-        actorGenderTV.setText(getInfoMessage(this, actorP.gender == 'M' ? "GenderMale" : "GenderFemale", optionLanguage));
+        actorGenderTV.setText(getInfo(this, actorP.gender == 'M' ? "GenderMale" : "GenderFemale", optionLanguage));
 
         STR_valTV = findViewById(R.id.v3_STR_val_TV);
         STR_valTV.setText(String.valueOf(round(actorP.attributes.get(0))));
@@ -766,11 +895,11 @@ public class GameActivity extends Activity {
                 }
                 String strTmp = "";
                 if (itemTMP.endDT.size() == 1) {
-                    strTmp = getItemNameS(this, itemTMP.itemID, optionLanguage);
+                    strTmp = getItemNameS(this, itemTMP.itemID, itemTMP.itemUID, optionLanguage);
                     //strTmp += "(1)";
                     if (itemTMP.isJar) if (!itemTMP.contain.isEmpty()) {
                         strTmp += " ("
-                                + getItemNameS(this, itemTMP.contain.get(0).itemID, optionLanguage).toLowerCase()
+                                + getItemNameS(this, itemTMP.contain.get(0).itemID, itemTMP.contain.get(0).itemUID, optionLanguage).toLowerCase()
                                 + " " + String.valueOf(itemTMP.contain.get(0).endDT.size() * itemTMP.contain.get(0).volume)
                                 + " мл)";
                     }
@@ -788,19 +917,19 @@ public class GameActivity extends Activity {
                         String strTMP = getItemDesc(thisGame, itemTmp.itemID, optionLanguage);
                         if (itemTmp.isJar) {
                             if (itemTmp.contain.isEmpty()) {
-                                strTMP += ". " + String.format(getLabelGeneral(thisGame, "Contain", optionLanguage),
-                                        getLabelGeneral(thisGame, "Empty", optionLanguage).toLowerCase());
+                                strTMP += ". " + String.format(getLabelGame(thisGame, "Contain", optionLanguage),
+                                        getLabelGame(thisGame, "Empty", optionLanguage).toLowerCase());
                             } else {
-                                strTMP += ". " + String.format(getLabelGeneral(thisGame, "Contain", optionLanguage),
-                                        getItemNameS(thisGame, itemTmp.contain.get(0).itemID, optionLanguage).toLowerCase())
+                                strTMP += ". " + String.format(getLabelGame(thisGame, "Contain", optionLanguage),
+                                        getItemNameS(thisGame, itemTmp.contain.get(0).itemID, itemTmp.contain.get(0).itemUID, optionLanguage).toLowerCase())
                                         + " " + getItemDesc(thisGame, itemTmp.contain.get(0).itemID, optionLanguage);
                             }
                         } else if (itemTmp.isContainer) {
                             if (itemTmp.contain.isEmpty()) {
-                                strTMP += ". " + String.format(getLabelGeneral(thisGame, "Contain", optionLanguage),
-                                        getLabelGeneral(thisGame, "Empty", optionLanguage).toLowerCase());
+                                strTMP += ". " + String.format(getLabelGame(thisGame, "Contain", optionLanguage),
+                                        getLabelGame(thisGame, "Empty", optionLanguage).toLowerCase());
                             } else {
-                                strTMP += ". " + getLabelGeneral(thisGame, "ContainItems", optionLanguage);
+                                strTMP += ". " + getLabelGame(thisGame, "ContainItems", optionLanguage);
                             }
                         }
                         showInfo(strTMP);
@@ -818,29 +947,30 @@ public class GameActivity extends Activity {
                                 switch (menuItem.getItemId()) {
                                     case R.id.menuGameItemToInventory: {
                                         if (actorP.itemAdd(actorP.equipped.get((int) view.getTag()), actorP.equipped.get((int) view.getTag()).endDT.size())) {
-                                            showInfo(getInfoMessage(thisGame, "ItemToInventory", optionLanguage));
+                                            showInfo(getInfo(thisGame, "ItemToInventory", optionLanguage));
                                             if (actorP.equipped.get((int) view.getTag()).endDT.isEmpty()) {actorP.equipped.delete((int) view.getTag());}
                                             renewUActions();
                                             renewInventory();
-                                        } else {showInfo(getInfoMessage(thisGame, "ItemFailed", optionLanguage));}
+                                        } else {showInfo(getInfo(thisGame, "ItemFailed", optionLanguage));}
                                         return true;
                                     }
                                     case R.id.menuGameItemUse: {
-                                        showInfo(getInfoMessage(thisGame, "NotImplemented", optionLanguage));
+                                        showInfo(getInfo(thisGame, "NotImplemented", optionLanguage));
                                         return true;
                                     }
                                     case R.id.menuGameItemOpen: {
-                                        showInfo(getInfoMessage(thisGame, "NotImplemented", optionLanguage));
+                                        showInfo(getInfo(thisGame, "NotImplemented", optionLanguage));
                                         return true;
                                     }
                                     case R.id.menuGameItemStats: {
-                                        showInfo(getInfoMessage(thisGame, "NotImplemented", optionLanguage));
+                                        //showInfo(getInfo(thisGame, "NotImplemented", optionLanguage));
+                                        showItemStats(actorP.equipped.get((int) view.getTag()));
                                         return true;
                                     }
                                     case R.id.menuGameItemEat: {
                                         actorP.itemConsume(thisGame, actorP.equipped.get((int) view.getTag()).takeItem(1));
                                         if (actorP.equipped.get((int) view.getTag()).endDT.isEmpty()) {actorP.equipped.remove((int) view.getTag());}
-                                        showInfo(getInfoMessage(thisGame, "ItemEat", optionLanguage));
+                                        showInfo(getInfo(thisGame, "ItemEat", optionLanguage));
                                         actorP.renewActions(thisGame);
                                         renewUActions();
                                         renewInventory();
@@ -849,7 +979,7 @@ public class GameActivity extends Activity {
                                     case R.id.menuGameItemEatAll: {
                                         actorP.itemConsume(thisGame, actorP.equipped.get((int) view.getTag()).takeItem(actorP.equipped.get((int) view.getTag()).endDT.size()));
                                         if (actorP.equipped.get((int) view.getTag()).endDT.isEmpty()) {actorP.equipped.remove((int) view.getTag());}
-                                        showInfo(getInfoMessage(thisGame, "ItemEatAll", optionLanguage));
+                                        showInfo(getInfo(thisGame, "ItemEatAll", optionLanguage));
                                         actorP.renewActions(thisGame);
                                         renewUActions();
                                         renewInventory();
@@ -858,7 +988,7 @@ public class GameActivity extends Activity {
                                     case R.id.menuGameItemDrink: {
                                         actorP.itemConsume(thisGame, actorP.equipped.get((int) view.getTag()).contain.get(0).takeItem(1));
                                         if (actorP.equipped.get((int) view.getTag()).contain.get(0).endDT.isEmpty()) {actorP.equipped.get((int) view.getTag()).contain.clear();}
-                                        showInfo(getInfoMessage(thisGame, "ItemDrink", optionLanguage));
+                                        showInfo(getInfo(thisGame, "ItemDrink", optionLanguage));
                                         actorP.renewActions(thisGame);
                                         renewUActions();
                                         renewInventory();
@@ -867,7 +997,7 @@ public class GameActivity extends Activity {
                                     case R.id.menuGameItemDrinkAll: {
                                         actorP.itemConsume(thisGame, actorP.equipped.get((int) view.getTag()).contain.get(0).takeItem(actorP.equipped.get((int) view.getTag()).contain.get(0).endDT.size()));
                                         if (actorP.equipped.get((int) view.getTag()).contain.get(0).endDT.isEmpty()) {actorP.equipped.get((int) view.getTag()).contain.clear();}
-                                        showInfo(getInfoMessage(thisGame, "ItemDrinkAll", optionLanguage));
+                                        showInfo(getInfo(thisGame, "ItemDrinkAll", optionLanguage));
                                         actorP.renewActions(thisGame);
                                         renewUActions();
                                         renewInventory();
@@ -875,7 +1005,7 @@ public class GameActivity extends Activity {
                                     }
                                     case R.id.menuGameItemDrop: {
                                         actorP.itemDrop(thisGame, (int) view.getTag(), actorP.equipped.get((int) view.getTag()).endDT.size(), true);
-                                        showInfo(getInfoMessage(thisGame, "ItemDrop", optionLanguage));
+                                        showInfo(getInfo(thisGame, "ItemDrop", optionLanguage));
                                         actorP.renewActions(thisGame);
                                         renewUActions();
                                         renewInventory();
@@ -883,7 +1013,7 @@ public class GameActivity extends Activity {
                                     }
                                     case R.id.menuGameItemDropAll: {
                                         actorP.itemDrop(thisGame, (int) view.getTag(), actorP.equipped.get((int) view.getTag()).endDT.size(), true);
-                                        showInfo(getInfoMessage(thisGame, "ItemDropAll", optionLanguage));
+                                        showInfo(getInfo(thisGame, "ItemDropAll", optionLanguage));
                                         actorP.renewActions(thisGame);
                                         renewUActions();
                                         renewInventory();
@@ -933,7 +1063,7 @@ public class GameActivity extends Activity {
             String strTmp = "";
             ItemType item_tmp = actorP.inventory.get(i);
             if (item_tmp.endDT.size() == 1) {
-                strTmp = getItemNameS(this, item_tmp.itemID, optionLanguage);
+                strTmp = getItemNameS(this, item_tmp.itemID, item_tmp.itemUID, optionLanguage);
                 //strTmp += "/" + String.valueOf(item_tmp.endDT.size()) + "/";
                 /*strTmp = getResources().getStringArray(getResources().getIdentifier(
                         optionLanguage + "_itemS" + String.valueOf(item_tmp.itemID / 100),
@@ -941,10 +1071,10 @@ public class GameActivity extends Activity {
                         getPackageName()))[item_tmp.itemID % 100];*/
                 if (item_tmp.isJar) {
                     if (item_tmp.contain.isEmpty()) {
-                        strTmp += " (" + getLabelGeneral(this, "Empty", optionLanguage).toLowerCase() + ")";
+                        strTmp += " (" + getLabelGame(this, "Empty", optionLanguage).toLowerCase() + ")";
                     } else {
                         strTmp += " ("
-                            + getItemNameS(this, item_tmp.contain.get(0).itemID, optionLanguage).toLowerCase()
+                            + getItemNameS(this, item_tmp.contain.get(0).itemID, item_tmp.contain.get(0).itemUID, optionLanguage).toLowerCase()
                             + " " + String.valueOf(item_tmp.contain.get(0).endDT.size())
                             + "00 мл)";
                     }
@@ -956,7 +1086,7 @@ public class GameActivity extends Activity {
                         + " (" + String.valueOf(item_tmp.endDT.size()) +")";
                 /*strTmp = getResources().getStringArray(R.array.ru_itemsP)[actorP.inventory.get(i).itemID] +
                         " (" + String.valueOf(actorP.inventory.get(i).endDT.size()) +")";*/
-            };
+            }
             itemTV.setTextAppearance(thisGame, R.style.gameItem);
             itemTV.setText(strTmp);
             itemTV.setTag(i);
@@ -966,19 +1096,19 @@ public class GameActivity extends Activity {
                     String strTMP = getItemDesc(thisGame, itemTmp.itemID, optionLanguage);
                     if (itemTmp.isJar) {
                         if (itemTmp.contain.isEmpty()) {
-                            strTMP += " " + String.format(getLabelGeneral(thisGame, "Contain", optionLanguage),
-                                    getLabelGeneral(thisGame, "Empty", optionLanguage).toLowerCase());
+                            strTMP += " " + String.format(getLabelGame(thisGame, "Contain", optionLanguage),
+                                    getLabelGame(thisGame, "Empty", optionLanguage).toLowerCase());
                         } else {
-                            strTMP += " " + String.format(getLabelGeneral(thisGame, "Contain", optionLanguage),
-                                    getItemNameS(thisGame, itemTmp.contain.get(0).itemID, optionLanguage).toLowerCase())
+                            strTMP += " " + String.format(getLabelGame(thisGame, "Contain", optionLanguage),
+                                    getItemNameS(thisGame, itemTmp.contain.get(0).itemID, itemTmp.contain.get(0).itemUID, optionLanguage).toLowerCase())
                                     + " " + getItemDesc(thisGame, itemTmp.contain.get(0).itemID, optionLanguage);
                         }
                     } else if (itemTmp.isContainer) {
                         if (itemTmp.contain.isEmpty()) {
-                            strTMP += " " + String.format(getLabelGeneral(thisGame, "Contain", optionLanguage),
-                                    getLabelGeneral(thisGame, "Empty", optionLanguage).toLowerCase());
+                            strTMP += " " + String.format(getLabelGame(thisGame, "Contain", optionLanguage),
+                                    getLabelGame(thisGame, "Empty", optionLanguage).toLowerCase());
                         } else {
-                            strTMP += " " + getLabelGeneral(thisGame, "ContainItems", optionLanguage);
+                            strTMP += " " + getLabelGame(thisGame, "ContainItems", optionLanguage);
                         }
                     }
                     showInfo(strTMP);
@@ -1002,28 +1132,28 @@ public class GameActivity extends Activity {
                         public boolean onMenuItemClick(MenuItem menuItem) {
                             switch (menuItem.getItemId()) {
                                 case R.id.menuGameItemUse: {
-                                    showInfo(getInfoMessage(thisGame, "NotImplemented", optionLanguage));
+                                    showInfo(getInfo(thisGame, "NotImplemented", optionLanguage));
                                     return true;
                                 }
                                 case R.id.menuGameItemUseAll: {
-                                    showInfo(getInfoMessage(thisGame, "NotImplemented", optionLanguage));
+                                    showInfo(getInfo(thisGame, "NotImplemented", optionLanguage));
                                     return true;
                                 }
                                 case R.id.menuGameItemInHand: {
                                     if (actorP.itemInHand(thisGame, actorP.itemTake((int) v.getTag(), -1,false))) {
-                                        showInfo(getInfoMessage(thisGame, "ItemInHand", optionLanguage));
+                                        showInfo(getInfo(thisGame, "ItemInHand", optionLanguage));
                                         //if (actorP.inventory.get((int) v.getTag()).endDT.isEmpty()) {actorP.inventory.remove((int) v.getTag());}
                                         renewUActions();
                                         renewInventory();
                                     } else {
-                                        showInfo(getInfoMessage(thisGame, "ItemFailed", optionLanguage));
+                                        showInfo(getInfo(thisGame, "ItemFailed", optionLanguage));
                                     }
                                     return true;
                                 }
                                 case R.id.menuGameItemEat: {
                                     actorP.itemConsume(thisGame, actorP.inventory.get((int) v.getTag()).takeItem(1));
                                     if (actorP.inventory.get((int) v.getTag()).endDT.isEmpty()) {actorP.inventory.remove((int) v.getTag());}
-                                    showInfo(getInfoMessage(thisGame, "ItemEat", optionLanguage));
+                                    showInfo(getInfo(thisGame, "ItemEat", optionLanguage));
                                     actorP.renewActions(thisGame);
                                     renewUActions();
                                     renewInventory();
@@ -1032,31 +1162,31 @@ public class GameActivity extends Activity {
                                 case R.id.menuGameItemEatAll: {
                                     actorP.itemConsume(thisGame, actorP.inventory.get((int) v.getTag()).takeItem(actorP.inventory.get((int) v.getTag()).endDT.size()));
                                     if (actorP.inventory.get((int) v.getTag()).endDT.isEmpty()) {actorP.inventory.remove((int) v.getTag());}
-                                    showInfo(getInfoMessage(thisGame, "ItemEatAll", optionLanguage));
+                                    showInfo(getInfo(thisGame, "ItemEatAll", optionLanguage));
                                     actorP.renewActions(thisGame);
                                     renewUActions();
                                     renewInventory();
                                     return true;
                                 }
                                 case R.id.menuGameItemOpen: {
-                                    showInfo(getInfoMessage(thisGame, "NotImplemented", optionLanguage));
+                                    showInfo(getInfo(thisGame, "NotImplemented", optionLanguage));
                                     return true;
                                 }
                                 case R.id.menuGameItemEquip: {
                                     if (actorP.itemEquip(thisGame, actorP.itemTake((int) v.getTag(), 1,false))) {//actorP.inventory.get((int) v.getTag()))) {
-                                        showInfo(getInfoMessage(thisGame, "ItemEquip", optionLanguage));
+                                        showInfo(getInfo(thisGame, "ItemEquip", optionLanguage));
                                         //if (actorP.inventory.get((int) v.getTag()).endDT.isEmpty()) {actorP.inventory.remove((int) v.getTag());}
                                         renewUActions();
                                         renewInventory();
                                     } else {
-                                        showInfo(getInfoMessage(thisGame, "ItemFailed", optionLanguage));
+                                        showInfo(getInfo(thisGame, "ItemFailed", optionLanguage));
                                     }
                                     return true;
                                 }
                                 case R.id.menuGameItemDrink: {
                                     actorP.itemConsume(thisGame, actorP.inventory.get((int) v.getTag()).contain.get(0).takeItem(1));
                                     if (actorP.inventory.get((int) v.getTag()).contain.get(0).endDT.isEmpty()) {actorP.inventory.get((int) v.getTag()).contain.clear();}
-                                    showInfo(getInfoMessage(thisGame, "ItemDrink", optionLanguage));
+                                    showInfo(getInfo(thisGame, "ItemDrink", optionLanguage));
                                     actorP.renewActions(thisGame);
                                     renewUActions();
                                     renewInventory();
@@ -1065,19 +1195,20 @@ public class GameActivity extends Activity {
                                 case R.id.menuGameItemDrinkAll: {
                                     actorP.itemConsume(thisGame, actorP.inventory.get((int) v.getTag()).contain.get(0).takeItem(actorP.inventory.get((int) v.getTag()).contain.get(0).endDT.size()));
                                     if (actorP.inventory.get((int) v.getTag()).contain.get(0).endDT.isEmpty()) {actorP.inventory.get((int) v.getTag()).contain.clear();}
-                                    showInfo(getInfoMessage(thisGame, "ItemDrinkAll", optionLanguage));
+                                    showInfo(getInfo(thisGame, "ItemDrinkAll", optionLanguage));
                                     actorP.renewActions(thisGame);
                                     renewUActions();
                                     renewInventory();
                                     return true;
                                 }
                                 case R.id.menuGameItemStats: {
-                                    showInfo(getInfoMessage(thisGame, "NotImplemented", optionLanguage));
+                                    //showInfo(getInfo(thisGame, "NotImplemented", optionLanguage));
+                                    showItemStats(actorP.inventory.get((int) v.getTag()));
                                     return true;
                                 }
                                 case R.id.menuGameItemDrop: {
                                     actorP.itemDrop(thisGame, (int) v.getTag(), 1, false);
-                                    showInfo(getInfoMessage(thisGame, "ItemDrop", optionLanguage));
+                                    showInfo(getInfo(thisGame, "ItemDrop", optionLanguage));
                                     actorP.renewActions(thisGame);
                                     renewUActions();
                                     renewInventory();
@@ -1085,7 +1216,7 @@ public class GameActivity extends Activity {
                                 }
                                 case R.id.menuGameItemDropAll: {
                                     actorP.itemDrop(thisGame, (int) v.getTag(), actorP.inventory.size(), false);
-                                    showInfo(getInfoMessage(thisGame, "ItemDropAll", optionLanguage));
+                                    showInfo(getInfo(thisGame, "ItemDropAll", optionLanguage));
                                     actorP.renewActions(thisGame);
                                     renewUActions();
                                     renewInventory();
@@ -1218,11 +1349,11 @@ public class GameActivity extends Activity {
                 break;
             case 3: action3();
                 break;
-            case 4: action4();
+            case 4: action4(p_actorID, p_params[0], p_params[1]);
                 break;
-            case 5: action5(p_actorID, p_params[0]);
+            case 5: action5(p_actorID, p_params[0], p_params[1]);
                 break;
-            case 6: action6();
+            case 6: action6(p_actorID, p_params[0], p_params[1], Arrays.copyOfRange(p_params,2, 4) );
                 break;
             case -1: actionU1();
                 break;
@@ -1238,45 +1369,25 @@ public class GameActivity extends Activity {
     //ждать
     public void action0 (int p_actorID, int p_duration) {
         PersonType v_actor = allPersons.get(p_actorID);
-
-        v_actor.log.put(BasicProcedures.timeToString(dateTime), "@A~0~" + p_duration + logPosition(v_actor.placeID, v_actor.territoryID)
-                + logStats(v_actor.attributes, v_actor.stats, v_actor.statsMax)
-                + logEquip(v_actor.equipped) + logInv(v_actor.inventory) + logFact(v_actor.factors));
-
-        v_actor.stats.put(0, v_actor.stats.get(0) + (float) p_duration);
-        if (v_actor.stats.get(0) > v_actor.statsMax.get(0)) v_actor.stats.put(0, v_actor.statsMax.get(0));
-        v_actor.stats.put(1, v_actor.stats.get(1) + (v_actor.statsMax.get(1)*(float) p_duration)/60f);
-        if (v_actor.stats.get(1) > v_actor.statsMax.get(1)) v_actor.stats.put(1, v_actor.statsMax.get(1));
-        v_actor.stats.put(2, v_actor.stats.get(2) - ((float) p_duration)/3.6f);
-        if (v_actor.stats.get(2) < 0f) v_actor.stats.put(2, 0f);
-        v_actor.stats.put(3, v_actor.stats.get(3) - ((float) p_duration)/10.08f);
-        if (v_actor.stats.get(3) < 0f) v_actor.stats.put(3, 0f);
-        v_actor.stats.put(4, v_actor.stats.get(4) - ((float) p_duration)/4.32f);
-        if (v_actor.stats.get(4) < 0f) v_actor.stats.put(4, 0f);
-
+        personLogAction(v_actor, dateTime, 0, p_duration);
+        statsTimeMode(v_actor, p_duration, (byte) 0);
         if (p_actorID == actorP.personID) {
             int[] v_mesParI = {0};
             String[] v_mesParS = new String[1];
             //timeStackExecute (p_duration); in turn!!!
-            v_mesParS[0] = BasicProcedures.formatDate(dateTime);
+            //v_mesParS[0] = BasicProcedures.formatDate(dateTime);
+            v_mesParS[0] = BasicProcedures.formatDate(dateTime) + " " + getPersonLocation(actorP).name + "\n";
             messages.put(v_mesParI, v_mesParS);
-            //renewMessages(false); in turn!!!
-            //showInfo("Вы некоторое время подождали.");
             showInfo(getActionPopUp(this, optionLanguage, 0));
         }
-        //checkItems
-        //checkFactors
-        //check log (>10 - write to file 5 pcs)
-        //planning new action v_actor.status = 0; //waiting
-
         //восстановление блокиратора действий после отдыха (потеря сознания или бессилие)
         if (actSpecTmp.size() > 0) {
             actSpec.clear();
             actSpec = actSpecTmp.clone();
         }
-        if (actorP.actBasicTmp.size() > 0) {
-            actorP.actBasic.clear();
-            actorP.actBasic = actorP.actBasicTmp.clone();
+        if (v_actor.actBasicTmp.size() > 0) {
+            v_actor.actBasic.clear();
+            v_actor.actBasic = v_actor.actBasicTmp.clone();
         }
     }
 
@@ -1284,52 +1395,31 @@ public class GameActivity extends Activity {
     public void action1 (int p_actorID, int p_duration, int p_comfort) {
         PersonType v_actor = allPersons.get(p_actorID);
 
-        v_actor.log.put(timeToString(dateTime), "@A~1~" + p_duration + logPosition(v_actor.placeID, v_actor.territoryID)
-                + logStats(v_actor.attributes, v_actor.stats, v_actor.statsMax)
-                + logEquip(v_actor.equipped) + logInv(v_actor.inventory) + logFact(v_actor.factors));
-
-        v_actor.stats.put(0, v_actor.stats.get(0) + (float) (p_duration * p_comfort));
-        if (v_actor.stats.get(0) > v_actor.statsMax.get(0)) v_actor.stats.put(0, v_actor.statsMax.get(0));
-        v_actor.stats.put(1, v_actor.stats.get(1) + (v_actor.statsMax.get(1)*(float) p_duration * p_comfort)/60f);
-        if (v_actor.stats.get(1) > v_actor.statsMax.get(1)) v_actor.stats.put(1, v_actor.statsMax.get(1));
-        v_actor.stats.put(2, v_actor.stats.get(2) + ((float) p_duration * p_comfort)/0.72f);
-        if (v_actor.stats.get(2) > v_actor.statsMax.get(2)) v_actor.stats.put(2, v_actor.statsMax.get(2));
-        v_actor.stats.put(3, v_actor.stats.get(3) - ((float) p_duration)/10.08f);
-        if (v_actor.stats.get(3) < 0f) v_actor.stats.put(3, 0f);
-        v_actor.stats.put(4, v_actor.stats.get(4) - ((float) p_duration)/4.32f);
-        if (v_actor.stats.get(4) < 0f) v_actor.stats.put(4, 0f);
-
+        personLogAction(v_actor, dateTime, 1, p_duration);
+        statsTimeMode(v_actor, p_duration, (byte) p_comfort);
         if (p_actorID == actorP.personID) {
             int[] v_mesParI = {0};
             String[] v_mesParS = new String[1];
             //timeStackExecute (p_duration); in turn!!!
-            v_mesParS[0] = BasicProcedures.formatDate(dateTime);
+            v_mesParS[0] = BasicProcedures.formatDate(dateTime) + " " + getPersonLocation(actorP).name + "\n";
             messages.put(v_mesParI, v_mesParS);
-            //renewMessages(false); in turn!!!
-            //showInfo("Вы прилегли на землю и около часа отдыхали.");
             showInfo(getActionPopUp(this, optionLanguage, 1));
-
         }
-
-        //checkItems
-        //checkFactors
-        //check log (>10 - write to file 5 pcs)
-        //planning new action v_actor.status = 0; //waiting
-
         //восстановление блокиратора действий после отдыха (потеря сознания или бессилие)
         if (actSpecTmp.size() > 0) {
             actSpec.clear();
             actSpec = actSpecTmp.clone();
         }
-        if (actorP.actBasicTmp.size() > 0) {
-            actorP.actBasic.clear();
-            actorP.actBasic = actorP.actBasicTmp.clone();
+        if (v_actor.actBasicTmp.size() > 0) {
+            v_actor.actBasic.clear();
+            v_actor.actBasic = v_actor.actBasicTmp.clone();
         }
     }
 
     //осмотреться
     public void action2 (int p_actorID, int p_duration) {
-        LocationType whereAmI = getPersonLocation(allPersons.get(p_actorID));
+        PersonType v_person = allPersons.get(p_actorID);
+        LocationType whereAmI = getPersonLocation(v_person);
         /*if (actorP.placeID > 0) {
             whereAmI = allPlaces.get(actorP.locationID[0]);
         } else {
@@ -1338,14 +1428,17 @@ public class GameActivity extends Activity {
                 if (Arrays.equals(new int[] {actorP.locationID[1], actorP.locationID[2]}, allTerritories.keyAt(i))) whereAmI = allTerritories.valueAt(i);
             }
         }*/
+        personLogAction(v_person, dateTime, 2, p_duration);
+
         if (p_actorID == actorP.personID) {
             showInfo(getActionPopUp(this, optionLanguage, 2)); //getResources().getStringArray(R.array.ru_actionInfo)[2]);
             int[] v_mesParI = {0};
             String[] v_mesParS = new String[1];
-            v_mesParS[0] = "";
+            //v_mesParS[0] = "";
+            v_mesParS[0] = BasicProcedures.formatDate(dateTime) /*+ " " + getPersonLocation(v_person).name*/ + "\n";
             //v_mesParS[0] +=
             //timeStackExecute (p_duration); in turn!!!
-            v_mesParS[0] = getActionMessage(this, optionLanguage, 2, (whereAmI.isPlace)?"0":"1");
+            v_mesParS[0] += getActionMessage(this, optionLanguage, 2, (whereAmI.isPlace)?"0":"1");
             StringBuilder visitors = new StringBuilder();
             if (whereAmI.visitorsList.size() > 0) {
                 for (int i=0; i<whereAmI.visitorsList.size(); i++) {
@@ -1359,7 +1452,7 @@ public class GameActivity extends Activity {
                 visitors.setLength((visitors.length()>0)?(visitors.length()-2):visitors.length()); //kick the last comma
             }
             if (visitors.length() < 1) {
-                visitors.append(getInfoMessage(this, "Nobody", optionLanguage));
+                visitors.append(getInfo(this, "Nobody", optionLanguage));
             }
             v_mesParS[0] = String.format(v_mesParS[0], whereAmI.name.toLowerCase(), getLocationDescription(this, getPersonLocation(actorP), optionLanguage), visitors.toString());
             /*if (actorP.placeID >= 0) {
@@ -1404,7 +1497,42 @@ public class GameActivity extends Activity {
         showInfo(str1[0] + " " + str2[0] + ", " + str1[1] + " " + str2[1]);
     }
 
-    public void action4 () {
+    public void action4 (int p_actorID, int p_duration, int p_containerID) {
+        PersonType v_person = allPersons.get(p_actorID);
+        personLogAction(v_person, dateTime, 4, p_duration);
+        /*v_actor.log.put(timeToString(dateTime), "@A~1~" + p_duration + logPosition(v_actor.placeID, v_actor.territoryID)
+                + logStats(v_actor.attributes, v_actor.stats, v_actor.statsMax)
+                + logEquip(v_actor.equipped) + logInv(v_actor.inventory) + logFact(v_actor.factors));*/
+        statsTimeMode(v_person, p_duration, (byte)0);
+
+        if (p_actorID == actorP.personID) {
+            LocationType v_location = getPersonLocation(actorP);
+            showItemExchange((p_containerID<0)
+                        ?v_location.lootList
+                        :v_location.lootList.get(p_containerID).contain
+                    , (p_containerID<0)
+                        ?v_location.name
+                        :getItemNameS(thisGame,
+                            v_location.lootList.get(p_containerID).itemID,
+                            v_location.lootList.get(p_containerID).itemUID,
+                            optionLanguage)
+                    , p_containerID);
+            int[] v_mesParI = {0};
+            String[] v_mesParS = new String[1];
+            //timeStackExecute (p_duration); in turn!!!
+            v_mesParS[0] = BasicProcedures.formatDate(dateTime) + " " + getPersonLocation(v_person).name + "\n";
+            v_mesParS[0] += String.format(getActionMessage(this, optionLanguage, 4, "0")
+                    , (p_containerID<0)
+                            ?getInfo(thisGame, "Around", optionLanguage)
+                            :getItemNameS(thisGame,
+                                v_location.lootList.get(p_containerID).itemID,
+                                v_location.lootList.get(p_containerID).itemUID,
+                                optionLanguage));
+            messages.put(v_mesParI, v_mesParS);
+        }
+    }
+    //used for test purposes
+    /*public void action4 () {
         int[] tmp = {0, 0};
         //showInfo(String.valueOf(allTerritories.size()) + "/" + String.valueOf(allTerritories.size()));
         //showInfo(actorP.name + ": " + String.valueOf(actorP.locationID[0]) + "/" + String.valueOf(actorP.locationID[1]) + "/" + String.valueOf(actorP.locationID[2]));
@@ -1420,8 +1548,8 @@ public class GameActivity extends Activity {
         attributesTemp.put(4, 10f);
         attributesTemp.put(5, 10f);
         SparseArray<Float> skillsTemp = new SparseArray<>();
-        /*int v_personID = 0;
-        while (allPersons.indexOfKey(v_personID) >= 0 ) v_personID++;*/
+        \*int v_personID = 0;
+        while (allPersons.indexOfKey(v_personID) >= 0 ) v_personID++;*\
 
         PersonType v_person = new PersonType(1, allPersons.keyAt(allPersons.size()-1)+1,
                 SourceJSON.getRandomName(this, 0)[1],
@@ -1440,26 +1568,53 @@ public class GameActivity extends Activity {
             showInfo("ERROR: Can't put person into location.");
         }
 
-    }
+    }*/
 
     //enter into the place
-    public void action5 (int p_personID, int p_placeID) {
+    public void action5 (int p_personID, int p_duration, int p_placeID) {
         PlaceType v_place = allPlaces.get(p_placeID);
         PersonType v_person = allPersons.get(p_personID);
+        personLogAction(v_person, dateTime, 5, p_duration);
+        statsTimeMode(v_person, p_duration, (byte) 0);
         boolean result = personChangeLocation(this, v_person, v_place, getPersonLocation(v_person));
         if (p_personID == actorP.personID) {
             showInfo(String.format(getActionPopUp(this, optionLanguage, 5), v_place.name));
             int[] v_mesParI = {0};
             String[] v_mesParS = new String[1];
             //timeStackExecute (p_duration); in turn!!!
-            v_mesParS[0] = BasicProcedures.formatDate(dateTime) + "\n";
-            v_mesParS[0] += String.format(getActionMessage(this, optionLanguage, 5, (result)?"0":"1"), v_place.name);
-
+            v_mesParS[0] = BasicProcedures.formatDate(dateTime) + " " + getPersonLocation(v_person).name + "\n";
+            v_mesParS[0] += String.format(getActionMessage(this, optionLanguage, 5, (result)?"0":"1")
+                    , v_place.name);
             messages.put(v_mesParI, v_mesParS);
         }
+        //showInfo(String.valueOf(actorP.personID) + "/" + String.valueOf(actorP.placeID) + "/" + String.valueOf(actorP.territoryID[0]) + "/" + String.valueOf(actorP.territoryID[1]));
+        //showInfo(String.valueOf(getPersonLocation(actorP).permActions.keyAt(1)));
     }
 
-    public void action6 () {}
+    //leave place
+    public void action6 (int p_personID, int p_duration, int p_placeID, int[] p_coordinates) {
+        //if (p_duration<0) {}//regenerate duration
+
+        LocationType v_place = (p_placeID<0)
+                ?allTerritories.get(coordinatesToString(p_coordinates))
+                :allPlaces.get(p_placeID);
+        PersonType v_person = allPersons.get(p_personID);
+        personLogAction(v_person, dateTime, 6, p_duration);
+        statsTimeMode(v_person, p_duration, (byte) 0);
+        LocationType v_placeOld = getPersonLocation(v_person);
+        boolean result = personChangeLocation(this, v_person, v_place, v_placeOld);
+        if (p_personID == actorP.personID) {
+            showInfo(String.format(getActionPopUp(this, optionLanguage, 6), v_place.name));
+            int[] v_mesParI = {0};
+            String[] v_mesParS = new String[1];
+            //timeStackExecute (p_duration); in turn!!!
+            v_mesParS[0] = BasicProcedures.formatDate(dateTime) + " " + getPersonLocation(v_person).name + "\n";
+            v_mesParS[0] += String.format(getActionMessage(this, optionLanguage, 6, (result)?"0":"1")
+                    , v_placeOld.name);
+            messages.put(v_mesParI, v_mesParS);
+        }
+        //showInfo(String.valueOf(actorP.personID) + "/" + String.valueOf(actorP.placeID) + "/" + String.valueOf(actorP.territoryID[0]) + "/" + String.valueOf(actorP.territoryID[1]));
+    }
 
     //кастовать предмет
     public void actionU1 () {
@@ -1469,7 +1624,7 @@ public class GameActivity extends Activity {
         int i = (int) Math.floor(Math.random() * intTmp.length);
         /*showInfo(String.format(getResources().getStringArray(R.array.ru_actionUInfo)[0],
                 getItemNameS(this, intTmp[i], optionLanguage).toLowerCase()));*/
-        showInfo(getItemNameS(this, intTmp[i], optionLanguage).toLowerCase());
+        showInfo(getItemNameS(this, intTmp[i], -1, optionLanguage).toLowerCase());
         int[] v_mesParI = {0};
         String[] v_mesParS = new String[1];
         /*System.out.println(String.valueOf(flowTime(dateTime, SourceJSON.getItemInt(this, intTmp[i], "lifetime"))[0])
@@ -1497,33 +1652,20 @@ public class GameActivity extends Activity {
     }
 
     //вылезти из могилы
-    public void actionU2 (/*int p_actorID*/) {
+    public void actionU2 () {
         int[] v_mesParI = {0};
         String[] v_mesParS = new String[1];
-        //PersonType v_actor;
         PlaceType v_place;
         TerritoryType v_territory;
         //вывод инфо
-        /*if (p_actorID == actorP.personID)*/ showInfo(getResources().getStringArray(R.array.ru_actionUInfo)[1]);
+        showInfo(getResources().getStringArray(R.array.ru_actionUInfo)[1]);
         try {
-            //v_actor = allPersons.get(p_actorID);
             v_place = allPlaces.get(actorP.placeID);
-            //v_territory = null;
-            /*for (int i=0; i<allTerritories.size(); i++) {
-                if (Arrays.equals(keyAt(i))) v_territory = allTerritories.valueAt(i);
-            }*/
             v_territory = allTerritories.get(coordinatesToString(v_place.coordinates));
-            //if ((Math.random() * 16) <= v_actor.attributes.get(0) + v_actor.attributes.get(4)) {
-            if ((Math.random() * 10) <= 9) {
+            if ((Math.random() * 10) <= 9 && v_place.changeType(this, 1, -1)) {
                 actorP.stats.put(1, actorP.stats.get(1) - ((5-actorP.attributes.get(4))*200));
                 //переход персонажа из места на территорию
                 personChangeLocation(this, actorP, v_territory, v_place);
-                //Actions.quitPlace(actorP, v_place, v_territory);
-                //изменение типа места
-                v_place.changeType(this, 1);
-                //отключение действия
-                //actSpec.put(2, false);
-                //генерация сообщения
                 v_mesParS[0] = getResources().getStringArray(R.array.ru_actionUMessage0)[1];
             } else {
                 //задохнулся
@@ -1579,61 +1721,6 @@ public class GameActivity extends Activity {
         return "@T~" + p_dateTime[0] + "~" + p_dateTime[1] + "~" + p_dateTime[2] + "~" + p_dateTime[3] + "~" + p_dateTime[4];
     }*/
 
-    public String logPosition(int p_placeID, int[] p_territoryID) {
-        return "@P~" + p_placeID + "~" + p_territoryID[0] + "~" + p_territoryID[1];
-    }
-
-    public String logStats (SparseArray<Float> p_attributes, SparseArray<Float> p_stats, SparseArray<Float> p_statsMax) {
-        StringBuilder v_logStats = new StringBuilder();
-        v_logStats.append("@S");
-        for (int i=0; i<6; i++) {
-            v_logStats.append("~");
-            v_logStats.append(p_attributes.get(i));
-        }
-        for (int i=0; i<5; i++) {
-            v_logStats.append("~");
-            v_logStats.append(p_stats.get(i));
-            v_logStats.append("|");
-            v_logStats.append(p_statsMax.get(i));
-        }
-        return v_logStats.toString();
-    }
-
-    public String logEquip (SparseArray<ItemType> p_equipped) {
-        StringBuilder v_logEquip =  new StringBuilder();
-        v_logEquip.append("@E");
-        for (int i=0; i<7; i++) {
-            v_logEquip.append("~");
-            if (p_equipped.get(i) != null) {
-                v_logEquip.append(p_equipped.get(i).itemID);
-            } else {
-                v_logEquip.append("-1");
-            }
-        }
-        return v_logEquip.toString();
-    }
-
-    public String logInv (ArrayList<ItemType> p_inventory) {
-        StringBuilder v_logInv =  new StringBuilder();
-        v_logInv.append("@I");
-        for (int i=0; i<p_inventory.size(); i++) {
-            v_logInv.append("~");
-            v_logInv.append(p_inventory.get(i).itemID);
-            v_logInv.append("_");
-            v_logInv.append(p_inventory.get(i).endDT.size());
-        }
-        return v_logInv.toString();
-    }
-
-    public String logFact (SparseArray<int[]> p_fact) {
-        StringBuilder v_logFact =  new StringBuilder();
-        v_logFact.append("@F");
-        for (int i=0; i<p_fact.size(); i++) {
-            v_logFact.append("~");
-            v_logFact.append(p_fact.keyAt(i));
-        }
-        return v_logFact.toString();
-    }
 
     //Процедура вывода всплывающего сообщения. Длительность - 300 + по 50 миллисекунд на символ.
     public void showInfo (String p_text) {
@@ -1695,7 +1782,7 @@ public class GameActivity extends Activity {
         }
     }
 
-    void showItemMenu (PopupMenu p_pUM, ItemType p_item, boolean isEquipped) {
+    private void showItemMenu (PopupMenu p_pUM, ItemType p_item, boolean isEquipped) {
         SpannableString spannableStr;
         TextAppearanceSpan styleSpan = new TextAppearanceSpan(this, R.style.gameItemPopUp);
         //StyleSpan styleSpan = new StyleSpan(R.style.gameItemPopUp);
@@ -1811,14 +1898,300 @@ public class GameActivity extends Activity {
                 p_pUM.getMenu().add(1, R.id.menuGameItemDropAll, 8, spannableStr);
             }
         }
-        spannableStr = new SpannableString(getResources().getString(getResources().getIdentifier(
+        /*spannableStr = new SpannableString(getResources().getString(getResources().getIdentifier(
                 "com.game.michael.first:string/" + optionLanguage + "_labelGameItemStats",
                 null,
                 null
-        )));
-        //spannableStr.setSpan(styleSpan, 0, spannableStr.length(), 0);
+        )));*/
+        spannableStr = new SpannableString(getLabelGame(this, "ItemStats", optionLanguage));
+        spannableStr.setSpan(styleSpan, 0, spannableStr.length(), 0);
         p_pUM.getMenu().add(1, R.id.menuGameItemStats, 9, spannableStr);
     }
+
+    private void showItemStats (final ItemType p_item) {
+        LinearLayout dialogLL = (LinearLayout) getLayoutInflater().inflate(R.layout.dialog_item, null);
+        AlertDialog.Builder b = new AlertDialog.Builder(thisGame);
+        b.setView(dialogLL);
+        dialogPU = b.create();
+        ((TextView)dialogLL.findViewById(R.id.di_titleTV)).setText(getItemNameS(thisGame, p_item.itemID, p_item.itemUID, optionLanguage));
+        ((TextView)dialogLL.findViewById(R.id.di_typeName)).setText(getLabelGame(thisGame, "Type", optionLanguage));
+        ((TextView)dialogLL.findViewById(R.id.di_materialName)).setText(getLabelGame(thisGame, "Material", optionLanguage));
+        ((TextView)dialogLL.findViewById(R.id.di_costName)).setText(getLabelGame(thisGame, "Cost", optionLanguage));
+        ((TextView)dialogLL.findViewById(R.id.di_weightName)).setText(getLabelGame(thisGame, "Weight", optionLanguage));
+        ((TextView)dialogLL.findViewById(R.id.di_volumeName)).setText(getLabelGame(thisGame, "Volume", optionLanguage));
+        ((TextView)dialogLL.findViewById(R.id.di_ownerName)).setText(getLabelGame(thisGame, "Owner", optionLanguage));
+
+        //((TextView)dialogLL.findViewById(R.id.di_typeTV)).setText();
+        ((TextView)dialogLL.findViewById(R.id.di_materialTV)).setText(getInfo(thisGame, "Materials", (byte) SourceJSON.getItemInt(thisGame, p_item.itemID, "material"), optionLanguage));
+        ((TextView)dialogLL.findViewById(R.id.di_costTV)).setText(String.valueOf(p_item.cost));
+        ((TextView)dialogLL.findViewById(R.id.di_weightTV)).setText(String.format(getLabelGame(thisGame, "WeightValue", optionLanguage), (p_item.weight/1000f)));
+        ((TextView)dialogLL.findViewById(R.id.di_volumeTV)).setText(String.format(getLabelGame(thisGame, "VolumeValue", optionLanguage), (p_item.volume/1000f)));
+        //((TextView)findViewById(R.id.di_ownerTV)).setText(allPersons.get(p_item.ownerID).name + allPersons.get(p_item.ownerID).surname);
+
+        if (p_item.tags[0].equals("wpn")) {
+            dialogLL.findViewById(R.id.di_damageLL).setVisibility(View.VISIBLE);
+            ((TextView)dialogLL.findViewById(R.id.di_damageName)).setText(getLabelGame(thisGame, "Damage", optionLanguage));
+            ((TextView)dialogLL.findViewById(R.id.di_damageTV)).setText(String.format(getLabelGame(thisGame, "DD", optionLanguage),
+                    p_item.damage[0], p_item.damage[1], p_item.damage[2], p_item.damage[3], p_item.damage[4]));
+        } else if (p_item.tags[0].equals("clth") || p_item.tags[0].equals("armr")) {
+            dialogLL.findViewById(R.id.di_damageLL).setVisibility(View.VISIBLE);
+            ((TextView)dialogLL.findViewById(R.id.di_damageName)).setText(getLabelGame(thisGame, "Defence", optionLanguage));
+            ((TextView)dialogLL.findViewById(R.id.di_damageTV)).setText(String.format(getLabelGame(thisGame, "DD", optionLanguage),
+                    p_item.damage[0], p_item.damage[1], p_item.damage[2], p_item.damage[3], p_item.damage[4]));
+        } else dialogLL.findViewById(R.id.di_damageLL).setVisibility(View.GONE);
+        if (p_item.isJar || p_item.isContainer) {
+            dialogLL.findViewById(R.id.di_containSV).setVisibility(View.VISIBLE);
+            dialogLL.findViewById(R.id.di_containName).setVisibility(View.VISIBLE);
+            ((TextView) dialogLL.findViewById(R.id.di_containName)).setText(getLabelGame(thisGame, "Inside", optionLanguage));
+            LinearLayout tmpLL = dialogLL.findViewById(R.id.di_containLL);
+            for (int i=0; i<p_item.contain.size(); i++) {
+                TextView itemTV = new TextView(getApplicationContext());
+                String strTmp = "";
+                ItemType item_tmp = p_item.contain.get(i);
+                if (item_tmp.isLiquid) {
+                    strTmp = getItemNameS(this, item_tmp.itemID, item_tmp.itemUID, optionLanguage) + " "
+                            + String.format(getLabelGame(thisGame, "VolumeValue", optionLanguage), (item_tmp.volume * item_tmp.endDT.size()/1000f));
+                } else if (item_tmp.endDT.size() == 1) {
+                    strTmp = getItemNameS(this, item_tmp.itemID, item_tmp.itemUID, optionLanguage);
+                    if (item_tmp.isJar) {
+                        if (item_tmp.contain.isEmpty()) {
+                            strTmp += " (" + getLabelGame(this, "Empty", optionLanguage).toLowerCase() + ")";
+                        } else {
+                            strTmp += " ("
+                                    + getItemNameS(this, item_tmp.contain.get(0).itemID, item_tmp.contain.get(0).itemUID, optionLanguage).toLowerCase()
+                                    + " " + String.valueOf(item_tmp.contain.get(0).endDT.size())
+                                    + "00 мл)";
+                        }
+                    }
+                } else if (item_tmp.endDT.size() > 1) {
+                    strTmp = getItemNameP(this, item_tmp.itemID, optionLanguage)
+                            + " (" + String.valueOf(item_tmp.endDT.size()) +")";
+                }
+                itemTV.setOnLongClickListener(new View.OnLongClickListener() {
+                    public boolean onLongClick(View v) {
+                        ItemType itemTmp = p_item.contain.get((int) v.getTag());
+                        String strTMP = getItemDesc(thisGame, itemTmp.itemID, optionLanguage);
+                        if (itemTmp.isJar) {
+                            if (itemTmp.contain.isEmpty()) {
+                                strTMP += ". " + String.format(getLabelGame(thisGame, "Contain", optionLanguage),
+                                        getLabelGame(thisGame, "Empty", optionLanguage).toLowerCase());
+                            } else {
+                                strTMP += ". " + String.format(getLabelGame(thisGame, "Contain", optionLanguage),
+                                        getItemNameS(thisGame, itemTmp.contain.get(0).itemID, itemTmp.contain.get(0).itemUID, optionLanguage).toLowerCase())
+                                        + " " + getItemDesc(thisGame, itemTmp.contain.get(0).itemID, optionLanguage);
+                            }
+                        } else if (itemTmp.isContainer) {
+                            if (itemTmp.contain.isEmpty()) {
+                                strTMP += ". " + String.format(getLabelGame(thisGame, "Contain", optionLanguage),
+                                        getLabelGame(thisGame, "Empty", optionLanguage).toLowerCase());
+                            } else {
+                                strTMP += ". " + getLabelGame(thisGame, "ContainItems", optionLanguage);
+                            }
+                        }
+                        showInfo(strTMP);
+                        return true;
+                    }
+                });
+                itemTV.setTag(i);
+                //itemTV.setTextAppearance(thisGame, R.style.gameItem);
+                itemTV.setText(strTmp);
+                itemTV.setTextAppearance(getApplicationContext(), R.style.gameItem);
+                tmpLL.addView(itemTV);
+            }
+        } else {
+            dialogLL.findViewById(R.id.di_containName).setVisibility(View.GONE);
+            dialogLL.findViewById(R.id.di_containSV).setVisibility(View.GONE);
+        }
+
+        dialogPU.show();
+    }
+
+    private void showItemExchange(final ArrayList<ItemType> p_container, final String p_containerName, final int p_containerIndex) {
+        LinearLayout dialogLL = (LinearLayout) getLayoutInflater().inflate(R.layout.dialog_exchange, null);
+        AlertDialog.Builder b = new AlertDialog.Builder(thisGame);
+        b.setView(dialogLL);
+        dialogPU = b.create();
+        ((TextView)dialogLL.findViewById(R.id.de_titleTV)).setText(getLabelGame(thisGame, "Inspection", optionLanguage));
+        ((TextView)dialogLL.findViewById(R.id.de_idleTitleTV)).setText(p_containerName);
+        ((TextView)dialogLL.findViewById(R.id.de_actorTitleTV)).setText(getLabelGame(thisGame, "ActorLuggage", optionLanguage));
+        LinearLayout contentLL = dialogLL.findViewById(R.id.de_idleItemsLL);
+        //show idle container
+        for (int i=0; i<p_container.size(); i++) {
+            final ItemType itemTMP = p_container.get(i);
+            TextView tmpTV = new TextView(getApplicationContext());
+            //tmpTV.setText(getItemNameS(thisGame, itemTMP.itemID, itemTMP.itemUID, optionLanguage)); //deprecated
+            String strTmp = "";
+            if (itemTMP.endDT.size() == 1) {
+                strTmp = getItemNameS(this, itemTMP.itemID, itemTMP.itemUID, optionLanguage);
+                if (itemTMP.isJar) {
+                    if (itemTMP.contain.isEmpty()) {
+                        strTmp += " (" + getLabelGame(this, "Empty", optionLanguage).toLowerCase() + ")";
+                    } else {
+                        strTmp += " ("
+                                + getItemNameS(this, itemTMP.contain.get(0).itemID, itemTMP.contain.get(0).itemUID, optionLanguage).toLowerCase()
+                                + ", " + fillingAmount(thisGame,
+                                    optionLanguage
+                                    , itemTMP.contain.get(0).endDT.size() * itemTMP.contain.get(0).volume
+                                    ,  Math.round(itemTMP.volume * Constants.itemVolumeFreeCoefficient)).toLowerCase() + ")";
+                    }
+                }
+                //strTmp += "Weight " + String.valueOf(item_tmp.weight) + ", volume " + String.valueOf(item_tmp.volume);
+                //R.array.ru_itemsS)[actorP.inventory.get(i).itemID];
+            } else if (itemTMP.endDT.size() > 1) {
+                strTmp = getItemNameP(this, itemTMP.itemID, optionLanguage)
+                        + " (" + String.valueOf(itemTMP.endDT.size()) +")";
+                /*strTmp = getResources().getStringArray(R.array.ru_itemsP)[actorP.inventory.get(i).itemID] +
+                        " (" + String.valueOf(actorP.inventory.get(i).endDT.size()) +")";*/
+            }
+            tmpTV.setText(strTmp);
+            tmpTV.setTextAppearance(getApplicationContext(), R.style.gameItem);
+            tmpTV.setTag(i);
+            tmpTV.setOnLongClickListener(new View.OnLongClickListener() {
+                public boolean onLongClick(View v) {
+                    String strTMP = getItemDesc(thisGame, itemTMP.itemID, optionLanguage);
+                    if (itemTMP.isJar) {
+                        if (itemTMP.contain.isEmpty()) {
+                            strTMP += ". " + String.format(getLabelGame(thisGame, "Contain", optionLanguage),
+                                    getLabelGame(thisGame, "Empty", optionLanguage).toLowerCase());
+                        } else {
+                            strTMP += ". " + String.format(getLabelGame(thisGame, "Contain", optionLanguage),
+                                    getItemNameS(thisGame, itemTMP.contain.get(0).itemID, itemTMP.contain.get(0).itemUID, optionLanguage).toLowerCase())
+                                    + " " + getItemDesc(thisGame, itemTMP.contain.get(0).itemID, optionLanguage);
+                        }
+                    } else if (itemTMP.isContainer) {
+                        if (itemTMP.contain.isEmpty()) {
+                            strTMP += ". " + String.format(getLabelGame(thisGame, "Contain", optionLanguage),
+                                    getLabelGame(thisGame, "Empty", optionLanguage).toLowerCase());
+                        } else {
+                            StringBuilder strBld = new StringBuilder();
+                            for (int j=0; j<itemTMP.contain.size(); j++) {
+                                strBld.append((itemTMP.contain.get(j).endDT.size()>1)
+                                        ?getItemNameP(thisGame, itemTMP.contain.get(j).itemID, optionLanguage)
+                                        :getItemNameS(thisGame, itemTMP.contain.get(j).itemID, itemTMP.contain.get(j).itemUID, optionLanguage));
+                                strBld.append(", ");
+                            }
+                            strBld.setLength(strBld.length()-2);
+                            strTMP += ". " + String.format(getLabelGame(thisGame, "Contain", optionLanguage)
+                                    , strBld.toString());
+                        }
+                    }
+                    showInfo(strTMP);
+                    return true;
+                }
+            });
+            tmpTV.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    int tmpQuantity = p_container.get((int)view.getTag()).endDT.size();
+                    actorP.itemAdd(p_container.get((int)view.getTag()), 1);
+                    boolean result = (p_container.get((int)view.getTag()).endDT.size() != tmpQuantity);
+                    if (p_container.get((int)view.getTag()).endDT.isEmpty()) p_container.remove((int)view.getTag());
+                    if (result) {
+                        dialogPU.dismiss();
+                        showItemExchange(p_container, p_containerName, p_containerIndex);
+                    }
+                }
+            });
+            contentLL.addView(tmpTV);
+        }
+        String strTMP;
+        if (p_containerIndex>=0) {
+            strTMP = String.format(getLabelGame(thisGame, "VolumeEmpty", optionLanguage)
+                    , String.format(getLabelGame(thisGame, "VolumeValue", optionLanguage)
+                            , getPersonLocation(actorP).lootList.get(p_containerIndex).volumeFree/1000f));
+            ((TextView) dialogLL.findViewById(R.id.de_idleSumTV)).setText(strTMP);
+        }
+        //show actor inventory
+        contentLL = dialogLL.findViewById(R.id.de_actorItemsLL);
+        for (int i=0; i<actorP.inventory.size(); i++) {
+            final ItemType itemTMP = actorP.inventory.get(i);
+            TextView tmpTV = new TextView(getApplicationContext());
+            //tmpTV.setText(getItemNameS(thisGame, itemTMP.itemID, itemTMP.itemUID, optionLanguage));
+            String strTmp = "";
+            if (itemTMP.endDT.size() == 1) {
+                strTmp = getItemNameS(this, itemTMP.itemID, itemTMP.itemUID, optionLanguage);
+                if (itemTMP.isJar) {
+                    if (itemTMP.contain.isEmpty()) {
+                        strTmp += " (" + getLabelGame(this, "Empty", optionLanguage).toLowerCase() + ")";
+                    } else {
+                        strTmp += " ("
+                                + getItemNameS(this, itemTMP.contain.get(0).itemID, itemTMP.contain.get(0).itemUID, optionLanguage).toLowerCase()
+                                + ", " + fillingAmount(thisGame,
+                                optionLanguage
+                                , itemTMP.contain.get(0).endDT.size() * itemTMP.contain.get(0).volume
+                                ,  Math.round(itemTMP.volume * Constants.itemVolumeFreeCoefficient)).toLowerCase() + ")";
+                    }
+                }
+                //strTmp += "Weight " + String.valueOf(item_tmp.weight) + ", volume " + String.valueOf(item_tmp.volume);
+                //R.array.ru_itemsS)[actorP.inventory.get(i).itemID];
+            } else if (itemTMP.endDT.size() > 1) {
+                strTmp = getItemNameP(this, itemTMP.itemID, optionLanguage)
+                        + " (" + String.valueOf(itemTMP.endDT.size()) +")";
+            }
+            tmpTV.setText(strTmp);
+            tmpTV.setTextAppearance(getApplicationContext(), R.style.gameItem);
+            tmpTV.setTag(i);
+            tmpTV.setOnLongClickListener(new View.OnLongClickListener() {
+                public boolean onLongClick(View v) {
+                    String strTMP = getItemDesc(thisGame, itemTMP.itemID, optionLanguage);
+                    if (itemTMP.isJar) {
+                        if (itemTMP.contain.isEmpty()) {
+                            strTMP += ". " + String.format(getLabelGame(thisGame, "Contain", optionLanguage),
+                                    getLabelGame(thisGame, "Empty", optionLanguage).toLowerCase());
+                        } else {
+                            strTMP += ". " + String.format(getLabelGame(thisGame, "Contain", optionLanguage),
+                                    getItemNameS(thisGame, itemTMP.contain.get(0).itemID, itemTMP.contain.get(0).itemUID, optionLanguage).toLowerCase())
+                                    + " " + getItemDesc(thisGame, itemTMP.contain.get(0).itemID, optionLanguage);
+                        }
+                    } else if (itemTMP.isContainer) {
+                        if (itemTMP.contain.isEmpty()) {
+                            strTMP += ". " + String.format(getLabelGame(thisGame, "Contain", optionLanguage),
+                                    getLabelGame(thisGame, "Empty", optionLanguage).toLowerCase());
+                        } else {
+                            StringBuilder strBld = new StringBuilder();
+                            for (int j=0; j<itemTMP.contain.size(); j++) {
+                                strBld.append((itemTMP.contain.get(j).endDT.size()>1)
+                                        ?getItemNameP(thisGame, itemTMP.contain.get(j).itemID, optionLanguage)
+                                        :getItemNameS(thisGame, itemTMP.contain.get(j).itemID, itemTMP.contain.get(j).itemUID, optionLanguage));
+                                strBld.append(", ");
+                            }
+                            strBld.setLength(strBld.length()-2);
+                            strTMP += ". " + String.format(getLabelGame(thisGame, "Contain", optionLanguage), strBld.toString());
+                        }
+                    }
+                    showInfo(strTMP);
+                    return true;
+                }
+            });
+            tmpTV.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    boolean result;
+                    if (p_containerIndex<0) { //loot around
+                        result = p_container.add(actorP.itemTake((int)view.getTag(), 1, false));
+                    } else { //container
+                        result = getPersonLocation(actorP).lootList.get(p_containerIndex).insertItem(actorP.itemTake((int)view.getTag(), 1, false));
+                    }
+                    if (result) {
+                        dialogPU.dismiss();
+                        showItemExchange(p_container, p_containerName, p_containerIndex);
+                    }
+                }
+            });
+            contentLL.addView(tmpTV);
+        }
+        strTMP = String.format(getLabelGame(thisGame, "VolumeEmpty", optionLanguage)
+                , String.format(getLabelGame(thisGame, "VolumeValue", optionLanguage)
+                        , actorP.volumeFree/1000f));
+        ((TextView) dialogLL.findViewById(R.id.de_actorSumTV)).setText(strTMP);
+        dialogPU.show();
+    }
+
+    private void showBarter(PersonType p_idlePerson) {
+
+    }
+
+    //private void showPlacesMenu ()
 
 }
 

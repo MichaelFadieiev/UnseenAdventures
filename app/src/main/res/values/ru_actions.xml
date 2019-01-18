@@ -7,6 +7,7 @@
         <item>Исследовать</item>
         <item>Обыскать</item>
         <item>Посетить</item>
+        <item>Покинуть</item>
 
     </string-array>
     <string-array name="ru_actionInfo">
@@ -14,9 +15,9 @@
         <item>Попытаться отдохнуть, по возможности в комфорте</item>
         <item>Осмотреться по сторонам, чтобы определить достопремечательности, людей, могут попасться предметы</item>
         <item></item>
-        <item></item>
+        <item>Обыскать контейнеры и ящики в округе, или где что валяется или плохо лежит</item>
         <item>Попытаться зайти или проникнуть в какое-то место</item>
-        <item></item>
+        <item>Попытаться перейти в другое место</item>
         <item></item>
     </string-array>
     <string-array name="ru_actionPopUp">
@@ -24,9 +25,9 @@
         <item>Вы прилегли на землю и около часа отдыхали</item>
         <item>Вы внимательно оглядываетесь по сторонам</item>
         <item></item>
-        <item></item>
+        <item>Вы обыскиваете %s</item>
         <item>Вы подходите к месту (%s)</item>
-        <item></item>
+        <item>Вы подходите к выходу</item>
         <item></item>
     </string-array>
     <string-array name="ru_actionMessage0">
@@ -34,14 +35,18 @@
         <item>Восстановили немного сил.</item>
         <item>Вы находитесь в закрытом пространстве. Это %s. %s. Кроме Вас здесь %s.</item>
         <item></item>
+        <item>Вы обыскали %s</item>
         <item>Вы вошли в место (%s).</item>
+        <item>Вы покинули место (%s).</item>
     </string-array>
     <string-array name="ru_actionMessage1">
         <item>Вы некоторое время подождали.</item>
         <item>Восстановили немного сил.</item>
         <item>Вы находитесь на открытом пространстве. Это %s. %s. Кроме Вас здесь %s.</item>
         <item></item>
+        <item></item>
         <item>Зайти в место (%s) не получилось.</item>
+        <item>Покинуть место (%s) не получилось.</item>
     </string-array>
 
     <string-array name="ru_actionUName">

@@ -14,13 +14,43 @@
     <string name="ru_labelGameItemOpen">Открыть</string>
     <string name="ru_labelGameItemToInventory">Положить в инвентарь</string>
 
-    <string name="ru_labelGameGeneralEmpty">Пусто</string>
-    <string name="ru_labelGameGeneralContain">Внутри %1$s.</string>
-    <string name="ru_labelGameGeneralContainItems">Содержит предметы.</string>
+    <string name="ru_labelGameEmpty">Пусто</string>
+    <string name="ru_labelGameContain">Внутри %1$s.</string>
+    <string name="ru_labelGameContainItems">Содержит предметы.</string>
+    <string name="ru_labelGamePlacesForVisit">Вы можете посетить:</string>
+    <string name="ru_labelGameExitPlace">Возможен переход в:</string>
+
+    <string name="ru_labelGameContainersForRansack">Вы можете обыскать:</string>
 
     <string name="ru_labelGameActorName">Имя</string>
     <string name="ru_labelGameActorSurname">Фамилия</string>
     <string name="ru_labelGameActorGender">Пол</string>
+
+    <string name="ru_labelGameMaterial">Материал</string>
+    <string name="ru_labelGameType">Тип предмета</string>
+    <string name="ru_labelGameCost">Ценность</string>
+    <string name="ru_labelGameWeight">Вес</string>
+    <string name="ru_labelGameVolume">Объём</string>
+    <string name="ru_labelGameInside">Внутри</string>
+    <string name="ru_labelGameDamage">Урон</string>
+    <string name="ru_labelGameDefence">Защита</string>
+    <string name="ru_labelGameOwner">Владелец</string>
+
+    <string name="ru_labelGameDD">Колющее (%d)\nРубящее (%d)\nРежущее (%d)\nДробящее (%d)\nОгонь (%d)</string>
+    <string name="ru_labelGameWeightValue">%.2f кг</string>
+    <string name="ru_labelGameVolumeValue">%.1f л</string>
+    <string name="ru_labelGameSumCost">Стоимость %15d</string>
+    <string name="ru_labelGameSumWeight">Общий вес %15d</string>
+    <string name="ru_labelGameSumVolume">Общий объем %15d</string>
+    <string name="ru_labelGameVolumeEmpty">Свободно %s</string>
+    <string name="ru_labelGameItemFullDesc">%s\nТип %s\nМатериал %s\nЦена %s\nВес %s\nОбъём %s\n%s %sВладелец %s</string>
+    <string name="ru_labelGameActorLuggage">Ваши вещи</string>
+    <string name="ru_labelGameInspection">Осмотр</string>
+    <string name="ru_labelGameBarter">Бартер</string>
+    <string name="ru_labelGameStealing">Воровство</string>
+
+    <string name="ru_labelGameRansackPlace">место</string>
+    <string name="ru_labelGameRansackTerritory">территорию</string>
 
 
 </resources>

@@ -50,6 +50,14 @@
         <item name="android:layout_gravity">center</item>
     </style>
 
+    <style name="textSmall">
+        <item name="android:fontFamily">@string/txt_font_family</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/clr_white_grey</item>
+        <item name="android:gravity">left|center_vertical</item>
+        <item name="android:layout_gravity">center</item>
+    </style>
+
     <style name="text_btn">
         <item name="android:fontFamily">@string/txt_font_family</item>
         <item name="android:textSize">13sp</item>
@@ -244,9 +252,34 @@
         <item name="android:fontFamily">@string/txt_font_family</item>
         <item name="android:textSize">15sp</item>
         <item name="android:textColor">@color/clr_item</item>
-        <item name="android:gravity">left|center_vertical</item>
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">top|start</item>
+    </style>
+
+    <style name="gameItemSteal">
+        <item name="android:fontFamily">@string/txt_font_family</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">@color/clr_itemSteal</item>
+        <item name="android:layout_gravity">top|start</item>
+    </style>
+
+    <style name="gameItemBlocked">
+        <item name="android:fontFamily">@string/txt_font_family</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">@color/clr_itemBlocked</item>
+        <item name="android:layout_gravity">top|start</item>
+    </style>
+
+    <style name="gamePlace">
+        <item name="android:fontFamily">@string/txt_font_family</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">@color/clr_place</item>
+        <item name="android:layout_gravity">top|start</item>
+    </style>
+
+    <style name="gameTerritory">
+        <item name="android:fontFamily">@string/txt_font_family</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">@color/clr_territory</item>
         <item name="android:layout_gravity">top|start</item>
     </style>
 
@@ -258,6 +291,32 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_gravity">top|start</item>
+    </style>
+
+    <style name="gamePlacesPopUp">
+        <item name="android:fontFamily">@string/txt_font_family</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">@color/clr_place</item>
+        <item name="android:gravity">left|center_vertical</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">top|start</item>
+    </style>
+
+    <style name="dialogTitle">
+        <item name="android:textSize">15sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:layout_marginBottom">10dp</item>
+        <item name="android:fontFamily">@string/txt_font_family</item>
+        <item name="android:textColor">@color/clr_white_grey</item>
+    </style>
+
+    <style name="dialogLayout">
+        <item name="android:layout_gravity">center</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:background">@color/clr_dark_grey</item>
     </style>
 
     <style name="AppBaseTheme" parent="android:Theme.Holo.Light.DarkActionBar">

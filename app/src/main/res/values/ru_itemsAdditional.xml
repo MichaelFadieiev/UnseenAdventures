@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="ru_infoMaterials">
+        <item>Керамика</item>
+        <item>Химикаты</item>
+        <item>Ткань</item>
+        <item>Медь</item>
+        <item>Еда</item>
+        <item>Мех</item>
+        <item>Золото</item>
+        <item>Стекло</item>
+        <item>Железо</item>
+        <item>Жидкость</item>
+        <item>Кожа</item>
+        <item>Серебро</item>
+        <item>Сталь</item>
+        <item>Камень</item>
+        <item>Дерево</item>
+        <item>Органика</item>
+    </string-array>
+    <string-array name="ru_infoItemType">
+        <item>Вечное</item>
+        <item>Еда</item>
+        <item>Питьё</item>
+        <item>Алкоголь</item>
+        <item>Зелье</item>
+        <item>Оружие</item>
+        <item>Амуниция</item>
+        <item>Деньги</item>
+        <item>Головной убор</item>
+        <item>Одежда на торс</item>
+        <item>Штаны, юбки</item>
+        <item>Перчатки, рукавицы</item>
+        <item>Обувь</item>
+        <item>Сосуд</item>
+        <item>Контейнер</item>
+        <item>Транспорт</item>
+        <item>Инструменты</item>
+        <item>Руда</item>
+        <item>Сырье</item>
+        <item>Защита головы</item>
+        <item>Броня на торс</item>
+        <item>Защита паха и ног</item>
+        <item>Защита кистей</item>
+        <item>Защита стоп</item>
+        <item>Разное</item>
+    </string-array>
+
+    <string-array name="ru_infoFilling">
+        <item>На дне</item>
+        <item>Четверть</item>
+        <item>Меньше половины</item>
+        <item>Половина</item>
+        <item>Больше половины</item>
+        <item>Почти полная</item>
+        <item>Полная</item>
+    </string-array>
+</resources>

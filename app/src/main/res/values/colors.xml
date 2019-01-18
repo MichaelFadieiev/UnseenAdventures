@@ -12,4 +12,8 @@
     <color name="clr_yellow">#e7d345</color>
     <color name="clr_red">#d42f2f</color>
     <color name="clr_item">#668caf</color>
+    <color name="clr_itemSteal">#ad61a4</color>
+    <color name="clr_itemBlocked">#f45942</color>
+    <color name="clr_place">#e2c65f</color>
+    <color name="clr_territory">#3d9e2c</color>
 </resources>

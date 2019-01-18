@@ -14,12 +14,13 @@
         android:layout_weight="1"
         android:background="@color/clr_dark_grey"
         android:orientation="vertical"
-        android:visibility="gone">
+        android:visibility="visible">
 
         <ScrollView
+            android:id="@+id/v3_messagesSV"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="3">
+            android:layout_weight="1">
 
             <LinearLayout
                 android:id="@+id/v3_messagesLL"
@@ -50,7 +51,7 @@
         android:layout_weight="1"
         android:background="@color/clr_dark_grey"
         android:orientation="vertical"
-        android:visibility="visible">
+        android:visibility="gone">
 
         <LinearLayout
             android:layout_width="match_parent"
